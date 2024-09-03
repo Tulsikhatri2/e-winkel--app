@@ -1,12 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import logo from "../../Assets/logo.PNG";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UsersData from "../../Components/UserData";
+import { categoryInfo, productsInfo, userDisplay, usersInfo } from "../../Redux/Authentication/authSlice";
+import { displayingCategories } from "../../Redux/Category/categorySlice";
+import CategoryData from "../../Components/CategoryData";
+import { productsDataDisplay } from "../../Redux/Product/productSlice";
+import ProductData from "../../Components/ProductData";
+import Loading from "../../Components/Loding";
+import CreateProducts from "../../Components/CreateProducts";
+import UserDetails from "../../Components/UserDetails";
+import CreateCategory from "../../Components/CreateCategory";
+import CategoryDetails from "../../Components/CategoryDetails";
+import EditCategory from "../../Components/EditCategory";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const UserDashboard = () => {
-  const { userLoginData } = useSelector((state) => state.auth);
-  console.log(userLoginData, "dash");
+  const { allUsersData,userLoginData,editCategory,isProduct,isCategory, isLoading,creatingProduct,userDetails, categoryCreation,categoryDetails } = useSelector((state) => state.auth);
+  const {isLoadingData} = useSelector(state => state.category)
+  const {isLoadingProduct} = useSelector(state=>state.product)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  // console.log(userLoginData,"loginData")
+
+  useEffect(()=>{
+    dispatch(userDisplay())
+    if(localStorage.getItem("token")){
+      navigate("/dashboard")
+    }
+    else{
+    navigate("/")
+    }
+  },[])
+
   return (
     <Box className="dashboard">
       <Box className="dashboardNav">
@@ -28,8 +56,8 @@ const UserDashboard = () => {
           <Box className="sideDrawer">
             <p
               onClick={() => {
-                // dispatch(userDisplay(userToken));
-                // dispatch(usersInfo(true))
+                dispatch(userDisplay());
+                dispatch(usersInfo())
               }}
             >
               Users
@@ -37,8 +65,8 @@ const UserDashboard = () => {
 
             <p
               onClick={() => {
-                //   dispatch(displayingCategories(userToken))
-                //   dispatch(categoryInfo(true))
+                  dispatch(displayingCategories())
+                  dispatch(categoryInfo(true))
               }}
             >
               Categories
@@ -46,44 +74,65 @@ const UserDashboard = () => {
 
             <p
               onClick={() => {
-                //   dispatch(productsInfo(true))
+                dispatch(productsDataDisplay())
+                  dispatch(productsInfo(true))
               }}
             >
               Products
             </p>
-
+            <Box sx={{marginTop:"30vh"}}>
+              <p style={{fontSize:"2vh", fontWeight:"700",color:"rgb(78, 77, 77)"}}>{userLoginData.name}<br/>
+              {userLoginData.email}</p>
+              
             <Button
               variant="contained"
               sx={{
                 backgroundColor: "red",
                 fontFamily: "Laila, serif",
                 fontWeight: "bold",
-                marginTop: "3vh",
                 "&:hover": {
                   backgroundColor: "#C4C4C4",
                   color: "red",
                   fontWeight: "bold",
                 },
               }}
+              onClick={()=>{
+                navigate("/")
+                localStorage.setItem("token","")
+              }}
             >
               Logout
             </Button>
+            </Box>
           </Box>
-          <Box>
-            {/* {isUser?(
-              <>
-              <UsersData users={allUsersData} userToken={userToken}/>
-              </>
+          <Box sx={{width:"100vw",display:"flex", alignItems:"center", justifyContent:"center"}}>
+            
+            {isLoading || isLoadingData || isLoadingProduct?(
+              <><Loading/></>
             ):
-            (isProduct?(<>
+            ((isProduct?(<>
             <ProductData/>
             </>):
             (isCategory?(
               <>
-              <CategoryData categories={allCategoryData}/>
+              <CategoryData/>
               </>
-            ):(<></>)))}
-             */}
+            ):
+            (creatingProduct?(<>
+            <CreateProducts/>
+            </>):
+            (userDetails?(<>
+            <UserDetails/>
+            </>):
+            (categoryCreation?
+              (<CreateCategory/>):
+              (categoryDetails?(<>
+              <CategoryDetails/>
+              </>):
+              (editCategory?(<>
+              <EditCategory/></>):(<>
+              <UsersData users={allUsersData}/></>)))))))))}
+            
           </Box>
         </Box>
       </Box>

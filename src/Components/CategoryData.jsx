@@ -11,16 +11,18 @@ import {
   } from "@mui/material";
   import React from "react";
   import { CiEdit } from "react-icons/ci";
-  import { RiDeleteBin2Line } from "react-icons/ri";
   import { useDispatch, useSelector } from "react-redux";
   import { CgPlayListAdd } from "react-icons/cg";
   import { useNavigate } from "react-router-dom";
-  import { singleCategoryData } from "../Redux/Category/categorySlice";
+  import { editCategory, singleCategoryDetails } from "../Redux/Category/categorySlice";
+import { addCategory, addingProduct, categoryDataDetails, editingCategory } from "../Redux/Authentication/authSlice";
+
   
-  const CategoryData = ({ categories }) => {
-    const {userToken} = useSelector(state=>state.auth)
+  const CategoryData = () => {
+    
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const {allCategoryData} = useSelector(state=>state.category)
     return (
       <div>
         <Box className="userData" sx={{ height: "90vh" }}>
@@ -50,7 +52,8 @@ import {
                   }}
                   color="warning"
                   onClick={()=>{
-                    navigate("/createCategory")
+                    dispatch(addCategory(true))
+                    // navigate("/category/createCategory")
                   }}
                 >
                   <CgPlayListAdd size={30} />
@@ -92,17 +95,6 @@ import {
                         textAlign: "center",
                       }}
                     >
-                      CREATED AT
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "Laila, serif",
-                        fontWeight: "700",
-                        fontSize: "2.5vh",
-                        color: "#2586B6",
-                        textAlign: "center",
-                      }}
-                    >
                       UPDATE
                     </TableCell>
                     <TableCell
@@ -114,7 +106,7 @@ import {
                         textAlign: "center",
                       }}
                     >
-                      DELETE
+                      ADD PRODUCTS
                     </TableCell>
                     <TableCell
                       sx={{
@@ -129,8 +121,8 @@ import {
                     </TableCell>
                   </TableRow>
                 </TableHead>
-                {/* <TableBody>
-                  {categories.map((item, index) => {
+                <TableBody>
+                  {allCategoryData.map((item, index) => {
                     return (
                       <TableRow key={index}>
                         <TableCell
@@ -156,16 +148,6 @@ import {
                         <TableCell
                           sx={{
                             fontFamily: "Laila, serif",
-                            fontWeight: "600",
-                            fontSize: "2vh",
-                            textAlign: "center",
-                          }}
-                        >
-                          {item.createAt}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "Laila, serif",
                             fontWeight: "200",
                             fontSize: "2vh",
                             textAlign: "center",
@@ -180,30 +162,12 @@ import {
                               fontSize: "2.7vh",
                             }}
                             color="warning"
+                            onClick={()=>{
+                              dispatch(editCategory(item))
+                              dispatch(editingCategory())
+                            }}
                           >
                             <CiEdit />
-                          </Button>
-                        </TableCell>
-  
-                        <TableCell
-                          sx={{
-                            fontFamily: "Laila, serif",
-                            fontWeight: "200",
-                            fontSize: "2vh",
-                            textAlign: "center",
-                          }}
-                        >
-                          <Button
-                            variant="contained"
-                            className="loginButton"
-                            sx={{
-                              fontFamily: "Laila, serif",
-                              height: "4vh",
-                              fontSize: "2.7vh",
-                            }}
-                            color="error"
-                          >
-                            <RiDeleteBin2Line />
                           </Button>
                         </TableCell>
                         <TableCell
@@ -222,14 +186,36 @@ import {
                               height: "4vh",
                               fontSize: "1.7vh",
                             }}
-                            color="error"
+                            color="success"
                             onClick={()=>{
-                              const categoryInfo = {
-                                id:item._id,
-                                token:userToken
-                              }
-                              navigate("/singleCategoryData")
-                              dispatch(singleCategoryData(categoryInfo))
+                              // navigate(`/category/createProduct/${item._id}`)
+                              dispatch(addingProduct(true))
+                            }}
+                          >
+                            ADD PRODUCTS
+                          </Button>
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontFamily: "Laila, serif",
+                            fontWeight: "200",
+                            fontSize: "2vh",
+                            textAlign: "center",
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            className="loginButton"
+                            sx={{
+                              fontFamily: "Laila, serif",
+                              height: "4vh",
+                              fontSize: "1.7vh",
+                            }}
+                            color="info"
+                            onClick={()=>{
+                              dispatch(singleCategoryDetails(item._id))
+                              dispatch(categoryDataDetails(true))
+                              // navigate("/categoryDetails")
                             }}
                           >
                             DETAILS
@@ -238,7 +224,7 @@ import {
                       </TableRow>
                     );
                   })}
-                </TableBody> */}
+                </TableBody>
               </Table>
             </TableContainer>
           </Box>

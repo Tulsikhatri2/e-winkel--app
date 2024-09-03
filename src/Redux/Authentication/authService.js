@@ -1,14 +1,13 @@
 import axiosInstance from "../axiosInterceptors";
-import axios from "axios";
+
 
 const userLogin = async (userData) => {
     const response = await axiosInstance.post("/user/login",userData)
-    console.log(response,"login response")
     return response.data.data
 }
  const userSignup = async (sigupInfo) => {
     const response = await axiosInstance.post("/user",sigupInfo)
-    console.log(response,"signup response")
+    console.log(response.data.data)
     return response.data.data
 }
 
@@ -17,38 +16,24 @@ const userLogin = async (userData) => {
 // }
 
  const emailVerification = async (verificationData) => {
-    const {token , id} = verificationData
-    const response = await axiosInstance.post(`/user/email/verification?token=${token}&userId=${id}`)
+    const {id , token} = verificationData
+    const response = await axiosInstance.get("/user/email/verification?token=" + token + "&userId=" + id)
+    console.log(response,"verification response")
     return response.data.message
 } 
 
- const userDataDisplay = async (token) =>{
-    const response = await axios.get("https://node-js-wse4.onrender.com/user?pageNumber=1&pageSize=20",{
-        "headers":{
-            "Authorization" : "Bearer " + token
-        }
-    })
+ const userDataDisplay = async () =>{
+    const response = await axiosInstance.get("/user?pageNumber=1&pageSize=30")
     return response.data.data
 }
 
- const deleteUser = async (deleteInfo) => {
-    const {id,token} = deleteInfo
-    const response = await axios.delete(`https://node-js-wse4.onrender.com/user/${id}`,{
-        "headers":{
-            "Authorization" : "Bearer " + token
-        }
-    })
+ const deleteUser = async (id) => {
+    const response = await axiosInstance.delete(`/user/${id}`)
     console.log(response,"deleting response")
 }
 
- const singleUserData = async (userData) => {
-    const {id,token} = userData
-    const response = await axios.get(`https://node-js-wse4.onrender.com/user/${id}`,{
-        "headers":{
-            "Authorization" : "Bearer " + token
-        }
-    })
-    console.log(response,"single user response from service")
+ const singleUserData = async (id) => {
+    const response = await axiosInstance.get(`/user/${id}`)
     return response.data.user
 }
 

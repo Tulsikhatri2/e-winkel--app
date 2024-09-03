@@ -1,33 +1,26 @@
-import axios from "axios"
+import axiosInstance from "../axiosInterceptors"
 
 export const categoryCreate = async(categoryData) => {
-    const {name,status,token} = categoryData
-    const categoryInfo = {name:name,status:status}
-    const response = await axios.post("https://node-js-wse4.onrender.com/category",categoryInfo,{
-        "headers":{
-            "Authorization" : "Bearer " + token
-        }
-    })
-    // console.log(response, "response from service")
+    const response = await axiosInstance.post("/category",categoryData)
+    console.log(response, "response from service")
 }
 
-export const categoryDataDisplay = async(token) => {
-    const response = await axios.get("https://node-js-wse4.onrender.com/category?pageNumber=1&pageSize=10",{
-        "headers":{
-            "Authorization" : "Bearer " + token
-        }
-    })
-    // console.log(response.data.data,"category display response")
+export const categoryDataDisplay = async() => {
+    const response = await axiosInstance.get("/category?pageNumber=1&pageSize=30")
     return response.data.data
 }
 
-export const singleCategoryDisplay = async(categoryInfo) => {
-    const {id, token} = categoryInfo
-    const response = await axios.get(`https://node-js-wse4.onrender.com/category/${id}`,{
-        "headers":{
-            "Authorization" : "Bearer " + token
-        }
-    })
-    console.log(response,"category data single")
+export const singleCategoryDisplay = async(id) => {
+    const response = await axiosInstance.get(`/category/${id}`)
     return response.data.details
 }
+
+export const updateCategory = async(editedData) => {
+    const {id,name,status} = editedData
+    const response = await axiosInstance.put(`/category/${id}`,{name:name,status:status})
+    console.log(response, "category updation response")
+}
+
+const categoryService = {categoryCreate, categoryDataDisplay, singleCategoryDisplay, updateCategory}
+
+export default categoryService;

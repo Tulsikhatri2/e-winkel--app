@@ -1,24 +1,34 @@
 import { Box, Button, InputAdornment, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { FaFacebookF, FaGoogle, FaTwitter } from "react-icons/fa";
 import { FaCircleUser } from "react-icons/fa6";
 import { IoIosLock } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-// import { loginUser, userPasswordForgot } from "../Redux/Users/userSlice";
 import { useNavigate } from "react-router-dom";
-// import Loading from "../Pages/Loading";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { loginUser } from "../../Redux/Authentication/authSlice";
+import Loading from "../../Components/Loding";
 
 const Login = () => {
-  // const { userToken, isloading } = useSelector((state) => state.user);
+  const { isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // if (userToken) {
-  //   navigate("/dashboard");
-  // }
+  const userToken = localStorage.getItem('token')
+  if (userToken) {
+    navigate("/dashboard");
+  }
+
+  useEffect(()=>{
+    // dispatch(userDisplay())
+    if(localStorage.getItem("token")){
+      navigate("/dashboard")
+    }
+    else{
+    navigate("/")
+    }
+  },[])
 
   const validationSchema = yup.object({
     email: yup
@@ -99,6 +109,7 @@ const Login = () => {
                   },
                 }}
                 name="password"
+                type="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -131,13 +142,13 @@ const Login = () => {
                 justifyContent: "center",
               }}
             >
-              {/* {isloading ? (
+              {isLoading ? (
                 <>
                   <Loading />
                 </>
               ) : (
                 <p></p>
-              )} */}
+              )}
             </Box>
             <p
               className="resetPassword"
@@ -167,9 +178,9 @@ const Login = () => {
             Not a user?
             <span
               className="registration"
-              // onClick={() => {
-              //   navigate("/signup");
-              // }}
+              onClick={() => {
+                navigate("/register");
+              }}
             >
               Register
             </span>

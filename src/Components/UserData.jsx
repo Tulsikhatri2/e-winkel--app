@@ -9,16 +9,20 @@ import {
     TableHead,
     TableRow,
   } from "@mui/material";
-  import React from "react";
+  import React, { useEffect } from "react";
 //   import { deletingUser, singleData, userDisplay } from "../Redux/Users/userSlice";
   import { useDispatch } from "react-redux";
   import { CiEdit } from "react-icons/ci";
   import { RiDeleteBin2Line } from "react-icons/ri";
   import { useNavigate } from "react-router-dom";
+import { deletingUser, singleData, userDetails, userDisplay } from "../Redux/Authentication/authSlice";
+import UserDetails from "./UserDetails";
   
   const UsersData = ({ users, userToken }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
+
+
     return (
       <Box className="userData">
         <Box className="dataBox">
@@ -95,7 +99,7 @@ import {
                   </TableCell>
                 </TableRow>
               </TableHead>
-              {/* <TableBody>
+              <TableBody>
                 {users.map((item, index) => {
                   return (
                     <TableRow key={index}>
@@ -169,12 +173,7 @@ import {
                           }}
                           color="error"
                           onClick={() => {
-                              const deleteInfo = {
-                                id: item.id,
-                                token: userToken,
-                              };
-                              dispatch(deletingUser(deleteInfo));
-                              dispatch(userDisplay(userToken))
+                              dispatch(deletingUser(item.id));
                             }}
                         >
                           <RiDeleteBin2Line />
@@ -196,14 +195,11 @@ import {
                               height: "4vh",
                               fontSize: "1.7vh",
                             }}
-                            color="error"
+                            color="info"
                             onClick={()=>{
-                              const userDataTransfer = {
-                                id: item.id,
-                                token:userToken
-                              }
-                              navigate("/singleUserDetails")
-                              dispatch(singleData(userDataTransfer))
+                              dispatch(singleData(item.id))
+                              dispatch(userDetails(true))
+                              // navigate("/userDetails")
                             }}
                           >
                             Details
@@ -212,7 +208,7 @@ import {
                     </TableRow>
                   );
                 })}
-              </TableBody> */}
+              </TableBody>
             </Table>
           </TableContainer>
         </Box>

@@ -1,24 +1,23 @@
 import { Box, Button } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// import { emailVerificationProcess } from '../Redux/Users/userSlice'
-// import Loading from "../Pages/Loading"
-import { useNavigate, useParams } from 'react-router-dom'
-// import { toast, Flip, ToastContainer } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+import { emailVerificationProcess } from '../../Redux/Authentication/authSlice'
 
 
 const EmailVerification = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {userSignupData ,isSuccess} = useSelector(state=>state.auth)
     // const {token} = useParams()
     // const {id} = useParams()
     // const { isloading,isVerification } = useSelector(state => state.user)
     // const verificationData = {token:token,id:id}
 
-    // if(isVerification){
-    //   navigate("/loginUser")
-    // }
+    if(isSuccess){
+      navigate("/")
+    }
   
   return (
     <Box className = "emailVerification">
@@ -42,9 +41,14 @@ const EmailVerification = () => {
                     
                 }
               }}
-            //   onClick={()=>{
-            //     dispatch(emailVerificationProcess(verificationData))
-            //   }}
+              onClick={()=>{
+                const verificationData = {
+                  id: userSignupData.id,
+                  token:userSignupData.emailVerificationTOken
+                }
+                console.log(verificationData,"verification data")
+                dispatch(emailVerificationProcess(verificationData))
+              }}
             >
               Verify Email
             </Button>

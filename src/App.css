@@ -305,12 +305,10 @@
     height: 97%;
     background-color: white;
     box-shadow: 0px 0px 2vh black;
-    margin-left: 3vh;
     overflow:scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
   }
 
   .creatingCategory{
@@ -332,10 +330,10 @@
 
   .categoryInfo{
     width:30%;
-    height: 30%;
+    height: 40%;
     background-color: white;
     border-radius: 2vh;
-    box-shadow: 0px 0px 2vh gray;
+    box-shadow: 0px 0px 2vh black;
     display: flex;
     flex-direction: column;
   }
@@ -357,10 +355,45 @@
   }
 
   .detailsCard{
-    width:30%;
-    height:40%;
+    width:40%;
+    height:50%;
     border-radius: 2vh;
-    color: #0a3149;
+    color: black;
     box-shadow: 0px 0px 2vh black;
-    background-color:rgb(197, 193, 193)
+    background-color:rgb(214, 214, 214)
+  }
+
+  .addProducts{
+    width:100vw;
+    height:100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(170, 170, 170);
+  }
+
+  .productDetails{
+    width:30%;
+    height:65%;
+    background-color: white;
+    box-shadow: 0px 0px 2vh black;
+    border-radius: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color:black;
+    font-weight: 500;
+  }
+
+  .filesUploader{
+    margin-top: 5vh;
+    border: 1px dashed black;
+
+  }
+
+  .categoryUpdate{
+    width:100vw;
+    height:100vh;
+    background-color: pink;
   }

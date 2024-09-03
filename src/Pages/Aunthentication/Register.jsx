@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   citiesDisplay,
@@ -8,17 +8,15 @@ import {
 } from "../../Redux/Country/countrySlice";
 // import { signupUser } from "../Redux/Users/userSlice";
 import { useNavigate } from "react-router-dom";
-// import Loading from "../Pages/Loading";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { signupUser } from "../../Redux/Authentication/authSlice";
+import Loading from "../../Components/Loding";
 
 const Register = () => {
 
   const { countries, states, cities } = useSelector((state) => state.country);
-  // const { isloading, isSuccess, userSignupData } = useSelector(
-  //   (state) => state.user
-  // );
+  const { isLoading, isSuccess } = useSelector((state) => state.auth);
   // const verificationData = {
   //   token: userSignupData?.emailVerificationTOken,
   //   id: userSignupData?.id,
@@ -60,7 +58,6 @@ const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      // alert(values)
       console.log(values, "signupUSer")
       const signupInfo = { name:values.name, email:values.email, password:values.password };
       console.log(signupInfo,"signup info")
@@ -69,15 +66,13 @@ const Register = () => {
   });
 
 
-  // {
-  //   isSuccess ? (
-  //     navigate(
-  //       `/emailVerification/${verificationData?.token}/${verificationData.id}`
-  //     )
-  //   ) : (
-  //     <p></p>
-  //   );
-  // }
+  {
+    isSuccess ? (
+      navigate("/register/emailVerification")
+    ) : (
+      <p></p>
+    );
+  }
   return (
     <>
       <Box className="loginBackground">
@@ -89,7 +84,7 @@ const Register = () => {
           alignItems: "center",
          
         }}>
-          <Box className="heading">
+          <Box className="heading" sx={{marginTop:"-2vh"}}>
             <p>Signup</p>
           </Box>
 
@@ -149,6 +144,7 @@ const Register = () => {
             <TextField
               variant="standard"
               label="Password*"
+              type="password"
               InputLabelProps={{
                 style: {
                   fontFamily: "Laila, serif",
@@ -232,16 +228,13 @@ const Register = () => {
             >
               Register
             </Button>
-
-           
-
-            {/* {isloading ? (
+            {isLoading ? (
               <>
                 <Loading />
               </>
             ) : (
               <p></p>
-            )} */}
+            )}
             
           </Box>
          </form>

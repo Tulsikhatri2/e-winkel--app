@@ -1,48 +1,58 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { categoryCreate, categoryDataDisplay, singleCategoryDisplay } from "./categoryService";
+import categoryService from "./categoryService";
 
 const categorySlice = createSlice({
     name:"category",
     initialState:{
         allCategoryData:[],
-        isLoading:false,
+        isLoadingData:false,
         isSuccess:false,
         isError:false,
         errorMessage:"",
-        singleCategory:{}
+        singleCategory:{},
+        edit:{category:{}, isEdit:false}
     },
-    reducers:{},
+    reducers:{
+        editCategory:(state,action)=>{
+            return{
+                ...state,
+                edit:{category:action.payload,
+                    isEdit:true
+                }
+            }
+        }
+    },
     extraReducers:(builder)=>{
         builder
         .addCase(displayingCategories.pending,(state,action) => {
-            state.isLoading = true;
+            state.isLoadingData = true;
             state.isSuccess = false;
             state.isError = false
         })
         .addCase(displayingCategories.fulfilled,(state,action)=>{
-            state.isLoading = false;
+            state.isLoadingData = false;
             state.isSuccess = true;
             state.allCategoryData = action.payload;
             state.isError = false
         })
         .addCase(displayingCategories.rejected,(state,action)=>{
-            state.isLoading = false;
+            state.isLoadingData = false;
             state.isSuccess = false;
             state.isError = true;
         })
-        .addCase(singleCategoryData.pending,(state,action)=>{
-            state.isLoading = true;
+        .addCase(singleCategoryDetails.pending,(state,action)=>{
+            state.isLoadingData = true;
             state.isError = false;
             state.isSuccess = false;
         })
-        .addCase(singleCategoryData.fulfilled,(state,action)=>{
-            state.isLoading = false;
+        .addCase(singleCategoryDetails.fulfilled,(state,action)=>{
+            state.isLoadingData = false;
             state.isSuccess = true;
             state.isError = false;
             state.singleCategory = action.payload
         })
-        .addCase(singleCategoryData.rejected,(state,action)=>{
-            state.isLoading = false;
+        .addCase(singleCategoryDetails.rejected,(state,action)=>{
+            state.isLoadingData = false;
             state.isError = true;
             state.isSuccess = false;
         })
@@ -53,7 +63,7 @@ export const creatingCategory = createAsyncThunk(
     "CREATE/CATEGORY",
     async (data)=>{
         try {
-            return await categoryCreate(data)
+            return await categoryService.categoryCreate(data)
         } catch (error) {
             console.log(error.message,"error from create category")
         }
@@ -61,25 +71,38 @@ export const creatingCategory = createAsyncThunk(
 )
 
 export const displayingCategories = createAsyncThunk(
-    "DISPLAY/CATEGORIES",
-    async (token) =>{
+    "DISPLAYING/CATEGORIES",
+    async () =>{
         try {
-            return await categoryDataDisplay(token)
+            return await categoryService.categoryDataDisplay()
+        } catch (error) {
+            console.log(error.message,"- category display error")
+        }
+    }
+)
+
+export const singleCategoryDetails = createAsyncThunk(
+    "DISPLAY/SINGLE/CATEGORY",
+    async (id) => {
+        try {
+            return await categoryService.singleCategoryDisplay(id)
         } catch (error) {
             
         }
     }
 )
 
-export const singleCategoryData = createAsyncThunk(
-    "DISPLAY/SINGLE/CATEGORY",
-    async (categoryInfo) => {
+export const categoryDataUpdate = createAsyncThunk(
+    "UPDATE/CATEGORY/DATA",
+    async (editedData) => {
         try {
-            return await singleCategoryDisplay(categoryInfo)
+            return await categoryService.updateCategory(editedData)
         } catch (error) {
             
         }
     }
 )
+
+export const {editCategory} = categorySlice.actions
 
 export default categorySlice.reducer

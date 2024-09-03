@@ -1,8 +1,8 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
 import countryReducer from "./Country/countrySlice"
 // import countryReducer from "./Countries/countrySlice"
-// import productReducer from "./Products/productSlice"
-// import categoryReducer from "./Category/categorySlice"
+import productReducer from "./Product/productSlice"
+import categoryReducer from "./Category/categorySlice"
 // import { persistReducer } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 
@@ -29,7 +29,10 @@ const store = configureStore({
     // category:categoryReducer
     reducer:{
         auth:authReducer,
-        country:countryReducer
+        country:countryReducer,
+        category:categoryReducer,
+        product:productReducer,
+
     }
 
 })
