@@ -1,22 +1,22 @@
 import { Box, Button, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { categoryDataUpdate } from '../Redux/Category/categorySlice'
-import { categoryInfo } from '../Redux/Authentication/authSlice'
+import { categoryDataUpdate } from '../../Redux/Category/categorySlice'
 import { IoMdArrowBack } from 'react-icons/io'
+import { useNavigate } from 'react-router-dom'
 
 const EditCategory = () => {
     const [editedName, setEditedName] = useState("")
     const {categoryEditingData} = useSelector(state=>state.auth)
     const {edit} = useSelector(state=>state.category)
     
-    // console.log(categoryEditingData,"editing data of category")
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     useEffect(()=>{
         setEditedName(edit.category.name)
     },[edit])
-    console.log(edit,"edit data")
+
   return (
     <div>
         <Box className="userData" sx={{ height: "90vh" }}>
@@ -32,7 +32,7 @@ const EditCategory = () => {
             }
           }}
           onClick={()=>{
-            dispatch(categoryInfo(true))
+            navigate("/dashboard/category")
           }}
           >
             <IoMdArrowBack size={20}/></Button>
@@ -70,7 +70,7 @@ const EditCategory = () => {
                     status:true
                 }
                 dispatch(categoryDataUpdate(editedData))
-                dispatch(categoryInfo(true))
+                navigate("/dashboard/category")
               }}
               >UPDATE</Button>
               </Box>

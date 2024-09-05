@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { MdVerifiedUser } from "react-icons/md";
 import { ImCross } from "react-icons/im";
-import Loading from "./Loding";
-import { usersInfo } from "../Redux/Authentication/authSlice";
+
+import Layout from "./Layout";
+import Loading from "../../Components/Loding";
 // import Loading from "../../Components/Loding";
 
 
 
 const UserDetails = () => {
-    const {singleUserData,isloading} = useSelector(state=>state.auth)
+    const {singleUserData,isLoading} = useSelector(state=>state.auth)
     console.log(singleUserData,"userData")
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -20,6 +21,18 @@ const UserDetails = () => {
     
   return (
     <>
+    <Box className="dashboard">
+    <Box className="dashboardNav">
+    <Box
+            sx={{
+              width: "85vw",
+              height:"90vh",
+              // display: "flex",
+              // alignItems: "center",
+              // justifyContent: "center",
+              // marginTop:"5vh",
+            }}
+          >
       <Box className="userData">
         <Box className="dataBox" style={{justifyContent:"center"}}>
         <Box className="detailsCard">
@@ -32,13 +45,13 @@ const UserDetails = () => {
             }
           }}
           onClick={()=>{
-            dispatch(usersInfo(true))
+            navigate("/dashboard/users")
           }}
           >
             <IoMdArrowBack size={20}/></Button>
         </Box>
         {
-            isloading?
+            isLoading?
             <Box sx={{display:"flex",
                 alignItems:"center",
                 justifyContent:"center"
@@ -65,9 +78,12 @@ const UserDetails = () => {
                   </Box>
             )
         }
+         </Box>
         
         </Box>
         </Box>
+      </Box>
+      </Box>
       </Box>
     </>
   );

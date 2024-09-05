@@ -15,118 +15,10 @@ const userSlice = createSlice({
     emailVerificationMessage:"",
     allUsersData : [],
     singleUserData:{},
-    isUser:false,
-    isProduct:false,
-    isCategory:false,
-    creatingProduct:false,
-    userDetails:false,
-    categoryCreation:false,
-    categoryDetails:false,
-    editCategory:false,
-    categoryEditingData:"",
     editUser:false,
     edit:{ user:{} , isEdit:false }
   },
-  reducers: {
-    usersInfo:(state,action)=>{
-      return{
-        ...state,
-        isProduct:false,
-        isCategory:false,
-        creatingProduct:false,
-        userDetails:false,
-        categoryCreation:false,
-        categoryDetails:false,
-        editCategory:false
-      }
-    },
-    productsInfo:(state,action)=>{
-      return{
-        ...state,
-        isProduct:action.payload,
-        isCategory:false,
-        creatingProduct:false,
-        userDetails:false,
-        categoryCreation:false,
-        categoryDetails:false,
-        editCategory:false
-      }
-    },
-    categoryInfo:(state,action)=>{
-      return{
-        ...state,
-        isCategory:action.payload,
-        isProduct:false,
-        creatingProduct:false,
-        userDetails:false,
-        categoryCreation:false,
-        categoryDetails:false,
-        editCategory:false
-      }
-    },
-    addingProduct:(state,action)=>{
-      return{
-          ...state,
-          creatingProduct:action.payload,
-          isProduct:false,
-          isCategory:false,
-          userDetails:false,
-          categoryCreation:false,
-          categoryDetails:false,
-          editCategory:false
-      }
-    },
-    userDetails:(state,action)=>{
-      return{
-        ...state,
-        userDetails:action.payload,
-        creatingProduct:false,
-        isProduct:false,
-        isCategory:false,
-        categoryCreation:false,
-        categoryDetails:false,
-        editCategory:false
-      }
-    },
-    addCategory:(state,action)=>{
-      return{
-        ...state,
-        categoryCreation:action.payload,
-        userDetails:false,
-        creatingProduct:false,
-        isProduct:false,
-        isCategory:false,
-        categoryDetails:false,
-        editCategory:false
-      }
-    },
-    categoryDataDetails:(state,action)=>{
-      return{
-        ...state,
-        categoryDetails:action.payload,
-        categoryCreation:false,
-        userDetails:false,
-        creatingProduct:false,
-        isProduct:false,
-        isCategory:false,
-        editCategory:false
-      }
-    },
-    editingCategory:(state,action)=>{
-      return{
-        ...state,
-        editCategory:true,
-        categoryDetails:false,
-        categoryCreation:false,
-        userDetails:false,
-        creatingProduct:false,
-        isProduct:false,
-        isCategory:false,
-        // categoryEditingData:action.payload
-      }
-    },
-
-  },
+  reducers: {},
   extraReducers:(builder)=>{
     builder
     .addCase(loginUser.pending,(state,action)=>{
@@ -137,7 +29,7 @@ const userSlice = createSlice({
     .addCase(loginUser.fulfilled,(state,action)=>{
       state.userLoginData = action.payload
       state.userToken = action.payload?.token
-      localStorage.setItem("token",state.userToken)
+      localStorage.setItem("token",action.payload.token)
       state.isSuccess = true;
       state.isLoading = false;
       state.isError = false;
@@ -293,5 +185,5 @@ export const singleData = createAsyncThunk(
   }
 )
 
-export const {usersInfo, productsInfo, categoryInfo,addingProduct,userDetails,addCategory,categoryDataDetails,editingCategory} = userSlice.actions
+
 export default userSlice.reducer;

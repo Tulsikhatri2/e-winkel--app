@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom'
 
 const PrivateRoutes = ({Component}) => {
     const token = localStorage.getItem("token")
-    // console.log(token,"token from private routes")
   return (
     <div>
         {

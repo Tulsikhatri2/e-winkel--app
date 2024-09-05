@@ -56,6 +56,21 @@ const categorySlice = createSlice({
             state.isError = true;
             state.isSuccess = false;
         })
+        .addCase(categoryDataUpdate.pending,(state,action)=>{
+            state.isLoadingData = true;
+            state.isSuccess = false;
+            state.isError = false;
+        })
+        .addCase(categoryDataUpdate.fulfilled,(state,action)=>{
+            state.isLoadingData = false;
+            state.isSuccess = true;
+            state.isError = false
+        })
+        .addCase(categoryDataUpdate.rejected,(state,action)=>{
+            state.isLoadingData = false;
+            state.isSuccess = false;
+            
+        })
     }
 })
 

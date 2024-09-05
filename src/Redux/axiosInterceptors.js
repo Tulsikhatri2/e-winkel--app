@@ -23,7 +23,7 @@ axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
         if(error){
-            alert("error")
+            alert(error)
         }
         return Promise.reject(error)
     }

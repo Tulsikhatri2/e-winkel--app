@@ -6,7 +6,6 @@ import {
   countryDisplay,
   statesDisplay,
 } from "../../Redux/Country/countrySlice";
-// import { signupUser } from "../Redux/Users/userSlice";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -17,10 +16,7 @@ const Register = () => {
 
   const { countries, states, cities } = useSelector((state) => state.country);
   const { isLoading, isSuccess } = useSelector((state) => state.auth);
-  // const verificationData = {
-  //   token: userSignupData?.emailVerificationTOken,
-  //   id: userSignupData?.id,
-  // };
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -70,9 +66,10 @@ const Register = () => {
     isSuccess ? (
       navigate("/register/emailVerification")
     ) : (
-      <p></p>
+      navigate("/register")
     );
   }
+
   return (
     <>
       <Box className="loginBackground">

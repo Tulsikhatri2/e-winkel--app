@@ -1,19 +1,20 @@
-import { Box, TextField } from '@mui/material'
+import { Box, Button, TextField } from '@mui/material'
 import { useFormik } from 'formik'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState } from 'react'
 import * as yup from "yup";
 import { FileUploader } from "react-drag-drop-files";
-import { displayingCategories } from '../Redux/Category/categorySlice';
 import { useDispatch, useSelector } from 'react-redux'
+import { IoMdArrowBack } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
 const fileTypes = ["JPG", "PNG", "GIF"]
 const CreateProducts = () => {
-  const {id} = useParams()
   const dispatch = useDispatch()
   const {allCategoryData} = useSelector(state=>state.category)
+  const navigate = useNavigate()
 
   const [file, setFile] = useState(null);
+
   const fileHandleChange = (file) => {
     setFile(file);
   };
@@ -32,8 +33,8 @@ const CreateProducts = () => {
       name:"",
       status: false,
       description: "",
-      contact:"",
-
+      categoryId:"",
+      image:file
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -41,14 +42,40 @@ const CreateProducts = () => {
     },
   });
 
-  useEffect(()=>{
-    dispatch(displayingCategories())
-  },[])
+  // useEffect(()=>{
+  //   dispatch(displayingCategories())
+  // },[dispatch])
   
   return (
     <>
+    <Box className="dashboard">
+      <Box className="dashboardNav">
+        {/* <Header/>
+        <SideNavbar/> */}
+        <Box
+            sx={{
+              width: "85vw",
+              height:"90vh",
+              // display: "flex",
+              // alignItems: "center",
+              // justifyContent: "center",
+              // marginTop:"5vh",
+            }}
+          >
     <Box className="userData">
       <Box className="dataBox" sx={{justifyContent:"center"}}>
+      <Button variant='contained' 
+          sx={{color:"white",backgroundColor:"black",
+            "&:hover":{
+              color:'black',
+              backgroundColor:"grey"
+            }
+          }}
+          onClick={()=>{
+            navigate("/dashboard/products")
+          }}
+          >
+            <IoMdArrowBack size={20}/></Button>
         <p style={{textDecoration:"underline", color:"maroon", fontSize:"3vh"}}>ADD PRODUCTS</p>
         <form onSubmit={formik.handleSubmit}
         style={{
@@ -123,6 +150,9 @@ const CreateProducts = () => {
               <FileUploader name="file" tyes = {fileTypes} onChange={fileHandleChange} classes="filesUploader"/>
             
         </form>
+        </Box>
+        </Box>
+        </Box>
       </Box>
     </Box>
     </>

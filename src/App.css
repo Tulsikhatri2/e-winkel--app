@@ -226,28 +226,31 @@
   }
 
   .dashboard{
-    width:100vw;
+    width:80vw;
     height:100vh;
     background-image: linear-gradient(to right, #dadada 0%, #dadada 100%);
     display: flex;
     flex-direction: column;
+    
   }
 
   .dashboardDetails{
-    width:100vw;
+    width:80vw;
     height:90vh;
     display: flex;
     flex-direction: row;
     padding-top: 10vh;
+    background-color: white;
   }
 
   .dashboardNav{
      display: flex;
-     width:100vw;
+     width:100%;
      height:10vh;
+     background-color: white;
   }
   .sideDrawer{
-    width:14vw;
+    width:15vw;
     height:97%;
     background-color: white;
     box-shadow: 0px 0px 2vh black;
@@ -293,18 +296,21 @@
   }
 
   .userData{
-    width:85vw;
+    width:83vw;
     height:100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 10vh;
+    background-color: white;
+    margin-left: -8vh;
   }
 
   .dataBox{
     width:100%;
     height: 97%;
     background-color: white;
-    box-shadow: 0px 0px 2vh black;
+    box-shadow: 0px 0px 3vh black;
     overflow:scroll;
     display: flex;
     flex-direction: column;

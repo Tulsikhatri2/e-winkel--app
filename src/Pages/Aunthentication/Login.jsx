@@ -14,21 +14,8 @@ const Login = () => {
   const { isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {userToken} = useSelector(state=>state.auth)
 
-  const userToken = localStorage.getItem('token')
-  if (userToken) {
-    navigate("/dashboard");
-  }
-
-  useEffect(()=>{
-    // dispatch(userDisplay())
-    if(localStorage.getItem("token")){
-      navigate("/dashboard")
-    }
-    else{
-    navigate("/")
-    }
-  },[])
 
   const validationSchema = yup.object({
     email: yup
@@ -48,11 +35,25 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values, "loginUSer")
       dispatch(loginUser(values))
-
+      if(localStorage.getItem("token")){
+        navigate("/dashboard/users")
+      }
+      // else{
+      //   navigate("/")
+      // }
+      
     },
   });
+
+  // useEffect(()=>{
+  //   if(localStorage.getItem("token")){
+  //     navigate("/dashboard/users")
+  //   }
+  //   else{
+  //   navigate("/")
+  //   }
+  // },[])
 
   return (
     <>
@@ -126,6 +127,9 @@ const Login = () => {
                   fontFamily: "Laila, serif",
                   marginTop: "4vh",
                   width: "50%",
+                }}
+                onClick={()=>{
+                  // {isSuccess&&userToken?navigate("/dashboard"):navigate("/")}
                 }}>
                 Login
               </Button>

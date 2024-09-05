@@ -6,7 +6,7 @@ export const categoryCreate = async(categoryData) => {
 }
 
 export const categoryDataDisplay = async() => {
-    const response = await axiosInstance.get("/category?pageNumber=1&pageSize=30")
+    const response = await axiosInstance.get("/category?pageNumber=1&pageSize=40")
     return response.data.data
 }
 

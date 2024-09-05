@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux'
 import { Box, Button, TextField } from '@mui/material'
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom'
-import { creatingCategory } from '../Redux/Category/categorySlice';
-import { categoryInfo } from '../Redux/Authentication/authSlice';
+import { creatingCategory } from '../../Redux/Category/categorySlice';
+
 
 const CreateCategory = () => {
     const [name,setName] = useState()
@@ -20,6 +20,18 @@ const CreateCategory = () => {
     }
   return (
     <>
+    <Box className="dashboard">
+    <Box className="dashboardNav">
+    <Box
+            sx={{
+              width: "85vw",
+              height:"90vh",
+              // display: "flex",
+              // alignItems: "center",
+              // justifyContent: "center",
+              // marginTop:"5vh",
+            }}
+          >
     <Box className="userData">
       <Box className="dataBox" sx={{justifyContent:"center"}}>
       <Box className="categoryInfo">
@@ -32,7 +44,7 @@ const CreateCategory = () => {
             }
           }}
           onClick={()=>{
-            dispatch(categoryInfo(true))
+            navigate("/dashboard/category")
           }}
           >
             <IoMdArrowBack size={20}/></Button>
@@ -69,11 +81,13 @@ const CreateCategory = () => {
               }}
               onClick={()=>{
                 dispatch(creatingCategory(categoryData))
-                dispatch(categoryInfo(true))
+                
               }}
               >Create</Button>
         </Box>
-
+        </Box>
+        </Box>
+        </Box>
       </Box>
       </Box>
     </Box>

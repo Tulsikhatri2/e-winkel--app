@@ -9,22 +9,47 @@ import {
     TableHead,
     TableRow,
   } from "@mui/material";
-  import React from "react";
+  import React, { useEffect } from "react";
   import { CiEdit } from "react-icons/ci";
   import { useDispatch, useSelector } from "react-redux";
   import { CgPlayListAdd } from "react-icons/cg";
   import { useNavigate } from "react-router-dom";
-  import { editCategory, singleCategoryDetails } from "../Redux/Category/categorySlice";
-import { addCategory, addingProduct, categoryDataDetails, editingCategory } from "../Redux/Authentication/authSlice";
+  import { displayingCategories, editCategory, singleCategoryDetails } from "../../Redux/Category/categorySlice";
+import Header from "../../Components/Header";
+import SideNavbar from "../../Components/SideNavbar";
+import Loading from "../../Components/Loding";
 
   
   const CategoryData = () => {
     
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {allCategoryData} = useSelector(state=>state.category)
+    const {allCategoryData,isLoadingData} = useSelector(state=>state.category)
+
+    useEffect(()=>{
+      dispatch(displayingCategories());
+    },[dispatch])
+
     return (
-      <div>
+      <>
+      {isLoadingData?(
+        <div style={{marginLeft:"-30vw",marginTop:"50vh"}}>
+        <Loading/>
+        </div>
+      ):
+      <Box className="dashboard">
+        <Box className="dashboardNav">  
+
+        <Box
+            sx={{
+              width: "95vw",
+              height:"90vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop:"5vh",
+            }}
+          >
         <Box className="userData" sx={{ height: "90vh" }}>
           <Box className="dataBox">
             <p
@@ -52,8 +77,7 @@ import { addCategory, addingProduct, categoryDataDetails, editingCategory } from
                   }}
                   color="warning"
                   onClick={()=>{
-                    dispatch(addCategory(true))
-                    // navigate("/category/createCategory")
+                    navigate("/dashboard/category/createCategory")
                   }}
                 >
                   <CgPlayListAdd size={30} />
@@ -96,17 +120,6 @@ import { addCategory, addingProduct, categoryDataDetails, editingCategory } from
                       }}
                     >
                       UPDATE
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "Laila, serif",
-                        fontWeight: "700",
-                        fontSize: "2.5vh",
-                        color: "#2586B6",
-                        textAlign: "center",
-                      }}
-                    >
-                      ADD PRODUCTS
                     </TableCell>
                     <TableCell
                       sx={{
@@ -164,7 +177,7 @@ import { addCategory, addingProduct, categoryDataDetails, editingCategory } from
                             color="warning"
                             onClick={()=>{
                               dispatch(editCategory(item))
-                              dispatch(editingCategory())
+                              navigate("/dashboard/category/editCategory")
                             }}
                           >
                             <CiEdit />
@@ -186,36 +199,10 @@ import { addCategory, addingProduct, categoryDataDetails, editingCategory } from
                               height: "4vh",
                               fontSize: "1.7vh",
                             }}
-                            color="success"
-                            onClick={()=>{
-                              // navigate(`/category/createProduct/${item._id}`)
-                              dispatch(addingProduct(true))
-                            }}
-                          >
-                            ADD PRODUCTS
-                          </Button>
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "Laila, serif",
-                            fontWeight: "200",
-                            fontSize: "2vh",
-                            textAlign: "center",
-                          }}
-                        >
-                          <Button
-                            variant="contained"
-                            className="loginButton"
-                            sx={{
-                              fontFamily: "Laila, serif",
-                              height: "4vh",
-                              fontSize: "1.7vh",
-                            }}
                             color="info"
                             onClick={()=>{
                               dispatch(singleCategoryDetails(item._id))
-                              dispatch(categoryDataDetails(true))
-                              // navigate("/categoryDetails")
+                              navigate("/dashboard/category/categoryDetails")
                             }}
                           >
                             DETAILS
@@ -229,7 +216,12 @@ import { addCategory, addingProduct, categoryDataDetails, editingCategory } from
             </TableContainer>
           </Box>
         </Box>
-      </div>
+        </Box>
+        </Box>
+     </Box>
+    }
+    </>
+
     );
   };
   

@@ -10,6 +10,9 @@ import { RiDeleteBin2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { CgPlayListAdd } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
+import Header from "../../Components/Header";
+import SideNavbar from "../../Components/SideNavbar";
+import Loading from "../../Components/Loding";
 
 
 
@@ -17,9 +20,26 @@ const ProductData = () => {
   
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {allProductsData} = useSelector(state=>state.product)
+  const {allProductsData,isLoadingProduct} = useSelector(state=>state.product)
   return (
-    <div>
+    <>
+      {isLoadingProduct?(
+        <div style={{marginLeft:"-30vw",marginTop:"50vh"}}>
+        <Loading/>
+        </div>
+      ):
+      <Box className="dashboard">
+      <Box className="dashboardNav">
+        <Box
+            sx={{
+              width: "95vw",
+              height:"90vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop:"5vh",
+            }}
+          >
       <Box className="userData" sx={{ height: "90vh" }}>
         <Box className="dataBox">
           <p
@@ -46,15 +66,15 @@ const ProductData = () => {
                   marginTop: "-2vh",
                 }}
                 color="warning"
-                // onClick={()=>{
-                //   navigate("/createCategory")
-                // }}
+                onClick={()=>{
+                  navigate("/dashboard/products/addProduct")
+                }}
               >
                 <CgPlayListAdd size={30} />
               </Button>
             </span>
           </p>
-          <Box sx={{ width:"83vw", height:"85%",display:"flex",flexWrap:"wrap",flexDirection:"row",
+          <Box sx={{ width:"80vw", height:"85%",display:"flex",flexWrap:"wrap",flexDirection:"row",
           justifyContent:"space-between"
           }}>
 
@@ -66,11 +86,17 @@ const ProductData = () => {
               </CardContent>
             </Card>
             </Box>
+
+            
   
           </Box> 
         </Box>
        </Box>
-    </div>
+       </Box>
+       </Box>
+       </Box>
+}
+</>
   );
 };
 
