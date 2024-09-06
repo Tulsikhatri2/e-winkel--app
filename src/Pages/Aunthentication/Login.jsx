@@ -7,26 +7,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { loginUser } from "../../Redux/Authentication/authSlice";
+import { loginUser, passwordForgot } from "../../Redux/Authentication/authSlice";
 import Loading from "../../Components/Loding";
+import { Flip, toast } from "react-toastify";
+
+const validationSchema = yup.object({
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string("Enter your password")
+    .min(6, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
+});
 
 const Login = () => {
-  const { isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {userToken} = useSelector(state=>state.auth)
+  const token = localStorage.getItem("token")
+  const { isLoading, userToken } = useSelector((state) => state.auth);
 
-
-  const validationSchema = yup.object({
-    email: yup
-      .string("Enter your email")
-      .email("Enter a valid email")
-      .required("Email is required"),
-    password: yup
-      .string("Enter your password")
-      .min(6, "Password should be of minimum 8 characters length")
-      .required("Password is required"),
-  });
 
   const formik = useFormik({
     initialValues: {
@@ -36,24 +37,17 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       dispatch(loginUser(values))
-      if(localStorage.getItem("token")){
-        navigate("/dashboard/users")
-      }
-      // else{
-      //   navigate("/")
-      // }
-      
     },
   });
 
-  // useEffect(()=>{
-  //   if(localStorage.getItem("token")){
-  //     navigate("/dashboard/users")
-  //   }
-  //   else{
-  //   navigate("/")
-  //   }
-  // },[])
+  useEffect(()=>{
+    if(token){
+      navigate("/dashboard/users")
+    }
+    else{
+    navigate("/")
+    }
+  },[])
 
   return (
     <>
@@ -63,8 +57,7 @@ const Login = () => {
             <p style={{ marginTop: "-1vh" }}>Login</p>
           </Box>
 
-          <Box className="loginFields">
-            <form
+          <form
               onSubmit={formik.handleSubmit}
               style={{
                 display: "flex",
@@ -73,6 +66,8 @@ const Login = () => {
                 justifyContent: "center",
               }}
             >
+          <Box className="loginFields">
+           
               <TextField
                 variant="standard"
                 InputProps={{
@@ -128,12 +123,10 @@ const Login = () => {
                   marginTop: "4vh",
                   width: "50%",
                 }}
-                onClick={()=>{
-                  // {isSuccess&&userToken?navigate("/dashboard"):navigate("/")}
-                }}>
+                >
                 Login
               </Button>
-            </form>
+            
 
             <Box
               sx={{
@@ -156,15 +149,29 @@ const Login = () => {
             </Box>
             <p
               className="resetPassword"
-              // onClick={() => {
-              //   dispatch(userPasswordForgot(email));
-              //   // navigate("/forgotPassword");
-              // }}
+              onClick={() => {
+                if(!formik.values.email){
+                  toast.error('Valid email is required',{
+                    position: "top-left",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Flip,
+                    });
+                }
+                else{
+                  dispatch(passwordForgot(formik.values.email));
+                }
+              }}
             >
               Forgot Password?
             </p>
           </Box>
-
+          </form>
           <Box className="otherOptions">-Or Sign In With-</Box>
 
           <Box className="loginOptions">

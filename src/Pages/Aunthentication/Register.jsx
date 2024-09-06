@@ -9,13 +9,32 @@ import {
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { signupUser } from "../../Redux/Authentication/authSlice";
+import { clearVerificationData, signupUser } from "../../Redux/Authentication/authSlice";
 import Loading from "../../Components/Loding";
+
+const validationSchema = yup.object({
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string("Enter your password")
+    .min(6, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
+  name: yup
+    .string("Enter your name")
+    .required("Name is required"),
+  confirmPassword: yup
+    .string("Enter your password")
+    .required("Password confirmation is required")
+    .oneOf([yup.ref('password')], 'Your passwords do not match.')
+});
+
 
 const Register = () => {
 
   const { countries, states, cities } = useSelector((state) => state.country);
-  const { isLoading, isSuccess } = useSelector((state) => state.auth);
+  const { isLoading, isSuccess,userSignupData } = useSelector((state) => state.auth);
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,25 +43,8 @@ const Register = () => {
     dispatch(citiesDisplay());
     dispatch(countryDisplay());
     dispatch(statesDisplay());
+    dispatch(clearVerificationData())
   }, []);
-
-  const validationSchema = yup.object({
-    email: yup
-      .string("Enter your email")
-      .email("Enter a valid email")
-      .required("Email is required"),
-    password: yup
-      .string("Enter your password")
-      .min(6, "Password should be of minimum 8 characters length")
-      .required("Password is required"),
-    name: yup
-      .string("Enter your name")
-      .required("Name is required"),
-    confirmPassword: yup
-      .string("Enter your password")
-      .required("Password confirmation is required")
-      .oneOf([yup.ref('password')], 'Your passwords do not match.')
-  });
 
   const formik = useFormik({
     initialValues: {
@@ -54,21 +56,17 @@ const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values, "signupUSer")
       const signupInfo = { name:values.name, email:values.email, password:values.password };
-      console.log(signupInfo,"signup info")
       dispatch(signupUser(signupInfo));
     },
   });
 
 
-  {
-    isSuccess ? (
-      navigate("/register/emailVerification")
-    ) : (
-      navigate("/register")
-    );
+useEffect(()=>{
+  if(userSignupData){
+    navigate('/register/emailVerification')
   }
+},[userSignupData])
 
   return (
     <>

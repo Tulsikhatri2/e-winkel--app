@@ -11,9 +11,10 @@ const userLogin = async (userData) => {
     return response.data.data
 }
 
-// const forgotPassword = async (userEmail) => {
-//     const response = await axios.post("https://node-js-wse4.onrender.com/user/forgot-password",userEmail)
-// }
+const forgotPassword = async (userEmail) => {
+    const response = await axiosInstance.post("/user/forgot-password",userEmail)
+    console.log(response,"forgot password response")
+}
 
  const emailVerification = async (verificationData) => {
     const {id , token} = verificationData
@@ -23,7 +24,7 @@ const userLogin = async (userData) => {
 } 
 
  const userDataDisplay = async () =>{
-    const response = await axiosInstance.get("/user?pageNumber=1&pageSize=30")
+    const response = await axiosInstance.get("/user?pageNumber=1&pageSize=50")
     return response.data.data
 }
 
@@ -39,7 +40,7 @@ const userLogin = async (userData) => {
 
 
 const authServices = {
-    userLogin, userSignup, emailVerification, userDataDisplay, singleUserData,deleteUser
+    userLogin, userSignup, emailVerification, userDataDisplay, singleUserData,deleteUser, forgotPassword
 }
 
 export default authServices

@@ -27,7 +27,15 @@ import Loading from "../../Components/Loding";
       dispatch(userDisplay());
     },[dispatch])
 
-console.log(userToken,"token")
+    // useEffect(()=>{
+    //   if(localStorage.getItem("token")){
+    //     navigate("/dashboard/users")
+    //   }
+    //   else{
+    //     navigate("/")
+    //   }
+    // },[])
+
     return (
       <>
       {isLoading?(
@@ -193,6 +201,7 @@ console.log(userToken,"token")
                           color="error"
                           onClick={() => {
                               dispatch(deletingUser(item.id));
+                              window.location.reload()
                             }}
                         >
                           <RiDeleteBin2Line />

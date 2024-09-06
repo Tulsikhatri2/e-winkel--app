@@ -46,10 +46,7 @@ const AppRoute = () => {
       <div style={{display:"flex"}}>
         <SideNavbar/>
         <Routes>
-          <Route path="/dashboard/users" 
-          element={<UsersData/>}
-          // element={<PrivateRoutes Component={UsersData}/>}
-           />
+          <Route path="/dashboard/users" element={<PrivateRoutes Component={UsersData}/>}/>
           <Route path="/dashboard/products" element={<PrivateRoutes Component={ProductData}/>} />
           <Route path="/dashboard/category" element={<PrivateRoutes Component={CategoryData}/>} />
           <Route path="/dashboard/users/userDetails" element={<PrivateRoutes Component={UserDetails}/>}/>

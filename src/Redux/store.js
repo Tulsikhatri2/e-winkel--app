@@ -10,7 +10,7 @@ const reducers = combineReducers({
     auth: authReducer,
     country:countryReducer,
     product:productReducer,
-    category:categoryReducer
+    category:categoryReducer,
 })
 
 const persistConfig = {
@@ -21,7 +21,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig,reducers)
 
 const store = configureStore({
-    reducer: persistedReducer
+    reducer: persistedReducer, 
 })
 
 export default store

@@ -1,8 +1,23 @@
 import { AppBar, Box, Toolbar } from '@mui/material'
 import logo from "../Assets/logo.PNG"
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
+
+  const navigate = useNavigate()
+  const token = localStorage.getItem("token")
+  
+    useEffect(()=>{
+    if(token){
+      // window.location.reload()
+      navigate("/dashboard/users")
+    }
+    else{
+    navigate("/")
+    }
+  },[])
+
   return (
     
         <AppBar

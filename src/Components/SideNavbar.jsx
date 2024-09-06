@@ -1,5 +1,5 @@
 import { Box, Button } from '@mui/material';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { userDisplay } from '../Redux/Authentication/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { displayingCategories } from '../Redux/Category/categorySlice';
@@ -9,7 +9,20 @@ import { useNavigate } from 'react-router-dom';
 const SideNavbar = () => {
   const {userLoginData} = useSelector(state=>state.auth)
   const navigate = useNavigate()
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const token = localStorage.getItem("token")
+
+
+    useEffect(()=>{
+    if(token){
+      navigate("/dashboard/users")
+    }
+    else if (!token){
+      window.location.reload()
+      navigate("/")
+    }
+  },[])
+
   return (
     <Box className="dashboardDetails">
           <Box className="sideDrawer">
@@ -65,8 +78,8 @@ const SideNavbar = () => {
                   },
                 }}
                 onClick={() => {
+                  localStorage.clear();
                   navigate("/");
-                  localStorage.setItem("token", "");
                 }}
               >
                 Logout

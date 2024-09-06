@@ -1,24 +1,32 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authServices from "./authService";
 
-const userSlice = createSlice({
-  name: "user",
+const authSlice = createSlice({
+  name: "auth",
   initialState: {
-    userSignupData:{},
+    userSignupData: null,
     userLoginData: {},
-    userToken:"",
+    userToken:null,
     isLoading: false,
     isError: false,
     isSuccess: false,
     errorMessage: "",
     isVerification:false,
-    emailVerificationMessage:"",
+    emailVerificationMessage:{verificationMessage:"", isSuccess:false},
     allUsersData : [],
     singleUserData:{},
     editUser:false,
     edit:{ user:{} , isEdit:false }
   },
-  reducers: {},
+  reducers: {
+    clearUserSignupData: (state) => {
+      state.userSignupData = null;
+      
+    },
+    clearVerificationData:(state,action)=>{
+      state.emailVerificationMessage = null
+    }
+  },
   extraReducers:(builder)=>{
     builder
     .addCase(loginUser.pending,(state,action)=>{
@@ -29,7 +37,7 @@ const userSlice = createSlice({
     .addCase(loginUser.fulfilled,(state,action)=>{
       state.userLoginData = action.payload
       state.userToken = action.payload?.token
-      localStorage.setItem("token",action.payload.token)
+      localStorage.setItem("token",action.payload?.token)
       state.isSuccess = true;
       state.isLoading = false;
       state.isError = false;
@@ -64,8 +72,7 @@ const userSlice = createSlice({
     .addCase(emailVerificationProcess.fulfilled,(state,action)=>{
       state.isLoading = false;
       state.isError = false;
-      state.isSuccess = true;
-      state.emailVerificationMessage = action.payload
+      state.emailVerificationMessage = {verificationMessage:action.payload, isSuccess:true}
     })
     .addCase(emailVerificationProcess.rejected,(state,action)=>{
       state.isLoading = false;
@@ -130,16 +137,16 @@ export const signupUser = createAsyncThunk(
   }
 )
 
-// export const userPasswordForgot = createAsyncThunk(
-//   "USER/FORGOT/PASSWORD",
-//   async (userEmail) => {
-//     try {
-//       return await forgotPassword(userEmail)
-//     } catch (error) {
-//       console.log(error.message,"forgot password error")
-//     }
-//   }
-// )
+export const passwordForgot = createAsyncThunk(
+  "FORGOT/PASSWORD",
+  async (userEmail) => {
+    try {
+      return await authServices.forgotPassword(userEmail)
+    } catch (error) {
+      console.log(error.message,"forgot password error")
+    }
+  }
+)
 
 export const emailVerificationProcess = createAsyncThunk(
   "USER/EMAIL/VERIFICATION",
@@ -185,5 +192,6 @@ export const singleData = createAsyncThunk(
   }
 )
 
+export const {afterDispatch, clearUserSignupData, clearVerificationData} = authSlice.actions;
 
-export default userSlice.reducer;
+export default authSlice.reducer;
