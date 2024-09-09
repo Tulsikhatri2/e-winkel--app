@@ -1,0 +1,27 @@
+.sideDrawer{
+    width:15vw;
+    height:97%;
+    background-color: white;
+    box-shadow: 0px 0px 2vh black;
+    text-align: center;
+    margin-top: 1.2vh;
+    margin-left: 1vh;
+  }
+
+  .sideDrawer p{
+    margin-top: 3vh;
+    height:7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sideDrawer p:hover{
+    cursor: pointer;
+    background-color: rgb(210, 241, 231);
+  }
+
+  .userDetails{
+    font-size: 2vh;
+    color: rgb(78, 77, 77)
+  }

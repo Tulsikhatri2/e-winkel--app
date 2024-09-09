@@ -15,26 +15,17 @@ import {
   import { RiDeleteBin2Line } from "react-icons/ri";
   import { useNavigate } from "react-router-dom";
   import { deletingUser, singleData, userDisplay } from "../../Redux/Authentication/authSlice";
-import Loading from "../../Components/Loding";
+import Loading from "../../Components/PageLoading/Loding";
 
   
-  const UsersData = () => {
+  const UsersList = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const {allUsersData, userToken, isLoading} = useSelector(state=>state.auth)
+    const {allUsersData, isLoading} = useSelector(state=>state.auth)
 
     useEffect(()=>{
       dispatch(userDisplay());
     },[dispatch])
-
-    // useEffect(()=>{
-    //   if(localStorage.getItem("token")){
-    //     navigate("/dashboard/users")
-    //   }
-    //   else{
-    //     navigate("/")
-    //   }
-    // },[])
 
     return (
       <>
@@ -59,68 +50,38 @@ import Loading from "../../Components/Loding";
               <TableHead>
                 <TableRow>
                   <TableCell
-                    sx={{
-                      fontFamily: "Laila, serif",
-                      fontWeight: "700",
-                      fontSize: "2.5vh",
-                      color: "#2586B6",
-                      textAlign:"center"
-                    }}
+                    className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}
                   >
                     ID
                   </TableCell>
                   <TableCell
-                    sx={{
-                      fontFamily: "Laila, serif",
-                      fontWeight: "700",
-                      fontSize: "2.5vh",
-                      color: "#2586B6",
-                      textAlign:"center"
-                    }}
+                    className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}
                   >
                     NAME
                   </TableCell>
                   <TableCell
-                    sx={{
-                      fontFamily: "Laila, serif",
-                      fontWeight: "700",
-                      fontSize: "2.5vh",
-                      color: "#2586B6",
-                      textAlign:"center"
-                    }}
+                    className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}
                   >
                     EMAIL
                   </TableCell>
                   <TableCell
-                    sx={{
-                      fontFamily: "Laila, serif",
-                      fontWeight: "700",
-                      fontSize: "2.5vh",
-                      color: "#2586B6",
-                      textAlign:"center"
-                    }}
+                    className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}
                   >
                     UPDATE
                   </TableCell>
                   <TableCell
-                    sx={{
-                      fontFamily: "Laila, serif",
-                      fontWeight: "700",
-                      fontSize: "2.5vh",
-                      color: "#2586B6",
-                      textAlign:"center"
-                    }}
+                    className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}
                   >
                     DELETE
                   </TableCell>
                   <TableCell
-                    sx={{
-                      fontFamily: "Laila, serif",
-                      fontWeight: "700",
-                      fontSize: "2.5vh",
-                      color: "#2586B6",
-                      textAlign:"center"
-                    }}
+                    className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}
                   >
                     DETAILS
                   </TableCell>
@@ -131,42 +92,26 @@ import Loading from "../../Components/Loding";
                   return (
                     <TableRow key={index}>
                       <TableCell
-                        sx={{
-                          fontFamily: "Laila, serif",
-                          fontWeight: "600",
-                          fontSize: "2vh",
-                          textAlign:"center"
-                        }}
+                        className="tableContentCell"
+                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}
                       >
                         {item.id}
                       </TableCell>
                       <TableCell
-                        sx={{
-                          fontFamily: "Laila, serif",
-                          fontWeight: "600",
-                          fontSize: "2vh",
-                          textAlign:"center"
-                        }}
+                        className="tableContentCell"
+                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}
                       >
                         {item.name}
                       </TableCell>
                       <TableCell
-                        sx={{
-                          fontFamily: "Laila, serif",
-                          fontWeight: "600",
-                          fontSize: "2vh",
-                          textAlign:"center"
-                        }}
+                       className="tableContentCell"
+                       sx={{fontFamily: "Laila, serif", fontWeight:"600"}}
                       >
                         {item.email}
                       </TableCell>
                       <TableCell
-                        sx={{
-                          fontFamily: "Laila, serif",
-                          fontWeight: "200",
-                          fontSize: "2vh",
-                          textAlign:"center"
-                        }}
+                        className="tableContentCell"
+                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}
                       >
                         <Button
                           variant="contained"
@@ -183,12 +128,8 @@ import Loading from "../../Components/Loding";
                       </TableCell>
   
                       <TableCell
-                        sx={{
-                          fontFamily: "Laila, serif",
-                          fontWeight: "200",
-                          fontSize: "2vh",
-                          textAlign:"center"
-                        }}
+                        className="tableContentCell"
+                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}
                       >
                         <Button
                           variant="contained"
@@ -208,12 +149,8 @@ import Loading from "../../Components/Loding";
                         </Button>
                       </TableCell>
                       <TableCell
-                          sx={{
-                            fontFamily: "Laila, serif",
-                            fontWeight: "200",
-                            fontSize: "2vh",
-                            textAlign: "center",
-                          }}
+                          className="tableContentCell"
+                          sx={{fontFamily: "Laila, serif", fontWeight:"600"}}
                         >
                           <Button
                             variant="contained"
@@ -226,7 +163,7 @@ import Loading from "../../Components/Loding";
                             color="info"
                             onClick={()=>{
                               dispatch(singleData(item.id))
-                              navigate("/dashboard/users/userDetails")
+                              navigate("/dashboard/users/user-details")
                             }}
                           >
                             Details
@@ -248,5 +185,5 @@ import Loading from "../../Components/Loding";
     );
   };
   
-  export default UsersData;
+  export default UsersList;
   

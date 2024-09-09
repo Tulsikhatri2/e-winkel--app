@@ -15,12 +15,12 @@ import {
   import { CgPlayListAdd } from "react-icons/cg";
   import { useNavigate } from "react-router-dom";
   import { displayingCategories, editCategory, singleCategoryDetails } from "../../Redux/Category/categorySlice";
-import Header from "../../Components/Header";
-import SideNavbar from "../../Components/SideNavbar";
-import Loading from "../../Components/Loding";
+import Header from "../../Components/Dashboard/Header";
+import SideNavbar from "../../Components/Dashboard/SideNavbar";
+import Loading from "../../Components/PageLoading/Loding";
 
   
-  const CategoryData = () => {
+  const CategoryList = () => {
     
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -40,31 +40,15 @@ import Loading from "../../Components/Loding";
       <Box className="dashboard">
         <Box className="dashboardNav">  
 
-        <Box
-            sx={{
-              width: "95vw",
-              height:"90vh",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop:"5vh",
-            }}
-          >
+        <Box className="categoryListBox">
         <Box className="userData" sx={{ height: "90vh" }}>
           <Box className="dataBox">
-            <p
-              style={{
-                textDecoration: "underline",
-                fontWeight: "bold",
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "7vh",
-              }}
-            >
+            <p className="categoryHeading">
               <span style={{ width: "70vw", textAlign: "center" }}>
                 ALL CATEGORIES
               </span>
               <span style={{ width: "10vw" }}>
+
                 <Button
                   variant="contained"
                   className="loginButton"
@@ -77,59 +61,32 @@ import Loading from "../../Components/Loding";
                   }}
                   color="warning"
                   onClick={()=>{
-                    navigate("/dashboard/category/createCategory")
+                    navigate("/dashboard/category/create-category")
                   }}
                 >
                   <CgPlayListAdd size={30} />
                 </Button>
+
               </span>
             </p>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell
-                      sx={{
-                        fontFamily: "Laila, serif",
-                        fontWeight: "700",
-                        fontSize: "2.5vh",
-                        color: "#2586B6",
-                        textAlign: "center",
-                      }}
-                    >
+                    <TableCell className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
                       ID
                     </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "Laila, serif",
-                        fontWeight: "700",
-                        fontSize: "2.5vh",
-                        color: "#2586B6",
-                        textAlign: "center",
-                      }}
-                    >
+                    <TableCell className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
                       NAME
                     </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "Laila, serif",
-                        fontWeight: "700",
-                        fontSize: "2.5vh",
-                        color: "#2586B6",
-                        textAlign: "center",
-                      }}
-                    >
+                    <TableCell className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
                       UPDATE
                     </TableCell>
-                    <TableCell
-                      sx={{
-                        fontFamily: "Laila, serif",
-                        fontWeight: "700",
-                        fontSize: "2.5vh",
-                        color: "#2586B6",
-                        textAlign: "center",
-                      }}
-                    >
+                    <TableCell className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
                       DETAILS
                     </TableCell>
                   </TableRow>
@@ -138,34 +95,17 @@ import Loading from "../../Components/Loding";
                   {allCategoryData.map((item, index) => {
                     return (
                       <TableRow key={index}>
-                        <TableCell
-                          sx={{
-                            fontFamily: "Laila, serif",
-                            fontWeight: "600",
-                            fontSize: "2vh",
-                            textAlign: "center",
-                          }}
-                        >
+                        <TableCell className="tableContentCell"
+                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
                           {item._id}
                         </TableCell>
                         <TableCell
-                          sx={{
-                            fontFamily: "Laila, serif",
-                            fontWeight: "600",
-                            fontSize: "2vh",
-                            textAlign: "center",
-                          }}
-                        >
+                          className="tableContentCell"
+                          sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
                           {item.name}
                         </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "Laila, serif",
-                            fontWeight: "200",
-                            fontSize: "2vh",
-                            textAlign: "center",
-                          }}
-                        >
+                        <TableCell className="tableContentCell"
+                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
                           <Button
                             variant="contained"
                             className="loginButton"
@@ -177,20 +117,14 @@ import Loading from "../../Components/Loding";
                             color="warning"
                             onClick={()=>{
                               dispatch(editCategory(item))
-                              navigate("/dashboard/category/editCategory")
+                              navigate("/dashboard/category/edit-category")
                             }}
                           >
                             <CiEdit />
                           </Button>
                         </TableCell>
-                        <TableCell
-                          sx={{
-                            fontFamily: "Laila, serif",
-                            fontWeight: "200",
-                            fontSize: "2vh",
-                            textAlign: "center",
-                          }}
-                        >
+                        <TableCell className="tableContentCell"
+                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
                           <Button
                             variant="contained"
                             className="loginButton"
@@ -202,7 +136,7 @@ import Loading from "../../Components/Loding";
                             color="info"
                             onClick={()=>{
                               dispatch(singleCategoryDetails(item._id))
-                              navigate("/dashboard/category/categoryDetails")
+                              navigate("/dashboard/category/category-details")
                             }}
                           >
                             DETAILS
@@ -225,5 +159,5 @@ import Loading from "../../Components/Loding";
     );
   };
   
-  export default CategoryData;
+  export default CategoryList;
   

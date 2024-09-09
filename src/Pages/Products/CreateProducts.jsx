@@ -12,13 +12,11 @@ const CreateProducts = () => {
   const dispatch = useDispatch()
   const {allCategoryData} = useSelector(state=>state.category)
   const navigate = useNavigate()
-
   const [file, setFile] = useState(null);
-
   const fileHandleChange = (file) => {
     setFile(file);
   };
-
+  
   const validationSchema = yup.object({
     name: yup
       .string("Enter your name")
@@ -41,25 +39,15 @@ const CreateProducts = () => {
       console.log(values, "product add")
     },
   });
-
-  // useEffect(()=>{
-  //   dispatch(displayingCategories())
-  // },[dispatch])
   
   return (
     <>
     <Box className="dashboard">
       <Box className="dashboardNav">
-        {/* <Header/>
-        <SideNavbar/> */}
         <Box
             sx={{
               width: "85vw",
               height:"90vh",
-              // display: "flex",
-              // alignItems: "center",
-              // justifyContent: "center",
-              // marginTop:"5vh",
             }}
           >
     <Box className="userData">

@@ -10,17 +10,17 @@ import { RiDeleteBin2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { CgPlayListAdd } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
-import Header from "../../Components/Header";
-import SideNavbar from "../../Components/SideNavbar";
-import Loading from "../../Components/Loding";
+import Header from "../../Components/Dashboard/Header";
+import SideNavbar from "../../Components/Dashboard/SideNavbar";
+import Loading from "../../Components/PageLoading/Loding";
 
 
 
-const ProductData = () => {
+const ProductList = () => {
   
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {allProductsData,isLoadingProduct} = useSelector(state=>state.product)
+  const {isLoadingProduct} = useSelector(state=>state.product)
   return (
     <>
       {isLoadingProduct?(
@@ -67,7 +67,7 @@ const ProductData = () => {
                 }}
                 color="warning"
                 onClick={()=>{
-                  navigate("/dashboard/products/addProduct")
+                  navigate("/dashboard/products/create-product")
                 }}
               >
                 <CgPlayListAdd size={30} />
@@ -87,8 +87,6 @@ const ProductData = () => {
             </Card>
             </Box>
 
-            
-  
           </Box> 
         </Box>
        </Box>
@@ -100,4 +98,4 @@ const ProductData = () => {
   );
 };
 
-export default ProductData;
+export default ProductList;

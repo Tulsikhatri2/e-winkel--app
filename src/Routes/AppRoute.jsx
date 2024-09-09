@@ -4,30 +4,20 @@ import Login from "../Pages/Aunthentication/Login";
 import Register from "../Pages/Aunthentication/Register";
 import EmailVerification from "../Pages/Aunthentication/EmailVerification";
 import PrivateRoutes from "./PrivateRoutes";
-import Header from "../Components/Header";
-import SideNavbar from "../Components/SideNavbar";
-import UsersData from "../Pages/Dashboard/UserData";
-import CategoryData from "../Pages/Dashboard/CategoryData";
-import ProductData from "../Pages/Dashboard/ProductData";
-import UserDetails from "../Pages/Dashboard/UserDetails";
-import CategoryDetails from "../Pages/Dashboard/CategoryDetails";
-import CreateCategory from "../Pages/Dashboard/CreateCategory";
-import EditCategory from "../Pages/Dashboard/EditCategory";
-import CreateProducts from "../Pages/Dashboard/CreateProducts";
+import Header from "../Components/Dashboard/Header";
+import SideNavbar from "../Components/Dashboard/SideNavbar";
+import UsersList from "../Pages/Users/UsersList";
+import CategoryList from "../Pages/Categories/CategoryList";
+import ProductList from "../Pages/Products/ProductList";
+import UserDetails from "../Pages/Users/UserDetails";
+import CategoryDetails from "../Pages/Categories/CategoryDetails";
+import CreateCategory from "../Pages/Categories/CreateCategory";
+import EditCategory from "../Pages/Categories/EditCategory";
+import CreateProducts from "../Pages/Products/CreateProducts";
+import ResetPassword from "../Pages/Aunthentication/ResetPassword";
 
 const AppRoute = () => {
 
-  const navigate = useNavigate()
-
-  // useEffect(()=>{
-  //   if(localStorage.getItem("token")){
-  //     navigate("/dashboard/users")
-  //   }
-  //   else{
-  //   navigate("/")
-  //   }
-  // },[])
-  
   return (
     <>
     {!localStorage.getItem("token")?
@@ -36,6 +26,7 @@ const AppRoute = () => {
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/register/emailVerification" element={<EmailVerification />}/>
+      <Route path="/auth/reset-password/:id/:token" element={<ResetPassword/>}/>
     </Routes>
   </div>
    : 
@@ -46,14 +37,15 @@ const AppRoute = () => {
       <div style={{display:"flex"}}>
         <SideNavbar/>
         <Routes>
-          <Route path="/dashboard/users" element={<PrivateRoutes Component={UsersData}/>}/>
-          <Route path="/dashboard/products" element={<PrivateRoutes Component={ProductData}/>} />
-          <Route path="/dashboard/category" element={<PrivateRoutes Component={CategoryData}/>} />
-          <Route path="/dashboard/users/userDetails" element={<PrivateRoutes Component={UserDetails}/>}/>
-          <Route path="/dashboard/category/categoryDetails" element={<PrivateRoutes Component={CategoryDetails}/>}/>
-          <Route path="/dashboard/category/createCategory" element={<PrivateRoutes Component={CreateCategory}/>}/>
-          <Route path="/dashboard/category/editCategory" element={<PrivateRoutes Component={EditCategory}/>}/>
-          <Route path="/dashboard/products/addProduct" element={<PrivateRoutes Component={CreateProducts}/>}/>
+          <Route path="/dashboard/users" element={<PrivateRoutes Component={UsersList}/>}/>
+          <Route path="/dashboard/products" element={<PrivateRoutes Component={ProductList}/>} />
+          <Route path="/dashboard/category" element={<PrivateRoutes Component={CategoryList}/>} />
+          <Route path="/dashboard/users/user-details" element={<PrivateRoutes Component={UserDetails}/>}/>
+          <Route path="/dashboard/category/category-details" element={<PrivateRoutes Component={CategoryDetails}/>}/>
+          <Route path="/dashboard/category/create-category" element={<PrivateRoutes Component={CreateCategory}/>}/>
+          <Route path="/dashboard/category/edit-category" element={<PrivateRoutes Component={EditCategory}/>}/>
+          <Route path="/dashboard/products/create-product" element={<PrivateRoutes Component={CreateProducts}/>}/>
+          
         </Routes>
       </div>
     </div>

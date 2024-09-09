@@ -6,13 +6,12 @@ const authSlice = createSlice({
   initialState: {
     userSignupData: null,
     userLoginData: {},
-    userToken:null,
+    userToken:0,
     isLoading: false,
     isError: false,
     isSuccess: false,
     errorMessage: "",
     isVerification:false,
-    emailVerificationMessage:{verificationMessage:"", isSuccess:false},
     allUsersData : [],
     singleUserData:{},
     editUser:false,
@@ -23,8 +22,8 @@ const authSlice = createSlice({
       state.userSignupData = null;
       
     },
-    clearVerificationData:(state,action)=>{
-      state.emailVerificationMessage = null
+    logoutUser:(state,action)=>{
+      state.userToken = null
     }
   },
   extraReducers:(builder)=>{
@@ -72,7 +71,8 @@ const authSlice = createSlice({
     .addCase(emailVerificationProcess.fulfilled,(state,action)=>{
       state.isLoading = false;
       state.isError = false;
-      state.emailVerificationMessage = {verificationMessage:action.payload, isSuccess:true}
+      state.isVerification = true;
+      state.emailVerificationMessage = action.payload;
     })
     .addCase(emailVerificationProcess.rejected,(state,action)=>{
       state.isLoading = false;
@@ -192,6 +192,17 @@ export const singleData = createAsyncThunk(
   }
 )
 
-export const {afterDispatch, clearUserSignupData, clearVerificationData} = authSlice.actions;
+export const resetUserPassword = createAsyncThunk(
+  "RESET/USER/PASSWORD",
+  async(resetData)=>{
+    try {
+      return await authServices.resetPassword(resetData)
+    } catch (error) {
+      
+    }
+  }
+)
+
+export const {afterDispatch, clearUserSignupData, clearVerificationData, logoutUser} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -3,12 +3,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearUserSignupData, clearVerificationData, emailVerificationProcess } from "../../Redux/Authentication/authSlice";
-import Loading from "../../Components/Loding";
+import Loading from "../../Components/PageLoading/Loding";
+import { Flip, toast } from "react-toastify";
+import "./Authentication.style.css"
 
 const EmailVerification = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userSignupData, emailVerificationMessage } = useSelector((state) => state.auth);
+  const { userSignupData, isVerification } = useSelector((state) => state.auth);
 
   const handleVerification = () => {
     const verificationData = {
@@ -16,10 +18,27 @@ const EmailVerification = () => {
       token: userSignupData.emailVerificationTOken
     };
     dispatch(emailVerificationProcess(verificationData));
-    
-    navigate("/")
     dispatch(clearUserSignupData())
   }
+
+  useEffect(()=>{
+    if(isVerification){
+      navigate("/")
+    }
+    else{
+      toast.error('Email not verified', {
+        position: "top-left",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Flip,
+        });
+      }
+  },[isVerification])
   
   useEffect(()=>{
     if(!userSignupData){

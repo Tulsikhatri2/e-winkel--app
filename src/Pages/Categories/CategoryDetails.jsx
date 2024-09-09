@@ -1,18 +1,16 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import { categoryInfo } from "../../Redux/Authentication/authSlice";
-import Loading from "../../Components/Loding";
+import Loading from "../../Components/PageLoading/Loding";
 
 const CategoryDetails = () => {
   const navigate = useNavigate()
   const { singleCategory, isLoadingData } = useSelector(
     (state) => state.category
   );
-  console.log(singleCategory, "single category");
+ 
   return (
     <>
       <Box className="dashboard">
@@ -26,7 +24,7 @@ const CategoryDetails = () => {
             <Box className="userData">
               <Box className="dataBox" sx={{ justifyContent: "center" }}>
                 <Box className="detailsCard">
-                  <Box className="categoryCreateButton" sx={{ height: "20%" }}>
+                  <Box className="createButton" sx={{ height: "20%" }}>
                     <Button
                       variant="contained"
                       sx={{
@@ -45,29 +43,11 @@ const CategoryDetails = () => {
                     </Button>
                   </Box>
                   {isLoadingData ? (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
+                    <Box className="categoryDetailsLoading">
                       <Loading />
                     </Box>
                   ) : (
-                    <Box
-                      sx={{
-                        textAlign: "center",
-                        display: "flex",
-                        flexDirection: "column",
-                        width: "100%",
-                        height: "70%",
-                        color: "black",
-                        fontSize: "2vh",
-                        fontWeight: "500",
-                        marginTop: "5vh",
-                      }}
-                    >
+                    <Box className="categoryDetailsCard">
                       <p style={{ lineHeight: "1.7" }}>
                         ID: {singleCategory._id}
                         <br />

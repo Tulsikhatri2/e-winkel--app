@@ -1,27 +1,27 @@
 import { Box, Button } from '@mui/material';
 import React, { useEffect } from 'react'
-import { userDisplay } from '../Redux/Authentication/authSlice';
+import { logoutUser, userDisplay } from '../../Redux/Authentication/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { displayingCategories } from '../Redux/Category/categorySlice';
-import { productsDataDisplay } from '../Redux/Product/productSlice';
+import { displayingCategories } from '../../Redux/Category/categorySlice';
+import { productsDataDisplay } from '../../Redux/Product/productSlice';
 import { useNavigate } from 'react-router-dom';
+// import "./SideNavbar.style.css"
 
 const SideNavbar = () => {
-  const {userLoginData} = useSelector(state=>state.auth)
+  const {userLoginData,userToken} = useSelector(state=>state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const token = localStorage.getItem("token")
 
 
     useEffect(()=>{
-    if(token){
+    if(userToken){
       navigate("/dashboard/users")
     }
-    else if (!token){
+    else if (!userToken){
       window.location.reload()
       navigate("/")
     }
-  },[])
+  },[userToken])
 
   return (
     <Box className="dashboardDetails">
@@ -53,13 +53,7 @@ const SideNavbar = () => {
               Products
             </p>
             <Box sx={{ marginTop: "30vh" }}>
-              <p
-                style={{
-                  fontSize: "2vh",
-                  fontWeight: "700",
-                  color: "rgb(78, 77, 77)",
-                }}
-              >
+              <p className="userDetails">
                 {userLoginData?.name}
                 <br />
                 {userLoginData?.email}
@@ -78,7 +72,8 @@ const SideNavbar = () => {
                   },
                 }}
                 onClick={() => {
-                  localStorage.clear();
+                  dispatch(logoutUser());
+                  localStorage.clear()
                   navigate("/");
                 }}
               >

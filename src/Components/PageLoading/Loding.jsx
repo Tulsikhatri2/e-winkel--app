@@ -1,4 +1,5 @@
 import React from 'react'
+import "./Loading.style.css"
 
 const Loading = () => {
   return (

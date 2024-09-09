@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom'
 
 const EditCategory = () => {
     const [editedName, setEditedName] = useState("")
-    const {categoryEditingData} = useSelector(state=>state.auth)
     const {edit} = useSelector(state=>state.category)
     
     const navigate = useNavigate()
@@ -23,7 +22,7 @@ const EditCategory = () => {
         <Box className="dataBox" sx={{justifyContent:"center"}}>
             
         <Box className="categoryInfo">
-            <Box className="categoryCreateButton">
+          <Box className="createButton">
           <Button variant='contained' 
           sx={{color:"white",backgroundColor:"black",
             "&:hover":{
@@ -33,17 +32,10 @@ const EditCategory = () => {
           }}
           onClick={()=>{
             navigate("/dashboard/category")
-          }}
-          >
+          }}>
             <IoMdArrowBack size={20}/></Button>
-        </Box>
-        <Box sx={{textAlign:"center",display:"flex",
-          flexDirection:"column",
-          alignItems:"center",
-          justifyContent:"space-between",
-          width:"100%",
-          height:"50%"
-        }}>
+          </Box>
+          <Box className="createCategoryFields">
                 <TextField
                 variant="standard"
                 label="Name*"
@@ -57,11 +49,9 @@ const EditCategory = () => {
                 sx={{marginTop:"2vh"}}
                 value={editedName}
                 onChange={(e)=> setEditedName(e.target.value)}>
+              </TextField>
 
-                </TextField>
-
-                <Button variant='contained'
-              
+              <Button variant='contained'
               color="warning"
               onClick={()=>{
                 const editedData = {
@@ -72,7 +62,8 @@ const EditCategory = () => {
                 dispatch(categoryDataUpdate(editedData))
                 navigate("/dashboard/category")
               }}
-              >UPDATE</Button>
+              >UPDATE
+              </Button>
               </Box>
             </Box>
         </Box>

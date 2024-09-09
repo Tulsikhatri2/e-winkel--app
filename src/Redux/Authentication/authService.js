@@ -24,7 +24,7 @@ const forgotPassword = async (userEmail) => {
 } 
 
  const userDataDisplay = async () =>{
-    const response = await axiosInstance.get("/user?pageNumber=1&pageSize=50")
+    const response = await axiosInstance.get("/user?pageNumber=1&pageSize=100")
     return response.data.data
 }
 
@@ -38,9 +38,14 @@ const forgotPassword = async (userEmail) => {
     return response.data.user
 }
 
+const resetPassword = async(data) =>{
+    const response = await axiosInstance.post(`/user/reset-password`,data)
+    console.log(response,"service response")
+}
+
 
 const authServices = {
-    userLogin, userSignup, emailVerification, userDataDisplay, singleUserData,deleteUser, forgotPassword
+    userLogin, userSignup, emailVerification, userDataDisplay, singleUserData,deleteUser, forgotPassword, resetPassword
 }
 
 export default authServices

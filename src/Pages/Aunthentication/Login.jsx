@@ -1,5 +1,5 @@
 import { Box, Button, InputAdornment, TextField } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaGoogle, FaTwitter } from "react-icons/fa";
 import { FaCircleUser } from "react-icons/fa6";
 import { IoIosLock } from "react-icons/io";
@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { loginUser, passwordForgot } from "../../Redux/Authentication/authSlice";
-import Loading from "../../Components/Loding";
-import { Flip, toast } from "react-toastify";
+import { loginUser } from "../../Redux/Authentication/authSlice";
+import ForgotPassword from "../../Components/ForgotPassword/ForgotPassword";
+import Loading from "../../Components/PageLoading/Loding";
+// import "./Authentication.style.css"
 
 const validationSchema = yup.object({
   email: yup
@@ -41,20 +42,29 @@ const Login = () => {
   });
 
   useEffect(()=>{
-    if(token){
+    if(userToken){
       navigate("/dashboard/users")
     }
     else{
     navigate("/")
     }
-  },[])
+  },[userToken])
+
+
+  const [open, setOpen] = useState(false)
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
-      <Box className="loginBackground">
+      <Box className="background">
         <Box className="loginBox">
           <Box className="heading">
-            <p style={{ marginTop: "-1vh" }}>Login</p>
+            <p>Login</p>
           </Box>
 
           <form
@@ -70,6 +80,7 @@ const Login = () => {
            
               <TextField
                 variant="standard"
+                placeholder="Email"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -91,6 +102,7 @@ const Login = () => {
               ></TextField>
               <TextField
                 variant="standard"
+                placeholder="Password"
                 sx={{ marginTop: "2vh" }}
                 InputProps={{
                   startAdornment: (
@@ -128,17 +140,7 @@ const Login = () => {
               </Button>
             
 
-            <Box
-              sx={{
-                width: "80%",
-                height: "5%",
-                display: "flex",
-                flexDirection: "row",
-                marginTop: "3vh",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+            <Box className="loginLoader">
               {isLoading ? (
                 <>
                   <Loading />
@@ -148,42 +150,30 @@ const Login = () => {
               )}
             </Box>
             <p
-              className="resetPassword"
-              onClick={() => {
-                if(!formik.values.email){
-                  toast.error('Valid email is required',{
-                    position: "top-left",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Flip,
-                    });
-                }
-                else{
-                  dispatch(passwordForgot(formik.values.email));
-                }
-              }}
+              className="forgotPassword"
+              onClick={handleClickOpen}
             >
               Forgot Password?
             </p>
+            <ForgotPassword handleClose={handleClose} open={open}/>
           </Box>
           </form>
           <Box className="otherOptions">-Or Sign In With-</Box>
 
           <Box className="loginOptions">
+
             <Box className="options">
               <FaGoogle />
             </Box>
+
             <Box className="options">
               <FaFacebookF />
             </Box>
+
             <Box className="options">
               <FaTwitter />
             </Box>
+
           </Box>
           <Box className="registerOption">
             Not a user?

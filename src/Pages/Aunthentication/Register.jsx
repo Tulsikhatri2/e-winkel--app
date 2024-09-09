@@ -9,8 +9,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { clearVerificationData, signupUser } from "../../Redux/Authentication/authSlice";
-import Loading from "../../Components/Loding";
+import { signupUser } from "../../Redux/Authentication/authSlice";
+import Loading from "../../Components/PageLoading/Loding";
+import "./Authentication.style.css"
 
 const validationSchema = yup.object({
   email: yup
@@ -43,7 +44,7 @@ const Register = () => {
     dispatch(citiesDisplay());
     dispatch(countryDisplay());
     dispatch(statesDisplay());
-    dispatch(clearVerificationData())
+    // dispatch(clearVerificationData())
   }, []);
 
   const formik = useFormik({
@@ -51,8 +52,7 @@ const Register = () => {
       name:"",
       email: "",
       password: "",
-      confirmPassword:"",
-      contact:""
+      confirmPassword:""
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -70,7 +70,7 @@ useEffect(()=>{
 
   return (
     <>
-      <Box className="loginBackground">
+      <Box className="background">
         <Box className="singupDetails">
         <form onSubmit={formik.handleSubmit}
         style={{
@@ -118,23 +118,6 @@ useEffect(()=>{
               onBlur={formik.handleBlur}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
-            ></TextField>
-            <TextField
-              variant="standard"
-              label="Contact Number"
-              InputLabelProps={{
-                style: {
-                  fontFamily: "Laila, serif",
-                  fontWeight: "bold",
-                  fontSize: "2vh",
-                },
-              }}
-              name="contact"
-              value={formik.values.contact}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-                error={formik.touched.contact && Boolean(formik.errors.contact)}
-                helperText={formik.touched.contact && formik.errors.contact}
             ></TextField>
             <TextField
               variant="standard"

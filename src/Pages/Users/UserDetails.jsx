@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { MdVerifiedUser } from "react-icons/md";
 import { ImCross } from "react-icons/im";
-
-import Layout from "./Layout";
-import Loading from "../../Components/Loding";
+import Loading from "../../Components/PageLoading/Loding";
 // import Loading from "../../Components/Loding";
 
 
@@ -23,22 +21,18 @@ const UserDetails = () => {
     <>
     <Box className="dashboard">
     <Box className="dashboardNav">
-    <Box
-            sx={{
+    <Box sx={{
               width: "85vw",
               height:"90vh",
-              // display: "flex",
-              // alignItems: "center",
-              // justifyContent: "center",
-              // marginTop:"5vh",
             }}
           >
       <Box className="userData">
         <Box className="dataBox" style={{justifyContent:"center"}}>
         <Box className="detailsCard">
-        <Box className="categoryCreateButton" sx={{height:"20%"}}>
+        <Box className="createButton" sx={{height:"20%"}}>
           <Button variant='contained' 
-          sx={{color:"#0a3149",backgroundColor:"white",
+          sx={{color:"#0a3149",
+            backgroundColor:"white",
             "&:hover":{
               color:'white',
               backgroundColor:"#55a3d4"
@@ -59,22 +53,26 @@ const UserDetails = () => {
                 <Loading/>
             </Box>:
             (
-                <Box sx={{
-                    textAlign:"center",
-                    display:"flex",
-                    flexDirection:"column",
-                    width:"100%",
-                    height:"70%",
-                    color:"black",
-                    fontSize:"2vh",
-                    fontWeight:"500",  
-                  }}>
+                <Box className="userDetails">
+
                       {singleUserData.isEmailVerified?
-                      <p style={{color:"green"}}><MdVerifiedUser size={20}/><br/>verified user</p> :<p style={{color:"maroon"}}><ImCross size={20}/><br/>unverified user</p>}
-                      <p style={{lineHeight:"1.7"}}>ID: {singleUserData.id}<br/>
+
+                      <p style={{color:"green"}}>
+                        <MdVerifiedUser size={20}/><br/>
+                        verified user
+                        </p> 
+                        :
+                      <p style={{color:"maroon"}}>
+                        <ImCross size={20}/><br/>unverified user
+                        </p>
+                      }
+
+                      <p style={{lineHeight:"1.7"}}>
+                      ID: {singleUserData.id}<br/>
                       Name: {singleUserData.name}<br/>
                       Email: {singleUserData.email}<br/>
-                      Created At: {singleUserData.createAt}</p>
+                      Created At: {singleUserData.createAt}
+                      </p>
                   </Box>
             )
         }

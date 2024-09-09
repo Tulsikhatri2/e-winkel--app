@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-
 import { Box, Button, TextField } from '@mui/material'
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from 'react-router-dom'
@@ -11,13 +10,13 @@ const CreateCategory = () => {
     const [name,setName] = useState()
     const [categoryStatus, setCategoryStatus] = useState(false)
     const navigate = useNavigate()
-
     const dispatch = useDispatch()
 
     const categoryData = {
         name: name,
         status: categoryStatus,
     }
+
   return (
     <>
     <Box className="dashboard">
@@ -26,18 +25,15 @@ const CreateCategory = () => {
             sx={{
               width: "85vw",
               height:"90vh",
-              // display: "flex",
-              // alignItems: "center",
-              // justifyContent: "center",
-              // marginTop:"5vh",
             }}
           >
     <Box className="userData">
       <Box className="dataBox" sx={{justifyContent:"center"}}>
       <Box className="categoryInfo">
-        <Box className="categoryCreateButton">
+        <Box className="createButton">
           <Button variant='contained' 
-          sx={{color:"white",backgroundColor:"black",
+          sx={{color:"white",
+            backgroundColor:"black",
             "&:hover":{
               color:'black',
               backgroundColor:"grey"
@@ -49,13 +45,7 @@ const CreateCategory = () => {
           >
             <IoMdArrowBack size={20}/></Button>
         </Box>
-        <Box sx={{textAlign:"center",display:"flex",
-          flexDirection:"column",
-          alignItems:"center",
-          justifyContent:"space-between",
-          width:"100%",
-          height:"50%"
-        }}>
+        <Box classname="createCategoryFields">
         <TextField variant="standard"
               label="Name*"
                InputLabelProps={{

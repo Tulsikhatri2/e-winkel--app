@@ -1,22 +1,22 @@
 import { AppBar, Box, Toolbar } from '@mui/material'
-import logo from "../Assets/logo.PNG"
+import logo from "../../Assets/logo.PNG"
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
 
   const navigate = useNavigate()
-  const token = localStorage.getItem("token")
+  const {userToken} = useSelector(state=>state.auth)
   
     useEffect(()=>{
-    if(token){
-      // window.location.reload()
+    if(userToken){
       navigate("/dashboard/users")
     }
     else{
     navigate("/")
     }
-  },[])
+  },[userToken])
 
   return (
     
