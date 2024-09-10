@@ -56,15 +56,16 @@ import Loading from "../../Components/PageLoading/Loding";
                     fontFamily: "Laila, serif",
                     width: "3vw",
                     height: "6vh",
-                    fontSize: "2.7vh",
+                    fontSize: "3vh",
                     marginTop: "-2vh",
+                    fontWeight:"bold"
                   }}
                   color="warning"
                   onClick={()=>{
                     navigate("/dashboard/category/create-category")
                   }}
                 >
-                  <CgPlayListAdd size={30} />
+                  +
                 </Button>
 
               </span>

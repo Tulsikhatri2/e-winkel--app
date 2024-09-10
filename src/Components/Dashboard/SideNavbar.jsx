@@ -11,6 +11,27 @@ const SideNavbar = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const handleUserList = () => {
+    dispatch(userListData());
+    navigate("/dashboard/users")
+  }
+
+  const handleCategoryList = () => {
+    dispatch(categoryListData());
+    navigate("/dashboard/category")
+  }
+
+  const handleProductsList = () => {
+    dispatch(productsListData());
+    navigate("/dashboard/products")
+  }
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    localStorage.clear()
+    navigate("/");
+  }
+
 
     useEffect(()=>{
     if(userToken){
@@ -25,32 +46,18 @@ const SideNavbar = () => {
   return (
     <Box className="dashboardDetails">
           <Box className="sideDrawer">
-            <p
-              onClick={() => {
-                dispatch(userListData());
-                navigate("/dashboard/users")
-              }}
-            >
+            <p onClick={handleUserList}>
               Users
             </p>
 
-            <p
-              onClick={() => {
-                dispatch(categoryListData());
-                navigate("/dashboard/category")
-              }}
-            >
+            <p onClick={handleCategoryList}>
               Categories
             </p>
 
-            <p
-              onClick={() => {
-                dispatch(productsListData());
-                navigate("/dashboard/products")
-              }}
-            >
+            <p onClick={handleProductsList}>
               Products
             </p>
+
             <Box sx={{ marginTop: "30vh" }}>
               <p className="userDetails">
                 {userLoginData?.name}
@@ -70,11 +77,7 @@ const SideNavbar = () => {
                     fontWeight: "bold",
                   },
                 }}
-                onClick={() => {
-                  dispatch(logoutUser());
-                  localStorage.clear()
-                  navigate("/");
-                }}
+                onClick={handleLogout}
               >
                 Logout
               </Button>

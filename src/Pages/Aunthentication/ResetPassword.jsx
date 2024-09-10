@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { resetUserPassword } from "../../Redux/Authentication/authSlice";
 import "./Authentication.style.css"
 
@@ -9,6 +9,17 @@ const ResetPassword = () => {
   const { token, id } = useParams();
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const handleResetPassword = () => {
+    const data = {
+      password: password,
+      token: token,
+      userId: id,
+    };
+    dispatch(resetUserPassword(data));
+    navigate("/")
+  }
 
   return (
     <Box className="resetPasswordBackground">
@@ -32,15 +43,7 @@ const ResetPassword = () => {
             marginTop: "4vh",
             width: "50%",
           }}
-          onClick={() => {
-            const data = {
-              password: password,
-              token: token,
-              userId: id,
-            };
-            dispatch(resetUserPassword(data));
-            
-          }}
+          onClick={handleResetPassword}
         >
           Reset Password
         </Button>

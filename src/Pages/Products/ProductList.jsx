@@ -48,15 +48,16 @@ const ProductList = () => {
                   fontFamily: "Laila, serif",
                   width: "3vw",
                   height: "6vh",
-                  fontSize: "2.7vh",
+                  fontSize: "3vh",
                   marginTop: "-2vh",
+                  fontWeight:"bold"
                 }}
                 color="warning"
                 onClick={()=>{
                   navigate("/dashboard/products/create-product")
                 }}
               >
-                <CgPlayListAdd size={30} />
+                +
               </Button>
             </span>
 

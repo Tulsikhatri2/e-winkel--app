@@ -14,7 +14,7 @@ import {
   import { CiEdit } from "react-icons/ci";
   import { RiDeleteBin2Line } from "react-icons/ri";
   import { useNavigate } from "react-router-dom";
-  import { deletingUser, userData, userListData } from "../../Redux/Authentication/authSlice";
+  import { deletingUser, editUserData, userData, userListData } from "../../Redux/Authentication/authSlice";
 import Loading from "../../Components/PageLoading/Loding";
 
   
@@ -122,6 +122,10 @@ import Loading from "../../Components/PageLoading/Loding";
                             fontSize: "2.7vh",
                           }}
                           color="warning"
+                          onClick={()=>{
+                            navigate("/dashboard/users/edit-user")
+                            dispatch(editUserData(item))
+                          }}
                         >
                           <CiEdit />
                         </Button>

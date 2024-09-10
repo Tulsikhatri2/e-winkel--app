@@ -19,9 +19,9 @@ const EditCategory = () => {
   return (
     <div>
         <Box className="pageData" sx={{ height: "90vh" }}>
-        <Box className="dataBox" sx={{justifyContent:"center"}}>
-            
-        <Box className="categoryInfo">
+        <Box className="dataBox" >
+           <p style={{marginTop:"10vh",color:"maroon", textDecoration:"underline", fontSize:"3vh"}}>Update Category</p> 
+        <Box className="categoryInfo" sx={{marginTop:"10vh"}}>
           <Box className="createButton">
           <Button variant='contained' 
           sx={{color:"white",backgroundColor:"black",
@@ -46,13 +46,20 @@ const EditCategory = () => {
                     fontSize:"2vh"
                   }
                 }}
-                sx={{marginTop:"2vh"}}
+                sx={{marginTop:"5vh"}}
                 value={editedName}
                 onChange={(e)=> setEditedName(e.target.value)}>
               </TextField>
 
               <Button variant='contained'
               color="warning"
+              sx={{
+                fontFamily: "Laila, serif",
+                width: "3vw",
+                height: "6vh",
+                fontSize: "1.8vh",
+                marginTop: "2vh",
+              }}
               onClick={()=>{
                 const editedData = {
                     id: edit.category._id,

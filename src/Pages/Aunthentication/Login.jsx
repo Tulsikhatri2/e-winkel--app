@@ -1,6 +1,5 @@
 import { Box, Button, InputAdornment, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { FaFacebookF, FaGoogle, FaTwitter } from "react-icons/fa";
 import { FaCircleUser } from "react-icons/fa6";
 import { IoIosLock } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +10,7 @@ import { loginUser, loginWithGoogle } from "../../Redux/Authentication/authSlice
 import ForgotPassword from "../../Components/ForgotPassword/ForgotPassword";
 import Loading from "../../Components/PageLoading/Loding";
 import { GoogleLogin } from "@react-oauth/google";
-// import "./Authentication.style.css"
+
 
 const validationSchema = yup.object({
   email: yup
@@ -27,9 +26,8 @@ const validationSchema = yup.object({
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token")
   const { isLoading, userToken } = useSelector((state) => state.auth);
-
+  const [open, setOpen] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -51,9 +49,7 @@ const Login = () => {
     navigate("/")
     }
   },[userToken])
-
-
-  const [open, setOpen] = useState(false)
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -67,8 +63,8 @@ const Login = () => {
       idToken: response.credential
     }
     dispatch(loginWithGoogle(googleCredential))
-
-};
+  };
+  
 const errorMessage = (error) => {
     console.log(error);
 };

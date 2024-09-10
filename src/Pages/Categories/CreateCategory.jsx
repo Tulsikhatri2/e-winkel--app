@@ -28,8 +28,10 @@ const CreateCategory = () => {
             }}
           >
     <Box className="pageData">
-      <Box className="dataBox" sx={{justifyContent:"center"}}>
-      <Box className="categoryInfo">
+      <Box className="dataBox">
+
+        <p style={{marginTop:"10vh",color:"maroon", textDecoration:"underline", fontSize:"3vh"}}>Add Category</p>
+      <Box className="categoryInfo" sx={{marginTop:"10vh"}}>
         <Box className="createButton">
           <Button variant='contained' 
           sx={{color:"white",
@@ -45,7 +47,7 @@ const CreateCategory = () => {
           >
             <IoMdArrowBack size={20}/></Button>
         </Box>
-        <Box classname="createCategoryFields">
+        <Box className="createCategoryFields">
         <TextField variant="standard"
               label="Name*"
                InputLabelProps={{
@@ -64,6 +66,7 @@ const CreateCategory = () => {
               sx={{color:"white",
                 backgroundColor:"black",
                 fontFamily: "Laila, serif",
+                marginTop:"2vh",
                 "&:hover":{
                   color:'black',
                   backgroundColor:"grey",

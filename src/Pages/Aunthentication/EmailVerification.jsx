@@ -10,7 +10,7 @@ import "./Authentication.style.css"
 const EmailVerification = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userSignupData, isVerification } = useSelector((state) => state.auth);
+  const { userSignupData, isVerification,isLoading } = useSelector((state) => state.auth);
 
   const handleVerification = () => {
     const verificationData = {
@@ -56,6 +56,11 @@ const EmailVerification = () => {
         >
           Verify Email
         </Button>
+        {isLoading?
+        <Loading/>
+        :
+        <p></p>
+        }
       </Box>
     </Box>
   );

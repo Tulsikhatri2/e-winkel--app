@@ -14,6 +14,7 @@ const userLogin = async (userData) => {
 const forgotPassword = async (userEmail) => {
     const response = await axiosInstance.post("/user/forgot-password",userEmail)
     console.log(response,"forgot password response")
+    return response
 }
 
  const emailVerification = async (verificationData) => {

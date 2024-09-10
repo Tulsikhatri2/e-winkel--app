@@ -35,7 +35,7 @@ const validationSchema = yup.object({
 const Register = () => {
 
   const { countries, states, cities } = useSelector((state) => state.country);
-  const { isLoading, isSuccess,userSignupData } = useSelector((state) => state.auth);
+  const { isLoading, userSignupData } = useSelector((state) => state.auth);
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ const Register = () => {
     dispatch(citiesList());
     dispatch(countryList());
     dispatch(statesList());
-    // dispatch(clearVerificationData())
   }, []);
 
   const formik = useFormik({

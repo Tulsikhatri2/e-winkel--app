@@ -18,7 +18,6 @@ const authSlice = createSlice({
     edit:{ 
       user:{} , 
       isEdit:false },
-    
   },
   reducers: {
     clearUserSignupData: (state) => {
@@ -27,6 +26,12 @@ const authSlice = createSlice({
     },
     logoutUser:(state)=>{
       state.userToken = null
+    },
+    editUserData:(state,action)=>{
+      return{
+        ...state,
+        edit:{user: action.payload, isEdit:true}
+      }
     }
   },
   extraReducers:(builder)=>{
@@ -163,6 +168,21 @@ const authSlice = createSlice({
       state.isSuccess = false;
       state.isError = true
     })
+    .addCase(passwordForgot.pending,(state,action)=>{
+      state.isLoading = true;
+      state.isSuccess = false;
+      state.isError = false;
+    })
+    .addCase(passwordForgot.fulfilled,(state,action)=>{
+      state.isLoading = false;
+      state.isError = false;
+      state.isSuccess = true;
+    })
+    .addCase(passwordForgot.rejected,(state,action)=>{
+      state.isLoading = false;
+      state.isError = true;
+      state.isSuccess = false;
+    })
   }
 });
 
@@ -265,6 +285,6 @@ export const loginWithGoogle = createAsyncThunk(
   }
 )
 
-export const { clearUserSignupData, logoutUser} = authSlice.actions;
+export const { clearUserSignupData, logoutUser, editUserData} = authSlice.actions;
 
 export default authSlice.reducer;

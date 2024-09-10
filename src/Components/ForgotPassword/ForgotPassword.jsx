@@ -17,7 +17,6 @@ const ForgotPassword = ({handleClose, open}) => {
         PaperProps={{
           onSubmit: (event) => {
             event.preventDefault();
-            console.log(email)
             const data={
                 email:email
             }
