@@ -23,7 +23,7 @@ const forgotPassword = async (userEmail) => {
     return response.data.message
 } 
 
- const userDataDisplay = async () =>{
+ const userList = async () =>{
     const response = await axiosInstance.get("/user?pageNumber=1&pageSize=100")
     return response.data.data
 }
@@ -33,7 +33,7 @@ const forgotPassword = async (userEmail) => {
     console.log(response,"deleting response")
 }
 
- const singleUserData = async (id) => {
+ const userInformation = async (id) => {
     const response = await axiosInstance.get(`/user/${id}`)
     return response.data.user
 }
@@ -43,9 +43,15 @@ const resetPassword = async(data) =>{
     console.log(response,"service response")
 }
 
+const googleLogin = async(credential) => {
+    const response = await axiosInstance.post("/user/google-login",credential)
+    console.log(response)
+    return response.data.data
+}
+
 
 const authServices = {
-    userLogin, userSignup, emailVerification, userDataDisplay, singleUserData,deleteUser, forgotPassword, resetPassword
+    userLogin, userSignup, emailVerification, userList, userInformation,deleteUser, forgotPassword, resetPassword, googleLogin
 }
 
 export default authServices

@@ -14,17 +14,17 @@ import {
   import { CiEdit } from "react-icons/ci";
   import { RiDeleteBin2Line } from "react-icons/ri";
   import { useNavigate } from "react-router-dom";
-  import { deletingUser, singleData, userDisplay } from "../../Redux/Authentication/authSlice";
+  import { deletingUser, userData, userListData } from "../../Redux/Authentication/authSlice";
 import Loading from "../../Components/PageLoading/Loding";
 
   
   const UsersList = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const {allUsersData, isLoading} = useSelector(state=>state.auth)
+    const {usersList, isLoading} = useSelector(state=>state.auth)
 
     useEffect(()=>{
-      dispatch(userDisplay());
+      dispatch(userListData());
     },[dispatch])
 
     return (
@@ -42,7 +42,7 @@ import Loading from "../../Components/PageLoading/Loding";
               height:"90vh",
             }}>
             
-      <Box className="userData">
+      <Box className="pageData">
         <Box className="dataBox">
           <p style={{textAlign:"center", textDecoration:"underline", fontWeight:"bold"}}>ALL USERS</p>
           <TableContainer component={Paper}>
@@ -88,7 +88,7 @@ import Loading from "../../Components/PageLoading/Loding";
                 </TableRow>
               </TableHead>
               <TableBody>
-                {allUsersData.map((item, index) => {
+                {usersList.map((item, index) => {
                   return (
                     <TableRow key={index}>
                       <TableCell
@@ -142,7 +142,6 @@ import Loading from "../../Components/PageLoading/Loding";
                           color="error"
                           onClick={() => {
                               dispatch(deletingUser(item.id));
-                              window.location.reload()
                             }}
                         >
                           <RiDeleteBin2Line />
@@ -162,7 +161,7 @@ import Loading from "../../Components/PageLoading/Loding";
                             }}
                             color="info"
                             onClick={()=>{
-                              dispatch(singleData(item.id))
+                              dispatch(userData(item.id))
                               navigate("/dashboard/users/user-details")
                             }}
                           >

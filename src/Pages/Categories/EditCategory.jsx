@@ -18,7 +18,7 @@ const EditCategory = () => {
 
   return (
     <div>
-        <Box className="userData" sx={{ height: "90vh" }}>
+        <Box className="pageData" sx={{ height: "90vh" }}>
         <Box className="dataBox" sx={{justifyContent:"center"}}>
             
         <Box className="categoryInfo">

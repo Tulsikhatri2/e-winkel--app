@@ -16,53 +16,60 @@ const countrySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(countryDisplay.pending,(state) => {
+    .addCase(countryList.pending,(state) => {
         state.isLoading = true;
         state.isError = false;
         state.isSuccess = false;    
     })
-    .addCase(countryDisplay.fulfilled,(state,action)=>{
+    .addCase(countryList.fulfilled,(state,action)=>{
         state.countries = action.payload;
         state.isSuccess = true;
         state.isError = false;
-        state.isLoading = false
+        state.isLoading = false;
     })
-    .addCase(countryDisplay.rejected,(state,action)=>{
+    .addCase(countryList.rejected,(state,action)=>{
       state.isSuccess = false;
       state.isLoading = false;
       state.isError = true;
-      state.errorMessage = action.payload
+      state.errorMessage = action.payload;
     })
-    .addCase(statesDisplay.pending,(state)=>{
+    .addCase(statesList.pending,(state)=>{
       state.isLoading = true;
       state.isError = false;
-      state.isSuccess = false
+      state.isSuccess = false;
     })
-    .addCase(statesDisplay.fulfilled,(state,action)=>{
+    .addCase(statesList.fulfilled,(state,action)=>{
       state.states = action.payload
       state.isSuccess = true;
       state.isLoading = false;
       state.isError = false;
     })
-    .addCase(statesDisplay.rejected,(state,action)=>{
+    .addCase(statesList.rejected,(state,action)=>{
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = true;
-      state.errorMessage = action.payload
+      state.errorMessage = action.payload;
     })
-    .addCase(citiesDisplay.pending,(state,action)=>{
+    .addCase(citiesList.pending,(state,action)=>{
       state.isLoading = true;
       state.isError = false;
       state.isSuccess = false;
     })
-    .addCase(citiesDisplay.fulfilled,(state,action)=>{
+    .addCase(citiesList.fulfilled,(state,action)=>{
       state.isSuccess = true;
       state.cities = action.payload;
+      state.isLoading = false;
+      state.isError = false;
+    })
+    .addCase(citiesList.rejected,(state,action)=>{
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = true;
     })
   },
 });
 
-export const countryDisplay = createAsyncThunk("COUNTRY/DISPLAY", async () => {
+export const countryList = createAsyncThunk("COUNTRY/DISPLAY", async () => {
   try {
     return await countries();
   } catch (error) {
@@ -70,7 +77,7 @@ export const countryDisplay = createAsyncThunk("COUNTRY/DISPLAY", async () => {
   }
 });
 
-export const statesDisplay = createAsyncThunk("STATES/DISPLAY", async () => {
+export const statesList = createAsyncThunk("STATES/DISPLAY", async () => {
   try {
     return await states()
   } catch (error) {
@@ -78,7 +85,7 @@ export const statesDisplay = createAsyncThunk("STATES/DISPLAY", async () => {
   }
 })
 
-export const citiesDisplay = createAsyncThunk("CITIES/DISPLAY", async () => {
+export const citiesList = createAsyncThunk("CITIES/DISPLAY", async () => {
   try {
     return await cities()
   } catch (error) {

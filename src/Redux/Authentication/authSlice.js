@@ -6,23 +6,26 @@ const authSlice = createSlice({
   initialState: {
     userSignupData: null,
     userLoginData: {},
-    userToken:0,
+    userToken:null,
     isLoading: false,
     isError: false,
     isSuccess: false,
     errorMessage: "",
     isVerification:false,
-    allUsersData : [],
-    singleUserData:{},
+    usersList : [],
+    userDetails:{},
     editUser:false,
-    edit:{ user:{} , isEdit:false }
+    edit:{ 
+      user:{} , 
+      isEdit:false },
+    
   },
   reducers: {
     clearUserSignupData: (state) => {
       state.userSignupData = null;
       
     },
-    logoutUser:(state,action)=>{
+    logoutUser:(state)=>{
       state.userToken = null
     }
   },
@@ -66,7 +69,7 @@ const authSlice = createSlice({
     .addCase(emailVerificationProcess.pending,(state,action)=>{
       state.isLoading = true;
       state.isSuccess = false;
-      state.isError = false
+      state.isError = false;
     })
     .addCase(emailVerificationProcess.fulfilled,(state,action)=>{
       state.isLoading = false;
@@ -80,37 +83,85 @@ const authSlice = createSlice({
       state.isError = true;
       state.errorMessage = action.payload
     })
-    .addCase(userDisplay.pending,(state,action)=>{
+    .addCase(userListData.pending,(state,action)=>{
       state.isLoading = true;
       state.isSuccess = false;
+      state.isError = false;
+    })
+    .addCase(userListData.fulfilled,(state,action)=>{
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.isError = false;
+      state.usersList = action.payload
+    })
+    .addCase(userListData.rejected,(state,action)=>{
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = true;
+    })
+    .addCase(userData.pending,(state,action)=>{
+      state.isLoading = true;
+      state.isSuccess = false;
+      state.isError = false;
+    })
+    .addCase(userData.fulfilled,(state,action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.isError = false;
+      state.userDetails = action.payload
+    })
+    .addCase(userData.rejected,(state,action) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = true;
+    })
+    .addCase(deletingUser.pending,(state,action)=>{
+      state.isLoading = true;
+      state.isSuccess = false;
+      state.isError = false;
+    })
+    .addCase(deletingUser.fulfilled,(state,action)=>{
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.isError = false;
+    })
+    .addCase(deletingUser.rejected,(state,action)=>{
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = true;
+    })
+    .addCase(resetUserPassword.pending,(state,action)=>{
+      state.isLoading = true;
+      state.isSuccess = false;
+      state.isError = false;
+    })
+    .addCase(resetUserPassword.fulfilled,(state,action)=>{
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.isError = false;
+    })
+    .addCase(resetUserPassword.rejected,(state,action)=>{
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = true;
+    })
+    .addCase(loginWithGoogle.pending,(state,action)=>{
+      state.isLoading = true;
+      state.isSuccess = false;
+      state.isError = false;
+    })
+    .addCase(loginWithGoogle.fulfilled,(state,action)=>{
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.userToken = action.payload.token;
+      state.userLoginData = action.payload;
+      localStorage.setItem("token",action.payload?.token)
       state.isError = false
     })
-    .addCase(userDisplay.fulfilled,(state,action)=>{
-      state.isLoading = false;
-      state.isSuccess = true;
-      state.isError = false;
-      state.allUsersData = action.payload
-    })
-    .addCase(userDisplay.rejected,(state,action)=>{
+    .addCase(loginWithGoogle.rejected,(state,action)=>{
       state.isLoading = false;
       state.isSuccess = false;
-      state.isError = true;
-    })
-    .addCase(singleData.pending,(state,action)=>{
-      state.isLoading = true;
-      state.isSuccess = false;
-      state.isError = false;
-    })
-    .addCase(singleData.fulfilled,(state,action) => {
-      state.isLoading = false;
-      state.isSuccess = true;
-      state.isError = false;
-      state.singleUserData = action.payload
-    })
-    .addCase(singleData.rejected,(state,action) => {
-      state.isLoading = false;
-      state.isSuccess = false;
-      state.isError = true;
+      state.isError = true
     })
   }
 });
@@ -159,11 +210,11 @@ export const emailVerificationProcess = createAsyncThunk(
   }
 )
 
-export const userDisplay = createAsyncThunk(
+export const userListData = createAsyncThunk(
   "USER/DISPLAY",
   async () => {
     try {
-      return await authServices.userDataDisplay()
+      return await authServices.userList()
     } catch (error) {
       console.log(error.message,"- user data error")
     }
@@ -181,11 +232,11 @@ export const deletingUser = createAsyncThunk(
   }
 )
 
-export const singleData = createAsyncThunk(
+export const userData = createAsyncThunk(
   "SINGLE/USER",
   async(id)=>{
     try {
-      return await authServices.singleUserData(id)
+      return await authServices.userInformation(id)
     } catch (error) {
     
     }
@@ -203,6 +254,17 @@ export const resetUserPassword = createAsyncThunk(
   }
 )
 
-export const {afterDispatch, clearUserSignupData, clearVerificationData, logoutUser} = authSlice.actions;
+export const loginWithGoogle = createAsyncThunk(
+  "GOOGLE/LOGIN",
+  async(credential)=>{
+    try {
+      return await authServices.googleLogin(credential)
+    } catch (error) {
+      
+    }
+  }
+)
+
+export const { clearUserSignupData, logoutUser} = authSlice.actions;
 
 export default authSlice.reducer;

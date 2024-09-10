@@ -1,0 +1,30 @@
+.filesUploader{
+    margin-top: 5vh;
+    border: 1px dashed black;
+  }
+
+  .productsBox{
+    width: 95vw;
+    height:90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:5vh;
+  }
+
+  .productHeader{
+    text-decoration: underline;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7vh;
+  }
+
+  .productsCardBox{
+     width:80vw;
+     height:85%;
+     display:flex;
+     flex-wrap:wrap;
+     flex-direction:row;
+    justify-content:space-between
+  }

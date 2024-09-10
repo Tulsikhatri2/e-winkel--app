@@ -30,30 +30,16 @@ const ProductList = () => {
       ):
       <Box className="dashboard">
       <Box className="dashboardNav">
-        <Box
-            sx={{
-              width: "95vw",
-              height:"90vh",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop:"5vh",
-            }}
-          >
-      <Box className="userData" sx={{ height: "90vh" }}>
+        <Box className="productsBox">
+      <Box className="pageData" sx={{ height: "90vh" }}>
         <Box className="dataBox">
           <p
-            style={{
-              textDecoration: "underline",
-              fontWeight: "bold",
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "7vh",
-            }}
+           className="productHeader"
           >
             <span style={{ width: "70vw", textAlign: "center" }}>
               ALL PRODUCTS
             </span>
+
             <span style={{ width: "10vw" }}>
               <Button
                 variant="contained"
@@ -73,17 +59,21 @@ const ProductList = () => {
                 <CgPlayListAdd size={30} />
               </Button>
             </span>
+
           </p>
-          <Box sx={{ width:"80vw", height:"85%",display:"flex",flexWrap:"wrap",flexDirection:"row",
-          justifyContent:"space-between"
-          }}>
+          <Box className="productsCardBox">
 
             <Box sx={{width:"23%"}}>
+
             <Card variant="outlined" sx={{"&:hover":{boxShadow:"0px 0px 1vh gray"}}}>
+
               <CardContent sx={{display:"flex",flexDirection:"row"}}>
+
                   <p>Shoes</p>
                   <img style={{backgroundColor:"pink"}}></img>
+
               </CardContent>
+
             </Card>
             </Box>
 

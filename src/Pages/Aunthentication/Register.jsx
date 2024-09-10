@@ -2,9 +2,9 @@ import { Box, Button, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  citiesDisplay,
-  countryDisplay,
-  statesDisplay,
+  citiesList,
+  countryList,
+  statesList,
 } from "../../Redux/Country/countrySlice";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -41,9 +41,9 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(citiesDisplay());
-    dispatch(countryDisplay());
-    dispatch(statesDisplay());
+    dispatch(citiesList());
+    dispatch(countryList());
+    dispatch(statesList());
     // dispatch(clearVerificationData())
   }, []);
 

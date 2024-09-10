@@ -15,12 +15,14 @@ import CreateCategory from "../Pages/Categories/CreateCategory";
 import EditCategory from "../Pages/Categories/EditCategory";
 import CreateProducts from "../Pages/Products/CreateProducts";
 import ResetPassword from "../Pages/Aunthentication/ResetPassword";
+import { useSelector } from "react-redux";
 
 const AppRoute = () => {
+  const {userToken} = useSelector(state=>state.auth)
 
   return (
     <>
-    {!localStorage.getItem("token")?
+    {!userToken?
     <div>
     <Routes>
       <Route path="/" element={<Login />} />

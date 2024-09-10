@@ -38,10 +38,8 @@ const ResetPassword = () => {
               token: token,
               userId: id,
             };
-            console.log(password, "password");
-            console.log(token, "token");
-            console.log(id, "id");
             dispatch(resetUserPassword(data));
+            
           }}
         >
           Reset Password

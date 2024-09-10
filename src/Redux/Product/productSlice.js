@@ -7,7 +7,7 @@ const productSlice = createSlice({
         isLoadingProduct:false,
         isSuccess:false,
         isError:false,
-        allProductsData:[],
+        productList:[],
         
     },
     reducers:{
@@ -15,18 +15,18 @@ const productSlice = createSlice({
     },
     extraReducers:(builder)=>{
         builder
-        .addCase(productsDataDisplay.pending,(state,action)=>{
+        .addCase(productsListData.pending,(state,action)=>{
             state.isLoadingProduct = true;
             state.isSuccess = false;
             state.isError = false;
         })
-        .addCase(productsDataDisplay.fulfilled,(state,action)=>{
+        .addCase(productsListData.fulfilled,(state,action)=>{
             state.isLoadingProduct = false;
             state.isSuccess = true;
             state.isError = false;
-            state.allProductsData = action.payload
+            state.productList = action.payload
         })
-        .addCase(productsDataDisplay.rejected,(state,action)=>{
+        .addCase(productsListData.rejected,(state,action)=>{
             state.isLoadingProduct = false;
             state.isSuccess = false;
             state.isError = true
@@ -34,11 +34,11 @@ const productSlice = createSlice({
     }
 })
 
-export const productsDataDisplay = createAsyncThunk(
+export const productsListData = createAsyncThunk(
     "PRODUCTS/DISPLAY",
     async()=>{
         try {
-            return await productService.productsDisplay()
+            return await productService.productsList()
         } catch (error) {
             console.log(error," - products error")
         }

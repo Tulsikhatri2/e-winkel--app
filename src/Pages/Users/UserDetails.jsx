@@ -11,8 +11,7 @@ import Loading from "../../Components/PageLoading/Loding";
 
 
 const UserDetails = () => {
-    const {singleUserData,isLoading} = useSelector(state=>state.auth)
-    console.log(singleUserData,"userData")
+    const {userDetails,isLoading} = useSelector(state=>state.auth)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -26,7 +25,7 @@ const UserDetails = () => {
               height:"90vh",
             }}
           >
-      <Box className="userData">
+      <Box className="pageData">
         <Box className="dataBox" style={{justifyContent:"center"}}>
         <Box className="detailsCard">
         <Box className="createButton" sx={{height:"20%"}}>
@@ -55,7 +54,7 @@ const UserDetails = () => {
             (
                 <Box className="userDetails">
 
-                      {singleUserData.isEmailVerified?
+                      {userDetails.isEmailVerified?
 
                       <p style={{color:"green"}}>
                         <MdVerifiedUser size={20}/><br/>
@@ -68,10 +67,10 @@ const UserDetails = () => {
                       }
 
                       <p style={{lineHeight:"1.7"}}>
-                      ID: {singleUserData.id}<br/>
-                      Name: {singleUserData.name}<br/>
-                      Email: {singleUserData.email}<br/>
-                      Created At: {singleUserData.createAt}
+                      ID: {userDetails.id}<br/>
+                      Name: {userDetails.name}<br/>
+                      Email: {userDetails.email}<br/>
+                      Created At: {userDetails.createAt}
                       </p>
                   </Box>
             )

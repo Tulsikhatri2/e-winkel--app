@@ -4,54 +4,56 @@ import categoryService from "./categoryService";
 const categorySlice = createSlice({
     name:"category",
     initialState:{
-        allCategoryData:[],
+        categoryList:[],
         isLoadingData:false,
         isSuccess:false,
         isError:false,
         errorMessage:"",
-        singleCategory:{},
-        edit:{category:{}, isEdit:false}
+        categoryDetails:{},
+        edit:{
+            category:{}, 
+            isEdit:false}
     },
     reducers:{
         editCategory:(state,action)=>{
             return{
                 ...state,
-                edit:{category:action.payload,
-                    isEdit:true
-                }
+                edit:{
+                    category:action.payload,
+                    isEdit:true}
             }
         }
     },
     extraReducers:(builder)=>{
         builder
-        .addCase(displayingCategories.pending,(state,action) => {
+        .addCase(categoryListData.pending,(state,action) => {
             state.isLoadingData = true;
             state.isSuccess = false;
             state.isError = false
         })
-        .addCase(displayingCategories.fulfilled,(state,action)=>{
+        .addCase(categoryListData.fulfilled,(state,action)=>{
             state.isLoadingData = false;
             state.isSuccess = true;
-            state.allCategoryData = action.payload;
+            state.categoryList = action.payload;
             state.isError = false
         })
-        .addCase(displayingCategories.rejected,(state,action)=>{
+        .addCase(categoryListData.rejected,(state,action)=>{
             state.isLoadingData = false;
             state.isSuccess = false;
             state.isError = true;
         })
-        .addCase(singleCategoryDetails.pending,(state,action)=>{
+        .addCase(categoryData.pending,(state,action)=>{
             state.isLoadingData = true;
             state.isError = false;
             state.isSuccess = false;
         })
-        .addCase(singleCategoryDetails.fulfilled,(state,action)=>{
+        .addCase(categoryData.fulfilled,(state,action)=>{
             state.isLoadingData = false;
             state.isSuccess = true;
             state.isError = false;
-            state.singleCategory = action.payload
+            state.categoryDetails = action.payload
         })
-        .addCase(singleCategoryDetails.rejected,(state,action)=>{
+        .addCase(categoryData.rejected,(state,action)=>{
             state.isLoadingData = false;
             state.isError = true;
             state.isSuccess = false;
@@ -71,6 +73,21 @@ const categorySlice = createSlice({
             state.isSuccess = false;
             
         })
+        .addCase(creatingCategory.pending,(state,action)=>{
+            state.isLoadingData = true;
+            state.isSuccess = false;
+            state.isError = false
+        })
+        .addCase(creatingCategory.fulfilled,(state,action)=>{
+            state.isLoadingData = false;
+            state.isSuccess = true;
+            state.isError = false
+        })
+        .addCase(creatingCategory.rejected,(state,action)=>{
+            state.isLoadingData = false;
+            state.isSuccess = false;
+            state.isError = true
+        })
     }
 })
 
@@ -85,22 +102,22 @@ export const creatingCategory = createAsyncThunk(
     }
 )
 
-export const displayingCategories = createAsyncThunk(
+export const categoryListData = createAsyncThunk(
     "DISPLAYING/CATEGORIES",
     async () =>{
         try {
-            return await categoryService.categoryDataDisplay()
+            return await categoryService.categoryListDetails()
         } catch (error) {
             console.log(error.message,"- category display error")
         }
     }
 )
 
-export const singleCategoryDetails = createAsyncThunk(
+export const categoryData = createAsyncThunk(
     "DISPLAY/SINGLE/CATEGORY",
     async (id) => {
         try {
-            return await categoryService.singleCategoryDisplay(id)
+            return await categoryService.categoryDataDetails(id)
         } catch (error) {
             
         }

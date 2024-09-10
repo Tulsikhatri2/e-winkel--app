@@ -27,7 +27,7 @@ const CreateCategory = () => {
               height:"90vh",
             }}
           >
-    <Box className="userData">
+    <Box className="pageData">
       <Box className="dataBox" sx={{justifyContent:"center"}}>
       <Box className="categoryInfo">
         <Box className="createButton">

@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const fileTypes = ["JPG", "PNG", "GIF"]
 const CreateProducts = () => {
   const dispatch = useDispatch()
-  const {allCategoryData} = useSelector(state=>state.category)
+  const {categoryList} = useSelector(state=>state.category)
   const navigate = useNavigate()
   const [file, setFile] = useState(null);
   const fileHandleChange = (file) => {
@@ -50,10 +50,11 @@ const CreateProducts = () => {
               height:"90vh",
             }}
           >
-    <Box className="userData">
+    <Box className="pageData">
       <Box className="dataBox" sx={{justifyContent:"center"}}>
       <Button variant='contained' 
-          sx={{color:"white",backgroundColor:"black",
+          sx={{color:"white",
+            backgroundColor:"black",
             "&:hover":{
               color:'black',
               backgroundColor:"grey"
@@ -125,7 +126,7 @@ const CreateProducts = () => {
             <select className='countryOptions' style={{width:"10vw", marginTop:"3vh"}}>
               <option>Select Category*</option>
               {
-                allCategoryData.map((item)=>{
+                categoryList.map((item)=>{
                   return(
                     <option>
                       {item.name}

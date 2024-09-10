@@ -5,12 +5,12 @@ export const categoryCreate = async(categoryData) => {
     console.log(response, "response from service")
 }
 
-export const categoryDataDisplay = async() => {
+export const categoryListDetails = async() => {
     const response = await axiosInstance.get("/category?pageNumber=1&pageSize=40")
     return response.data.data
 }
 
-export const singleCategoryDisplay = async(id) => {
+export const categoryDataDetails = async(id) => {
     const response = await axiosInstance.get(`/category/${id}`)
     return response.data.details
 }
@@ -21,6 +21,6 @@ export const updateCategory = async(editedData) => {
     console.log(response, "category updation response")
 }
 
-const categoryService = {categoryCreate, categoryDataDisplay, singleCategoryDisplay, updateCategory}
+const categoryService = {categoryCreate, categoryListDetails, categoryDataDetails, updateCategory}
 
 export default categoryService;

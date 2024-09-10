@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { loginUser } from "../../Redux/Authentication/authSlice";
+import { loginUser, loginWithGoogle } from "../../Redux/Authentication/authSlice";
 import ForgotPassword from "../../Components/ForgotPassword/ForgotPassword";
 import Loading from "../../Components/PageLoading/Loding";
+import { GoogleLogin } from "@react-oauth/google";
 // import "./Authentication.style.css"
 
 const validationSchema = yup.object({
@@ -43,6 +44,7 @@ const Login = () => {
 
   useEffect(()=>{
     if(userToken){
+      window.location.reload()
       navigate("/dashboard/users")
     }
     else{
@@ -58,6 +60,18 @@ const Login = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const responseMessage = (response) => {
+    console.log(response.credential);
+    const googleCredential = {
+      idToken: response.credential
+    }
+    dispatch(loginWithGoogle(googleCredential))
+
+};
+const errorMessage = (error) => {
+    console.log(error);
+};
 
   return (
     <>
@@ -161,20 +175,9 @@ const Login = () => {
           <Box className="otherOptions">-Or Sign In With-</Box>
 
           <Box className="loginOptions">
-
-            <Box className="options">
-              <FaGoogle />
-            </Box>
-
-            <Box className="options">
-              <FaFacebookF />
-            </Box>
-
-            <Box className="options">
-              <FaTwitter />
-            </Box>
-
+              <GoogleLogin onSuccess={responseMessage} onError={errorMessage} shape="circle" />
           </Box>
+
           <Box className="registerOption">
             Not a user?
             <span

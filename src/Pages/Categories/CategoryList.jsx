@@ -14,7 +14,7 @@ import {
   import { useDispatch, useSelector } from "react-redux";
   import { CgPlayListAdd } from "react-icons/cg";
   import { useNavigate } from "react-router-dom";
-  import { displayingCategories, editCategory, singleCategoryDetails } from "../../Redux/Category/categorySlice";
+  import { categoryListData, editCategory, categoryData } from "../../Redux/Category/categorySlice";
 import Header from "../../Components/Dashboard/Header";
 import SideNavbar from "../../Components/Dashboard/SideNavbar";
 import Loading from "../../Components/PageLoading/Loding";
@@ -24,10 +24,10 @@ import Loading from "../../Components/PageLoading/Loding";
     
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {allCategoryData,isLoadingData} = useSelector(state=>state.category)
+    const {categoryList,isLoadingData} = useSelector(state=>state.category)
 
     useEffect(()=>{
-      dispatch(displayingCategories());
+      dispatch(categoryListData());
     },[dispatch])
 
     return (
@@ -41,7 +41,7 @@ import Loading from "../../Components/PageLoading/Loding";
         <Box className="dashboardNav">  
 
         <Box className="categoryListBox">
-        <Box className="userData" sx={{ height: "90vh" }}>
+        <Box className="pageData" sx={{ height: "90vh" }}>
           <Box className="dataBox">
             <p className="categoryHeading">
               <span style={{ width: "70vw", textAlign: "center" }}>
@@ -92,7 +92,7 @@ import Loading from "../../Components/PageLoading/Loding";
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {allCategoryData.map((item, index) => {
+                  {categoryList.map((item, index) => {
                     return (
                       <TableRow key={index}>
                         <TableCell className="tableContentCell"
@@ -135,7 +135,7 @@ import Loading from "../../Components/PageLoading/Loding";
                             }}
                             color="info"
                             onClick={()=>{
-                              dispatch(singleCategoryDetails(item._id))
+                              dispatch(categoryData(item._id))
                               navigate("/dashboard/category/category-details")
                             }}
                           >

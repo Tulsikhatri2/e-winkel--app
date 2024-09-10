@@ -1,11 +1,10 @@
 import { Box, Button } from '@mui/material';
 import React, { useEffect } from 'react'
-import { logoutUser, userDisplay } from '../../Redux/Authentication/authSlice';
+import { logoutUser, userListData } from '../../Redux/Authentication/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { displayingCategories } from '../../Redux/Category/categorySlice';
-import { productsDataDisplay } from '../../Redux/Product/productSlice';
+import { categoryListData } from '../../Redux/Category/categorySlice';
+import { productsListData } from '../../Redux/Product/productSlice';
 import { useNavigate } from 'react-router-dom';
-// import "./SideNavbar.style.css"
 
 const SideNavbar = () => {
   const {userLoginData,userToken} = useSelector(state=>state.auth)
@@ -28,7 +27,7 @@ const SideNavbar = () => {
           <Box className="sideDrawer">
             <p
               onClick={() => {
-                dispatch(userDisplay());
+                dispatch(userListData());
                 navigate("/dashboard/users")
               }}
             >
@@ -37,7 +36,7 @@ const SideNavbar = () => {
 
             <p
               onClick={() => {
-                dispatch(displayingCategories());
+                dispatch(categoryListData());
                 navigate("/dashboard/category")
               }}
             >
@@ -46,7 +45,7 @@ const SideNavbar = () => {
 
             <p
               onClick={() => {
-                dispatch(productsDataDisplay());
+                dispatch(productsListData());
                 navigate("/dashboard/products")
               }}
             >

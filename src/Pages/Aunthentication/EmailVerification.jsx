@@ -18,28 +18,13 @@ const EmailVerification = () => {
       token: userSignupData.emailVerificationTOken
     };
     dispatch(emailVerificationProcess(verificationData));
-    dispatch(clearUserSignupData())
+     if(isVerification){
+      navigate("/")
+      dispatch(clearUserSignupData())
+    }
+   
   }
 
-  useEffect(()=>{
-    if(isVerification){
-      navigate("/")
-    }
-    else{
-      toast.error('Email not verified', {
-        position: "top-left",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Flip,
-        });
-      }
-  },[isVerification])
-  
   useEffect(()=>{
     if(!userSignupData){
       navigate('/register')

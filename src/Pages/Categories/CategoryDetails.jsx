@@ -7,7 +7,7 @@ import Loading from "../../Components/PageLoading/Loding";
 
 const CategoryDetails = () => {
   const navigate = useNavigate()
-  const { singleCategory, isLoadingData } = useSelector(
+  const { categoryDetails, isLoadingData } = useSelector(
     (state) => state.category
   );
  
@@ -21,7 +21,7 @@ const CategoryDetails = () => {
               height: "90vh",
             }}
           >
-            <Box className="userData">
+            <Box className="pageData">
               <Box className="dataBox" sx={{ justifyContent: "center" }}>
                 <Box className="detailsCard">
                   <Box className="createButton" sx={{ height: "20%" }}>
@@ -49,13 +49,13 @@ const CategoryDetails = () => {
                   ) : (
                     <Box className="categoryDetailsCard">
                       <p style={{ lineHeight: "1.7" }}>
-                        ID: {singleCategory._id}
+                        ID: {categoryDetails._id}
                         <br />
                         <br />
-                        Name: {singleCategory.name}
+                        Name: {categoryDetails.name}
                         <br />
                         <br />
-                        Created At: {singleCategory.createAt}
+                        Created At: {categoryDetails.createAt}
                       </p>
                     </Box>
                   )}
