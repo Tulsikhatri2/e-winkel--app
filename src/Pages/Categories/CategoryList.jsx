@@ -18,6 +18,7 @@ import {
 import Header from "../../Components/Dashboard/Header";
 import SideNavbar from "../../Components/Dashboard/SideNavbar";
 import Loading from "../../Components/PageLoading/Loding";
+import { buttonActiveStyle } from "../../Redux/Authentication/authSlice";
 
   
   const CategoryList = () => {
@@ -26,8 +27,20 @@ import Loading from "../../Components/PageLoading/Loding";
     const dispatch = useDispatch()
     const {categoryList,isLoadingData} = useSelector(state=>state.category)
 
+    const handleCategoryEdit = (item) => {
+      dispatch(editCategory(item))
+      navigate("/dashboard/category/edit-category")
+    }
+
+    const handleCategoryDetails = (id) => {
+      dispatch(categoryData(id))
+      navigate("/dashboard/category/category-details")
+    }
+
     useEffect(()=>{
       dispatch(categoryListData());
+      dispatch(buttonActiveStyle("Categories"))
+
     },[dispatch])
 
     return (
@@ -74,6 +87,10 @@ import Loading from "../../Components/PageLoading/Loding";
               <Table>
                 <TableHead>
                   <TableRow>
+                  <TableCell className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
+                      S.No.
+                    </TableCell>
                     <TableCell className="tableCell"
                     sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
                       ID
@@ -98,6 +115,10 @@ import Loading from "../../Components/PageLoading/Loding";
                       <TableRow key={index}>
                         <TableCell className="tableContentCell"
                         sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
+                          {index+1}
+                        </TableCell>
+                        <TableCell className="tableContentCell"
+                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
                           {item._id}
                         </TableCell>
                         <TableCell
@@ -116,10 +137,7 @@ import Loading from "../../Components/PageLoading/Loding";
                               fontSize: "2.7vh",
                             }}
                             color="warning"
-                            onClick={()=>{
-                              dispatch(editCategory(item))
-                              navigate("/dashboard/category/edit-category")
-                            }}
+                            onClick={()=>{handleCategoryEdit(item)}}
                           >
                             <CiEdit />
                           </Button>
@@ -135,10 +153,7 @@ import Loading from "../../Components/PageLoading/Loding";
                               fontSize: "1.7vh",
                             }}
                             color="info"
-                            onClick={()=>{
-                              dispatch(categoryData(item._id))
-                              navigate("/dashboard/category/category-details")
-                            }}
+                            onClick={()=>{handleCategoryDetails(item._id)}}
                           >
                             DETAILS
                           </Button>

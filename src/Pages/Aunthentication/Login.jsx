@@ -26,7 +26,7 @@ const validationSchema = yup.object({
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, userToken } = useSelector((state) => state.auth);
+  const { isLoading, userToken, userLoginData } = useSelector((state) => state.auth);
   const [open, setOpen] = useState(false)
 
   const formik = useFormik({
@@ -37,6 +37,12 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       dispatch(loginUser(values))
+      if(userLoginData){
+        navigate("/dashboard/users")
+      }
+      else{
+        navigate("/")
+      }
     },
   });
 
@@ -65,9 +71,9 @@ const Login = () => {
     dispatch(loginWithGoogle(googleCredential))
   };
   
-const errorMessage = (error) => {
+  const errorMessage = (error) => {
     console.log(error);
-};
+  };
 
   return (
     <>

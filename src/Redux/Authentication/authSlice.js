@@ -1,28 +1,30 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authServices from "./authService";
+import { toast } from "react-toastify";
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     userSignupData: null,
-    userLoginData: {},
+    userLoginData: null,
     userToken:null,
     isLoading: false,
     isError: false,
     isSuccess: false,
     errorMessage: "",
-    isVerification:false,
+    isVerification:null,
     usersList : [],
     userDetails:{},
     editUser:false,
     edit:{ 
       user:{} , 
       isEdit:false },
+    activeButton:""
   },
   reducers: {
     clearUserSignupData: (state) => {
       state.userSignupData = null;
-      
+      state.isVerification = null;
     },
     logoutUser:(state)=>{
       state.userToken = null
@@ -31,6 +33,19 @@ const authSlice = createSlice({
       return{
         ...state,
         edit:{user: action.payload, isEdit:true}
+      }
+    },
+    buttonActiveStyle:(state,action)=>{
+      return{
+        ...state,
+        activeButton:action.payload
+      }
+    },
+    deleteUserData:(state,action)=>{
+      const users = state.usersList.filter(item=> item.id != action.payload)
+      return{
+        ...state,
+        usersList: users
       }
     }
   },
@@ -79,8 +94,7 @@ const authSlice = createSlice({
     .addCase(emailVerificationProcess.fulfilled,(state,action)=>{
       state.isLoading = false;
       state.isError = false;
-      state.isVerification = true;
-      state.emailVerificationMessage = action.payload;
+      state.isVerification = action.payload;
     })
     .addCase(emailVerificationProcess.rejected,(state,action)=>{
       state.isLoading = false;
@@ -97,7 +111,7 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = true;
       state.isError = false;
-      state.usersList = action.payload
+      state.usersList = action.payload.data
     })
     .addCase(userListData.rejected,(state,action)=>{
       state.isLoading = false;
@@ -158,7 +172,7 @@ const authSlice = createSlice({
     .addCase(loginWithGoogle.fulfilled,(state,action)=>{
       state.isLoading = false;
       state.isSuccess = true;
-      state.userToken = action.payload.token;
+      state.userToken = action.payload?.token;
       state.userLoginData = action.payload;
       localStorage.setItem("token",action.payload?.token)
       state.isError = false
@@ -183,6 +197,21 @@ const authSlice = createSlice({
       state.isError = true;
       state.isSuccess = false;
     })
+    .addCase(updateUser.pending,(state,action)=>{
+      state.isLoading = true;
+      state.isError = false;
+      state.isSuccess = false;
+    })
+    .addCase(updateUser.fulfilled,(state,action)=>{
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.isError = false;
+    })
+    .addCase(updateUser.rejected,(state,action)=>{
+      state.isError = true;
+      state.isSuccess = false;
+      state.isLoading = false;
+    })
   }
 });
 
@@ -190,9 +219,11 @@ export const loginUser = createAsyncThunk(
   "USER/LOGIN",
   async (user)=>{
     try {
-      return await authServices.userLogin(user)
+      const response =  await authServices.userLogin(user)
+      toast.success("Logged in succesfully");
+      return response
     } catch (error) {
-      console.log(error.message,"- user Error")
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 )
@@ -201,9 +232,11 @@ export const signupUser = createAsyncThunk(
   "USER/SIGNUP",
   async (signupData) => {
     try {
-      return await authServices.userSignup(signupData)
+      const response = await authServices.userSignup(signupData)
+      toast.success("Registered succesfully");
+      return response
     } catch (error) {
-      console.log(error.message,"- singup error")
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 )
@@ -212,9 +245,11 @@ export const passwordForgot = createAsyncThunk(
   "FORGOT/PASSWORD",
   async (userEmail) => {
     try {
-      return await authServices.forgotPassword(userEmail)
+      const response = await authServices.forgotPassword(userEmail)
+      toast.success("Reset password link sent on your entered email");
+      return response
     } catch (error) {
-      console.log(error.message,"forgot password error")
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 )
@@ -223,20 +258,22 @@ export const emailVerificationProcess = createAsyncThunk(
   "USER/EMAIL/VERIFICATION",
   async (verificationData) => {
     try {
-      return await authServices.emailVerification(verificationData)
+      const response = await authServices.emailVerification(verificationData)
+      toast.success("Email Verified Successfully");
+      return response
     } catch (error) {
-      console.log(error.message,"- verification error")
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 )
 
 export const userListData = createAsyncThunk(
   "USER/DISPLAY",
-  async () => {
+  async (userListPagination) => {
     try {
-      return await authServices.userList()
+      return await authServices.userList(userListPagination)
     } catch (error) {
-      console.log(error.message,"- user data error")
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 )
@@ -245,9 +282,11 @@ export const deletingUser = createAsyncThunk(
   "USER/DELETE",
   async(id) => {
     try {
-      return await authServices.deleteUser(id)
+      const response = await authServices.deleteUser(id)
+      toast.success("User Deleted Successfully");
+      return response
     } catch (error) {
-      console.log(error.message,"- user deleting error")
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 )
@@ -258,7 +297,7 @@ export const userData = createAsyncThunk(
     try {
       return await authServices.userInformation(id)
     } catch (error) {
-    
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 )
@@ -267,9 +306,11 @@ export const resetUserPassword = createAsyncThunk(
   "RESET/USER/PASSWORD",
   async(resetData)=>{
     try {
-      return await authServices.resetPassword(resetData)
+      const response = await authServices.resetPassword(resetData)
+      toast.success("Successfully Updated Password");
+      return response
     } catch (error) {
-      
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 )
@@ -278,13 +319,28 @@ export const loginWithGoogle = createAsyncThunk(
   "GOOGLE/LOGIN",
   async(credential)=>{
     try {
-      return await authServices.googleLogin(credential)
+      const response = await authServices.googleLogin(credential)
+      toast.success("Logged in succesfully");
+      return response
     } catch (error) {
-      
+      toast.error(error.response?.data?.message || error.message)
     }
   }
 )
 
-export const { clearUserSignupData, logoutUser, editUserData} = authSlice.actions;
+export const updateUser = createAsyncThunk(
+  "UPDATE/USER",
+  async(updatedData) => {
+    try {
+      const response = await authServices.editUser(updatedData)
+      toast.success("User updated succesfully");
+      return response
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message)
+    }
+  }
+) 
+
+export const { clearUserSignupData, logoutUser, editUserData, buttonActiveStyle, deleteUserData} = authSlice.actions;
 
 export default authSlice.reducer;

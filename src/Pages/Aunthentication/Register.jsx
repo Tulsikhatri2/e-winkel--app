@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import { signupUser } from "../../Redux/Authentication/authSlice";
 import Loading from "../../Components/PageLoading/Loding";
 import "./Authentication.style.css"
+import { IoMdArrowBack } from "react-icons/io";
 
 const validationSchema = yup.object({
   email: yup
@@ -69,8 +70,30 @@ useEffect(()=>{
 
   return (
     <>
-      <Box className="background">
-        <Box className="singupDetails">
+      <Box className="background" sx={{flexDirection:"column"}}>
+
+        <Box sx={{
+          marginLeft:"-35vw"
+        }}>
+          <Button
+                      variant="contained"
+                      sx={{
+                        color: "#0a3149",
+                        backgroundColor: "white",
+                        "&:hover": {
+                          color: "white",
+                          backgroundColor: "#55a3d4",
+                        },
+                      }}
+                      onClick={() => {
+                        navigate("/")
+                      }}
+                    >
+                      <IoMdArrowBack size={20} />
+                    </Button>
+        </Box>
+
+        <Box className="singupDetails" sx={{marginTop:"2vh"}}>
         <form onSubmit={formik.handleSubmit}
         style={{
           display: "flex",

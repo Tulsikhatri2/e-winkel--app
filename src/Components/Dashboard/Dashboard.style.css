@@ -8,20 +8,31 @@
     margin-left: 1vh;
   }
 
-  .sideDrawer p{
+  .sideDrawerButton{
     margin-top: 3vh;
     height:7vh;
+    width:100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: white;
+    border:0px;
+    font-family: "Laila", serif;
+    font-size: 2.5vh;
+    font-weight: 600;
   }
 
-  .sideDrawer p:hover{
+  .active{
+    background-color: rgb(224, 224, 224);
+  }
+
+  .sideDrawerButton:hover{
     cursor: pointer;
-    background-color: rgb(210, 241, 231);
+    background-color: rgb(224, 224, 224);
   }
 
   .userDetails{
     font-size: 2vh;
-    color: rgb(78, 77, 77)
+    color: rgb(78, 77, 77);
+    font-weight: 700;
   }

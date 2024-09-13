@@ -1,7 +1,9 @@
 import {
     Box,
     Button,
+    Pagination,
     Paper,
+    Stack,
     Table,
     TableBody,
     TableCell,
@@ -9,23 +11,48 @@ import {
     TableHead,
     TableRow,
   } from "@mui/material";
-  import React, { useEffect } from "react";
+  import React, { useEffect, useState } from "react";
   import { useDispatch, useSelector } from "react-redux";
   import { CiEdit } from "react-icons/ci";
   import { RiDeleteBin2Line } from "react-icons/ri";
   import { useNavigate } from "react-router-dom";
-  import { deletingUser, editUserData, userData, userListData } from "../../Redux/Authentication/authSlice";
-import Loading from "../../Components/PageLoading/Loding";
+  import { buttonActiveStyle, deleteUserData, deletingUser, editUserData, userData, userListData } from "../../Redux/Authentication/authSlice";
+  import Loading from "../../Components/PageLoading/Loding";
 
   
   const UsersList = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const {usersList, isLoading} = useSelector(state=>state.auth)
+    const [pageNumber,setPageNumber] = useState(1)
+    const [rows, setRows] = useState("10")
 
+    const userListPagination = {
+      pageNumber: pageNumber,
+      rows:rows 
+    }
     useEffect(()=>{
-      dispatch(userListData());
+      dispatch(userListData(userListPagination));
+      dispatch(buttonActiveStyle("Users"))
     },[dispatch])
+
+    const handleUserEdit = (item) => {
+      navigate("/dashboard/users/edit-user")
+      dispatch(editUserData(item))
+    }
+
+    const handleUserDelete = (id) => {
+      dispatch(deletingUser(id));
+      dispatch(deleteUserData(id));
+    }
+
+    const handleUserDetails = (id) => {
+      dispatch(userData(id))
+      navigate("/dashboard/users/user-details")
+    }
+
+    console.log(userListPagination,"pagination")
+    console.log(pageNumber,"pageNumber")
 
     return (
       <>
@@ -44,11 +71,22 @@ import Loading from "../../Components/PageLoading/Loding";
             
       <Box className="pageData">
         <Box className="dataBox">
-          <p style={{textAlign:"center", textDecoration:"underline", fontWeight:"bold"}}>ALL USERS</p>
+          <p 
+          style={{textAlign:"center",
+           textDecoration:"underline",
+           fontWeight:"bold"}}>
+            ALL USERS
+            </p>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
                 <TableRow>
+                <TableCell
+                    className="tableCell"
+                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}
+                  >
+                    S.No.
+                  </TableCell>
                   <TableCell
                     className="tableCell"
                     sx={{fontFamily: "Laila, serif", fontWeight:"700"}}
@@ -95,6 +133,12 @@ import Loading from "../../Components/PageLoading/Loding";
                         className="tableContentCell"
                         sx={{fontFamily: "Laila, serif", fontWeight:"600"}}
                       >
+                        {index+1}
+                      </TableCell>
+                      <TableCell
+                        className="tableContentCell"
+                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}
+                      >
                         {item.id}
                       </TableCell>
                       <TableCell
@@ -122,10 +166,7 @@ import Loading from "../../Components/PageLoading/Loding";
                             fontSize: "2.7vh",
                           }}
                           color="warning"
-                          onClick={()=>{
-                            navigate("/dashboard/users/edit-user")
-                            dispatch(editUserData(item))
-                          }}
+                          onClick={()=>{handleUserEdit(item)}}
                         >
                           <CiEdit />
                         </Button>
@@ -144,9 +185,7 @@ import Loading from "../../Components/PageLoading/Loding";
                             fontSize: "2.7vh",
                           }}
                           color="error"
-                          onClick={() => {
-                              dispatch(deletingUser(item.id));
-                            }}
+                          onClick={() => {handleUserDelete(item.id)}}
                         >
                           <RiDeleteBin2Line />
                         </Button>
@@ -164,10 +203,7 @@ import Loading from "../../Components/PageLoading/Loding";
                               fontSize: "1.7vh",
                             }}
                             color="info"
-                            onClick={()=>{
-                              dispatch(userData(item.id))
-                              navigate("/dashboard/users/user-details")
-                            }}
+                            onClick={()=>{handleUserDetails(item.id)}}
                           >
                             Details
                           </Button>
@@ -178,7 +214,41 @@ import Loading from "../../Components/PageLoading/Loding";
               </TableBody>
             </Table>
           </TableContainer>
+          <Box>
+            <p style={{
+              width:"35vw",
+              display:"flex",
+              alignItems:"center",
+              justifyContent:"space-between"
+            }}>
+            <span style={{width:"70%"}}>
+            <Stack spacing={2}
+            sx={{
+              marginTop:"2vh",
+            }}>
+              <Pagination count={5} variant="outlined" 
+              color="primary"
+              onChange={(e,value) => {setPageNumber(value)
+                // dispatch(userListData(userListPagination));
+              }} 
+              />
+              
+            </Stack>
+            </span>
+            <span style={{width:"30%",textAlign:"right", fontSize:"2vh"}}>
+              Rows Per Page:-
+            <select name="rows" onChange={(e)=>setRows(e.target.value)} className="countryOptions" style={{width:"3vw"}}>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+              </select>
+            </span>
+            </p>
           </Box>
+          </Box>
+          
         </Box>
       </Box>
       </Box>

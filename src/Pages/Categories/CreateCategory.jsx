@@ -7,14 +7,18 @@ import { creatingCategory } from '../../Redux/Category/categorySlice';
 
 
 const CreateCategory = () => {
-    const [name,setName] = useState()
-    const [categoryStatus, setCategoryStatus] = useState(false)
+    const [name,setName] = useState("")
+    const [categoryStatus, setCategoryStatus] = useState("")
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const categoryData = {
+    const handleCreateCategory = () => {
+      const categoryData = {
         name: name,
         status: categoryStatus,
+    }
+    dispatch(creatingCategory(categoryData))
+    navigate("/dashboard/category")
     }
 
   return (
@@ -31,7 +35,7 @@ const CreateCategory = () => {
       <Box className="dataBox">
 
         <p style={{marginTop:"10vh",color:"maroon", textDecoration:"underline", fontSize:"3vh"}}>Add Category</p>
-      <Box className="categoryInfo" sx={{marginTop:"10vh"}}>
+      <Box className="categoryInfo" sx={{marginTop:"7vh"}}>
         <Box className="createButton">
           <Button variant='contained' 
           sx={{color:"white",
@@ -60,22 +64,29 @@ const CreateCategory = () => {
               value={name}
               onChange={(e)=>setName(e.target.value)}
               sx={{marginTop:"2vh"}}>
-
               </TextField>
+
+              <select className="countryOptions" 
+              style={{
+                width:"60%"
+              }}
+              name="categoryStatus"
+              onChange={(e)=>setCategoryStatus(e.target.value)}>
+                <option>Select Category Status</option>
+                <option value={true}>Active</option>
+                <option value={false}>Inactive</option>
+              </select>
               <Button variant='contained'
               sx={{color:"white",
                 backgroundColor:"black",
                 fontFamily: "Laila, serif",
-                marginTop:"2vh",
+                marginTop:"4vh",
                 "&:hover":{
                   color:'black',
                   backgroundColor:"grey",
                 }
               }}
-              onClick={()=>{
-                dispatch(creatingCategory(categoryData))
-                
-              }}
+              onClick={()=>{handleCreateCategory()}}
               >Create</Button>
         </Box>
         </Box>

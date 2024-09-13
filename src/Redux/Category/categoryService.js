@@ -19,6 +19,7 @@ export const updateCategory = async(editedData) => {
     const {id,name,status} = editedData
     const response = await axiosInstance.put(`/category/${id}`,{name:name,status:status})
     console.log(response, "category updation response")
+    return response
 }
 
 const categoryService = {categoryCreate, categoryListDetails, categoryDataDetails, updateCategory}

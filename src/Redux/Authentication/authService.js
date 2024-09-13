@@ -24,9 +24,10 @@ const forgotPassword = async (userEmail) => {
     return response.data.message
 } 
 
- const userList = async () =>{
-    const response = await axiosInstance.get("/user?pageNumber=1&pageSize=100")
-    return response.data.data
+ const userList = async (userListPagination) =>{
+    const {pageNumber,rows} = userListPagination
+    const response = await axiosInstance.get(`/user?pageNumber=${pageNumber}&pageSize=${rows}`)
+    return response.data
 }
 
  const deleteUser = async (id) => {
@@ -50,9 +51,19 @@ const googleLogin = async(credential) => {
     return response.data.data
 }
 
+const editUser = async(updatedData) => {
+    const {id,name,email,password} = updatedData
+    const response = await axiosInstance.put(`/user/${id}`,{
+        name:name,
+        email:email,
+        password:password
+    })
+    console.log(response.data.message,"user edit response")
+}
+
 
 const authServices = {
-    userLogin, userSignup, emailVerification, userList, userInformation,deleteUser, forgotPassword, resetPassword, googleLogin
+    userLogin, userSignup, emailVerification, userList, userInformation,deleteUser, forgotPassword, resetPassword, googleLogin, editUser
 }
 
 export default authServices

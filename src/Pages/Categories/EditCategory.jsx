@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 const EditCategory = () => {
     const [editedName, setEditedName] = useState("")
+    const [status, setStatus] = useState("")
     const {edit} = useSelector(state=>state.category)
     
     const navigate = useNavigate()
@@ -15,6 +16,17 @@ const EditCategory = () => {
     useEffect(()=>{
         setEditedName(edit.category.name)
     },[edit])
+
+    const handleCtageoryEdit = () => {
+      const editedData = {
+        id: edit.category._id,
+        name: editedName,
+        status:status
+    }
+    dispatch(categoryDataUpdate(editedData))
+    navigate("/dashboard/category")
+    }
+    console.log({editedName, status})
 
   return (
     <div>
@@ -46,10 +58,21 @@ const EditCategory = () => {
                     fontSize:"2vh"
                   }
                 }}
-                sx={{marginTop:"5vh"}}
+                sx={{marginTop:"2vh"}}
                 value={editedName}
                 onChange={(e)=> setEditedName(e.target.value)}>
               </TextField>
+
+              <select className="countryOptions" 
+              style={{
+                width:"60%"
+              }}
+              name="status"
+              onChange={(e)=>setStatus(e.target.value)}>
+                <option>Select Category Status</option>
+                <option value={true}>Active</option>
+                <option value={false}>Inactive</option>
+              </select>
 
               <Button variant='contained'
               color="warning"
@@ -58,17 +81,9 @@ const EditCategory = () => {
                 width: "3vw",
                 height: "6vh",
                 fontSize: "1.8vh",
-                marginTop: "2vh",
+                marginTop: "4vh",
               }}
-              onClick={()=>{
-                const editedData = {
-                    id: edit.category._id,
-                    name: editedName,
-                    status:true
-                }
-                dispatch(categoryDataUpdate(editedData))
-                navigate("/dashboard/category")
-              }}
+              onClick={()=>{handleCtageoryEdit()}}
               >UPDATE
               </Button>
               </Box>

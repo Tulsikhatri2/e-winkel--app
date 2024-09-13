@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import categoryService from "./categoryService";
+import { toast } from "react-toastify";
 
 const categorySlice = createSlice({
     name:"category",
@@ -95,9 +96,10 @@ export const creatingCategory = createAsyncThunk(
     "CREATE/CATEGORY",
     async (data)=>{
         try {
+            toast.success("Category Created Successfully");
             return await categoryService.categoryCreate(data)
         } catch (error) {
-            console.log(error.message,"error from create category")
+            toast.error(error.response?.data?.message || error.message)
         }
     }
 )
@@ -108,7 +110,7 @@ export const categoryListData = createAsyncThunk(
         try {
             return await categoryService.categoryListDetails()
         } catch (error) {
-            console.log(error.message,"- category display error")
+            toast.error(error.response?.data?.message || error.message)
         }
     }
 )
@@ -119,7 +121,7 @@ export const categoryData = createAsyncThunk(
         try {
             return await categoryService.categoryDataDetails(id)
         } catch (error) {
-            
+            toast.error(error.response?.data?.message || error.message)
         }
     }
 )
@@ -128,9 +130,11 @@ export const categoryDataUpdate = createAsyncThunk(
     "UPDATE/CATEGORY/DATA",
     async (editedData) => {
         try {
-            return await categoryService.updateCategory(editedData)
+            const response = await categoryService.updateCategory(editedData)
+            toast.success("Updated Category Successfully");
+            return response
         } catch (error) {
-            
+            toast.error(error.response?.data?.message || error.message)
         }
     }
 )

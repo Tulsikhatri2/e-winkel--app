@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { cities, countries, states } from "./countryService";
+import { toast } from "react-toastify";
 
 
 const countrySlice = createSlice({
@@ -73,7 +74,7 @@ export const countryList = createAsyncThunk("COUNTRY/DISPLAY", async () => {
   try {
     return await countries();
   } catch (error) {
-    console.log(error.message, "error");
+    toast.error(error.response?.data?.message || error.message)
   }
 });
 
@@ -81,15 +82,15 @@ export const statesList = createAsyncThunk("STATES/DISPLAY", async () => {
   try {
     return await states()
   } catch (error) {
-    console.log(error.message,"error")
-  }
-})
+    toast.error(error.response?.data?.message || error.message)
+}
+});
 
 export const citiesList = createAsyncThunk("CITIES/DISPLAY", async () => {
   try {
     return await cities()
   } catch (error) {
-    console.log(error.message,"error")
+    toast.error(error.response?.data?.message || error.message)
   }
 })
 

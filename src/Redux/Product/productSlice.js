@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productService from "./productService";
+import { toast } from "react-toastify";
 
 const productSlice = createSlice({
     name:"product",
@@ -40,7 +41,7 @@ export const productsListData = createAsyncThunk(
         try {
             return await productService.productsList()
         } catch (error) {
-            console.log(error," - products error")
+            toast.error(error.response?.data?.message || error.message)
         }
     }
 )

@@ -21,22 +21,12 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        // toast.success(response.data.message)
+        console.log(response.data.message,"from interceptors")
+        return response},
     (error) => {
-        if(error){
-            toast.error(error.message, {
-                position: "top-left",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Flip,
-                });
-            
-        }
+        // toast.error(error.message);  
         return Promise.reject(error)
     }
 )
