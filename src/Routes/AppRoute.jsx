@@ -4,8 +4,8 @@ import Login from "../Pages/Aunthentication/Login";
 import Register from "../Pages/Aunthentication/Register";
 import EmailVerification from "../Pages/Aunthentication/EmailVerification";
 import PrivateRoutes from "./PrivateRoutes";
-import Header from "../Components/Dashboard/Header";
-import SideNavbar from "../Components/Dashboard/SideNavbar";
+import Header from "../Components/Layout/Header";
+import SideNavbar from "../Components/Layout/Sidebar";
 import UsersList from "../Pages/Users/UsersList";
 import CategoryList from "../Pages/Categories/CategoryList";
 import ProductList from "../Pages/Products/ProductList";
@@ -17,9 +17,17 @@ import CreateProducts from "../Pages/Products/CreateProducts";
 import ResetPassword from "../Pages/Aunthentication/ResetPassword";
 import { useSelector } from "react-redux";
 import EditUser from "../Pages/Users/EditUser";
+import Index from "../Components/Layout/Index";
 
 const AppRoute = () => {
   const {userToken} = useSelector(state=>state.auth)
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!userToken){
+      navigate("/")
+    }
+  },[userToken])
 
   return (
     <>
@@ -30,6 +38,7 @@ const AppRoute = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/register/emailVerification" element={<EmailVerification />}/>
       <Route path="/auth/reset-password/:id/:token" element={<ResetPassword/>}/>
+      <Route path="/load" element={<Index/>}/>
     </Routes>
   </div>
    : 

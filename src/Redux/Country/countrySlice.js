@@ -78,17 +78,17 @@ export const countryList = createAsyncThunk("COUNTRY/DISPLAY", async () => {
   }
 });
 
-export const statesList = createAsyncThunk("STATES/DISPLAY", async () => {
+export const statesList = createAsyncThunk("STATES/DISPLAY", async (coutryCode) => {
   try {
-    return await states()
+    return await states(coutryCode)
   } catch (error) {
     toast.error(error.response?.data?.message || error.message)
 }
 });
 
-export const citiesList = createAsyncThunk("CITIES/DISPLAY", async () => {
+export const citiesList = createAsyncThunk("CITIES/DISPLAY", async (stateCode) => {
   try {
-    return await cities()
+    return await cities(stateCode)
   } catch (error) {
     toast.error(error.response?.data?.message || error.message)
   }

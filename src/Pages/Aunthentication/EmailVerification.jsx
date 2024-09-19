@@ -18,10 +18,8 @@ const EmailVerification = () => {
       token: userSignupData.emailVerificationTOken
     };
     dispatch(emailVerificationProcess(verificationData));
-     if(isVerification){
-      navigate("/")
-      dispatch(clearUserSignupData())
-    }
+    navigate("/")
+    dispatch(clearUserSignupData())
    
   }
 

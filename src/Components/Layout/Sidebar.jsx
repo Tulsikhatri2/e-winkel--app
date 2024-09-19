@@ -6,7 +6,7 @@ import { categoryListData } from '../../Redux/Category/categorySlice';
 import { productsListData } from '../../Redux/Product/productSlice';
 import { useNavigate } from 'react-router-dom';
 
-const SideNavbar = () => {
+const Sidebar = () => {
   const {userLoginData,userToken, activeButton} = useSelector(state=>state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -91,4 +91,4 @@ const SideNavbar = () => {
   )
 }
 
-export default SideNavbar
+export default Sidebar

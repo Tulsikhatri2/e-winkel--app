@@ -5,12 +5,12 @@ export const countries = async () => {
     return response.data.data
 }
 
-export const states = async () => {
-    const response = await axios.get("https://node-js-wse4.onrender.com/common/states/101");
+export const states = async (coutryCode) => {
+    const response = await axios.get(`https://node-js-wse4.onrender.com/common/states/${coutryCode}`);
     return response.data.data
 }
 
-export const cities = async () => {
-    const response = await axios.get("https://node-js-wse4.onrender.com/common/cities/4039")
+export const cities = async (stateCode) => {
+    const response = await axios.get(`https://node-js-wse4.onrender.com/common/cities/${stateCode}`)
     return response.data.data
 }

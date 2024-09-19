@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, {  useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom'
 
@@ -7,10 +7,11 @@ const PrivateRoutes = ({Component}) => {
     const navigate = useNavigate()
 
     useEffect(()=>{
-      if(!userToken){
+      if(userToken === null){
         navigate("/")
       }
-    })
+    },[userToken])
+
   return (
     <div>
         {

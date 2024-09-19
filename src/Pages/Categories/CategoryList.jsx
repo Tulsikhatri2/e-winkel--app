@@ -15,8 +15,6 @@ import {
   import { CgPlayListAdd } from "react-icons/cg";
   import { useNavigate } from "react-router-dom";
   import { categoryListData, editCategory, categoryData } from "../../Redux/Category/categorySlice";
-import Header from "../../Components/Dashboard/Header";
-import SideNavbar from "../../Components/Dashboard/SideNavbar";
 import Loading from "../../Components/PageLoading/Loding";
 import { buttonActiveStyle } from "../../Redux/Authentication/authSlice";
 

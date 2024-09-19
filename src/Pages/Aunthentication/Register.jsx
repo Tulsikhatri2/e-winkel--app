@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   citiesList,
@@ -37,15 +37,18 @@ const Register = () => {
 
   const { countries, states, cities } = useSelector((state) => state.country);
   const { isLoading, userSignupData } = useSelector((state) => state.auth);
+  const [countryCode, setCountryCode] = useState("101")
+  const [stateCode, setStateCode] = useState("4039")
+  const [cityCode, setCityCode] = useState("")
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(citiesList());
+    dispatch(citiesList(stateCode));
     dispatch(countryList());
-    dispatch(statesList());
-  }, []);
+    dispatch(statesList(countryCode));
+  }, [countryCode,stateCode]);
 
   const formik = useFormik({
     initialValues: {
@@ -61,6 +64,8 @@ const Register = () => {
     },
   });
 
+  console.log(countryCode, stateCode, cityCode, "country, state, city")
+
 
 useEffect(()=>{
   if(userSignupData){
@@ -71,27 +76,6 @@ useEffect(()=>{
   return (
     <>
       <Box className="background" sx={{flexDirection:"column"}}>
-
-        <Box sx={{
-          marginLeft:"-35vw"
-        }}>
-          <Button
-                      variant="contained"
-                      sx={{
-                        color: "#0a3149",
-                        backgroundColor: "white",
-                        "&:hover": {
-                          color: "white",
-                          backgroundColor: "#55a3d4",
-                        },
-                      }}
-                      onClick={() => {
-                        navigate("/")
-                      }}
-                    >
-                      <IoMdArrowBack size={20} />
-                    </Button>
-        </Box>
 
         <Box className="singupDetails" sx={{marginTop:"2vh"}}>
         <form onSubmit={formik.handleSubmit}
@@ -162,6 +146,7 @@ useEffect(()=>{
             <TextField
               variant="standard"
               label="Confirm Password*"
+              type="password"
               InputLabelProps={{
                 style: {
                   fontFamily: "Laila, serif",
@@ -177,31 +162,34 @@ useEffect(()=>{
                 helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
             ></TextField>
             <Box className="selectOptions">
-              <select className="countryOptions">
+              <select className="countryOptions" name="countryCode"
+              onChange={(e)=>{setCountryCode(e.target.value)}}>
                 <option>Select Country</option>
                 {countries.map((item) => {
                   return (
-                    <option value={item.name} key={item.id}>
+                    <option value={item.id} key={item.id}>
                       {item.name}
                     </option>
                   );
                 })}
               </select>
-              <select className="countryOptions">
+              <select className="countryOptions" name="stateCode"
+              onChange={(e)=>{setStateCode(e.target.value)}}>
                 <option>Select State</option>
                 {states.map((item) => {
                   return (
-                    <option value={item.name} key={item.id}>
+                    <option value={item.id} key={item.id}>
                       {item.name}
                     </option>
                   );
                 })}
               </select>
-              <select className="countryOptions">
+              <select className="countryOptions" name="cityCode"
+              onChange={(e)=>{setCityCode(e.target.value)}}>
                 <option>Select City</option>
                 {cities.map((item) => {
                   return (
-                    <option value={item.name} key={item.id}>
+                    <option value={item.id} key={item.id}>
                       {item.name}
                     </option>
                   );
@@ -238,6 +226,17 @@ useEffect(()=>{
             
           </Box>
          </form>
+
+         <p style={{fontSize:"2vh"}}>Already a user?
+         <span
+              className="registration"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Login
+            </span>
+         </p>
         </Box>
       </Box>
     </>

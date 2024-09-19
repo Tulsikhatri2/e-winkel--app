@@ -26,7 +26,7 @@ const validationSchema = yup.object({
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, userToken, userLoginData } = useSelector((state) => state.auth);
+  const { isLoading, userLoginData } = useSelector((state) => state.auth);
   const [open, setOpen] = useState(false)
 
   const formik = useFormik({
@@ -46,15 +46,14 @@ const Login = () => {
     },
   });
 
-  useEffect(()=>{
-    if(userToken){
-      window.location.reload()
-      navigate("/dashboard/users")
-    }
-    else{
-    navigate("/")
-    }
-  },[userToken])
+  // useEffect(()=>{
+  //   if(userToken){
+  //     navigate("/dashboard/users")
+  //   }
+  //   else{
+  //   navigate("/")
+  //   }
+  // },[userToken])
   
   const handleClickOpen = () => {
     setOpen(true);

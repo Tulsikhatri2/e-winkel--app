@@ -24,9 +24,8 @@ const forgotPassword = async (userEmail) => {
     return response.data.message
 } 
 
- const userList = async (userListPagination) =>{
-    const {pageNumber,rows} = userListPagination
-    const response = await axiosInstance.get(`/user?pageNumber=${pageNumber}&pageSize=${rows}`)
+ const userList = async () =>{
+    const response = await axiosInstance.get(`/user?pageNumber=1&pageSize=100`)
     return response.data
 }
 

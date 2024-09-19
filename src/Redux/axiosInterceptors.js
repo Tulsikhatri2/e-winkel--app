@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Flip, toast } from "react-toastify";
 
 const axiosInstance = axios.create({
     baseURL:"https://node-js-wse4.onrender.com",
@@ -21,12 +20,8 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-    (response) => {
-        // toast.success(response.data.message)
-        console.log(response.data.message,"from interceptors")
-        return response},
+    (response) => {return response},
     (error) => {
-        // toast.error(error.message);  
         return Promise.reject(error)
     }
 )

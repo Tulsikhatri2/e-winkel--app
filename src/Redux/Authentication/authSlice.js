@@ -220,10 +220,14 @@ export const loginUser = createAsyncThunk(
   async (user)=>{
     try {
       const response =  await authServices.userLogin(user)
-      toast.success("Logged in succesfully");
+      toast.success("Logged in succesfully",{
+        autoClose: 2000,
+      });
       return response
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 )
@@ -233,10 +237,14 @@ export const signupUser = createAsyncThunk(
   async (signupData) => {
     try {
       const response = await authServices.userSignup(signupData)
-      toast.success("Registered succesfully");
+      toast.success("Registered succesfully",{
+        autoClose: 2000,
+      });
       return response
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 )
@@ -246,10 +254,14 @@ export const passwordForgot = createAsyncThunk(
   async (userEmail) => {
     try {
       const response = await authServices.forgotPassword(userEmail)
-      toast.success("Reset password link sent on your entered email");
+      toast.success("Reset password link sent on your entered email",{
+        autoClose: 2000,
+      });
       return response
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 )
@@ -259,21 +271,27 @@ export const emailVerificationProcess = createAsyncThunk(
   async (verificationData) => {
     try {
       const response = await authServices.emailVerification(verificationData)
-      toast.success("Email Verified Successfully");
+      toast.success("Email Verified Successfully",{
+        autoClose: 2000,
+      });
       return response
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 )
 
 export const userListData = createAsyncThunk(
   "USER/DISPLAY",
-  async (userListPagination) => {
+  async () => {
     try {
-      return await authServices.userList(userListPagination)
+      return await authServices.userList()
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 )
@@ -283,10 +301,14 @@ export const deletingUser = createAsyncThunk(
   async(id) => {
     try {
       const response = await authServices.deleteUser(id)
-      toast.success("User Deleted Successfully");
+      toast.success("User Deleted Successfully",{
+        autoClose: 2000,
+      });
       return response
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 )
@@ -297,7 +319,9 @@ export const userData = createAsyncThunk(
     try {
       return await authServices.userInformation(id)
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 )
@@ -307,10 +331,14 @@ export const resetUserPassword = createAsyncThunk(
   async(resetData)=>{
     try {
       const response = await authServices.resetPassword(resetData)
-      toast.success("Successfully Updated Password");
+      toast.success("Successfully Updated Password",{
+        autoClose: 2000,
+      });
       return response
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 )
@@ -320,10 +348,14 @@ export const loginWithGoogle = createAsyncThunk(
   async(credential)=>{
     try {
       const response = await authServices.googleLogin(credential)
-      toast.success("Logged in succesfully");
+      toast.success("Logged in succesfully",{
+        autoClose: 2000,
+      });
       return response
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 )
@@ -333,10 +365,14 @@ export const updateUser = createAsyncThunk(
   async(updatedData) => {
     try {
       const response = await authServices.editUser(updatedData)
-      toast.success("User updated succesfully");
+      toast.success("User updated succesfully",{
+        autoClose: 2000,
+      });
       return response
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message)
+      toast.error(error.response?.data?.message || error.message,{
+        autoClose: 2000,
+      })
     }
   }
 ) 

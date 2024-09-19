@@ -88,6 +88,7 @@ const EditUser = () => {
               <TextField
                 variant="standard"
                 label="Password*"
+                type="password"
                  InputLabelProps={{
                   style:{
                     fontFamily: "Laila, serif",
