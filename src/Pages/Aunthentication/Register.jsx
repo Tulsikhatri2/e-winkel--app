@@ -96,7 +96,7 @@ useEffect(()=>{
               label="Name*"
               InputLabelProps={{
                 style: {
-                  fontFamily: "Laila, serif",
+                  fontFamily: "Roboto Mono, monospace",
                   fontWeight: "bold",
                   fontSize: "2vh",
                 },
@@ -113,7 +113,7 @@ useEffect(()=>{
               label="Email*"
               InputLabelProps={{
                 style: {
-                  fontFamily: "Laila, serif",
+                  fontFamily: "Roboto Mono, monospace",
                   fontWeight: "bold",
                   fontSize: "2vh",
                 },
@@ -131,7 +131,7 @@ useEffect(()=>{
               type="password"
               InputLabelProps={{
                 style: {
-                  fontFamily: "Laila, serif",
+                  fontFamily: "Roboto Mono, monospace",
                   fontWeight: "bold",
                   fontSize: "2vh",
                 },
@@ -149,7 +149,7 @@ useEffect(()=>{
               type="password"
               InputLabelProps={{
                 style: {
-                  fontFamily: "Laila, serif",
+                  fontFamily: "Roboto Mono, monospace",
                   fontWeight: "bold",
                   fontSize: "2vh",
                 },
@@ -202,7 +202,7 @@ useEffect(()=>{
             <Button
               variant="contained"
               sx={{
-                fontFamily: "Laila, serif",
+                fontFamily: "Roboto Mono, monospace",
                 marginTop: "4vh",
                 width: "50%",
                 backgroundColor: "#442284",

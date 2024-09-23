@@ -13,7 +13,8 @@ const ForgotPassword = ({handleClose, open}) => {
         <Dialog
         open={open}
         onClose={handleClose}
-        className='dialogBox'
+        // className='dialogBox'
+        sx={{opacity:"1"}}
         PaperProps={{
           onSubmit: (event) => {
             event.preventDefault();
@@ -43,7 +44,7 @@ const ForgotPassword = ({handleClose, open}) => {
             variant="standard"
             InputLabelProps={{
                 style: {
-                  fontFamily: "Laila, serif",
+                  fontFamily: "Roboto Mono, monospace",
                 },
               }}
             value={email}
@@ -59,7 +60,7 @@ const ForgotPassword = ({handleClose, open}) => {
           type="submit"
           className="loginButton"
           sx={{
-            fontFamily: "Laila, serif",
+            fontFamily: "Roboto Mono, monospace",
             marginTop: "4vh"
           }}>Get Link
           </Button>
@@ -68,7 +69,7 @@ const ForgotPassword = ({handleClose, open}) => {
           variant="contained"
           className="loginButton"
           sx={{
-            fontFamily: "Laila, serif",
+            fontFamily: "Roboto Mono, monospace",
             marginTop: "4vh"
           }}
            onClick={handleClose}>Cancel

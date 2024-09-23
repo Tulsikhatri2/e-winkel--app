@@ -55,8 +55,8 @@ import { buttonActiveStyle } from "../../Redux/Authentication/authSlice";
         <Box className="pageData" sx={{ height: "90vh" }}>
           <Box className="dataBox">
             <p className="categoryHeading">
-              <span style={{ width: "70vw", textAlign: "center" }}>
-                ALL CATEGORIES
+              <span style={{ width: "70vw", textAlign: "center", fontFamily: "Roboto Mono, monospace", }}>
+                CATEGORIES
               </span>
               <span style={{ width: "10vw" }}>
 
@@ -64,7 +64,7 @@ import { buttonActiveStyle } from "../../Redux/Authentication/authSlice";
                   variant="contained"
                   className="loginButton"
                   sx={{
-                    fontFamily: "Laila, serif",
+                    fontFamily: "Roboto Mono, monospace",
                     width: "3vw",
                     height: "6vh",
                     fontSize: "3vh",
@@ -86,23 +86,23 @@ import { buttonActiveStyle } from "../../Redux/Authentication/authSlice";
                 <TableHead>
                   <TableRow>
                   <TableCell className="tableCell"
-                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
+                    sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"700", textAlign:"center"}}>
                       S.No.
                     </TableCell>
                     <TableCell className="tableCell"
-                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
+                    sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"700", textAlign:"center"}}>
                       ID
                     </TableCell>
                     <TableCell className="tableCell"
-                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
+                    sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"700", textAlign:"center"}}>
                       NAME
                     </TableCell>
                     <TableCell className="tableCell"
-                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
+                    sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"700", textAlign:"center"}}>
                       UPDATE
                     </TableCell>
                     <TableCell className="tableCell"
-                    sx={{fontFamily: "Laila, serif", fontWeight:"700"}}>
+                    sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"700", textAlign:"center"}}>
                       DETAILS
                     </TableCell>
                   </TableRow>
@@ -112,25 +112,25 @@ import { buttonActiveStyle } from "../../Redux/Authentication/authSlice";
                     return (
                       <TableRow key={index}>
                         <TableCell className="tableContentCell"
-                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
+                        sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"600", textAlign:"center"}}>
                           {index+1}
                         </TableCell>
                         <TableCell className="tableContentCell"
-                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
+                        sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"600", textAlign:"center"}}>
                           {item._id}
                         </TableCell>
                         <TableCell
                           className="tableContentCell"
-                          sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
+                          sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"600", textAlign:"center"}}>
                           {item.name}
                         </TableCell>
                         <TableCell className="tableContentCell"
-                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
+                        sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"600", textAlign:"center"}}>
                           <Button
                             variant="contained"
                             className="loginButton"
                             sx={{
-                              fontFamily: "Laila, serif",
+                              fontFamily: "Roboto Mono, monospace",
                               height: "4vh",
                               fontSize: "2.7vh",
                             }}
@@ -141,12 +141,12 @@ import { buttonActiveStyle } from "../../Redux/Authentication/authSlice";
                           </Button>
                         </TableCell>
                         <TableCell className="tableContentCell"
-                        sx={{fontFamily: "Laila, serif", fontWeight:"600"}}>
+                        sx={{fontFamily: "Roboto Mono, monospace", fontWeight:"600", textAlign:"center"}}>
                           <Button
                             variant="contained"
                             className="loginButton"
                             sx={{
-                              fontFamily: "Laila, serif",
+                              fontFamily: "Roboto Mono, monospace",
                               height: "4vh",
                               fontSize: "1.7vh",
                             }}

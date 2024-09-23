@@ -56,17 +56,17 @@ const UserDetails = () => {
 
                       {userDetails.isEmailVerified?
 
-                      <p style={{color:"green"}}>
+                      <p style={{color:"green", fontFamily: "Roboto Mono, monospace",}}>
                         <MdVerifiedUser size={20}/><br/>
                         verified user
                         </p> 
                         :
-                      <p style={{color:"maroon"}}>
+                      <p style={{color:"maroon", fontFamily: "Roboto Mono, monospace",}}>
                         <ImCross size={20}/><br/>unverified user
                         </p>
                       }
 
-                      <p style={{lineHeight:"1.7"}}>
+                      <p style={{lineHeight:"1.7", fontFamily: "Roboto Mono, monospace",}}>
                       ID: {userDetails.id}<br/>
                       Name: {userDetails.name}<br/>
                       Email: {userDetails.email}<br/>

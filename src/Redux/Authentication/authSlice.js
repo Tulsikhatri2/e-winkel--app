@@ -19,7 +19,8 @@ const authSlice = createSlice({
     edit:{ 
       user:{} , 
       isEdit:false },
-    activeButton:""
+    activeButton:"",
+    userID:""
   },
   reducers: {
     clearUserSignupData: (state) => {
@@ -46,6 +47,12 @@ const authSlice = createSlice({
       return{
         ...state,
         usersList: users
+      }
+    },
+    deleteUserId:(state,action)=>{
+      return{
+        ...state,
+        userID: action.payload
       }
     }
   },
@@ -377,6 +384,6 @@ export const updateUser = createAsyncThunk(
   }
 ) 
 
-export const { clearUserSignupData, logoutUser, editUserData, buttonActiveStyle, deleteUserData} = authSlice.actions;
+export const { clearUserSignupData, logoutUser, editUserData, buttonActiveStyle, deleteUserData, deleteUserId} = authSlice.actions;
 
 export default authSlice.reducer;

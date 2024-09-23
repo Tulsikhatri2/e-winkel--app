@@ -58,7 +58,7 @@ const EditUser = () => {
                 label="Name*"
                  InputLabelProps={{
                   style:{
-                    fontFamily: "Laila, serif",
+                    fontFamily: "Roboto Mono, monospace",
                     fontWeight:"bold",
                     fontSize:"2vh"
                   }
@@ -74,7 +74,7 @@ const EditUser = () => {
                 label="Email*"
                  InputLabelProps={{
                   style:{
-                    fontFamily: "Laila, serif",
+                    fontFamily: "Roboto Mono, monospace",
                     fontWeight:"bold",
                     fontSize:"2vh"
                   }
@@ -91,7 +91,7 @@ const EditUser = () => {
                 type="password"
                  InputLabelProps={{
                   style:{
-                    fontFamily: "Laila, serif",
+                    fontFamily: "Roboto Mono, monospace",
                     fontWeight:"bold",
                     fontSize:"2vh"
                   }
@@ -106,7 +106,7 @@ const EditUser = () => {
               <Button variant='contained'
               color="warning"
               sx={{
-                fontFamily: "Laila, serif",
+                fontFamily: "Roboto Mono, monospace",
                 width: "3vw",
                 height: "6vh",
                 fontSize: "1.8vh",

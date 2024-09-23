@@ -48,7 +48,7 @@ const CategoryDetails = () => {
                     </Box>
                   ) : (
                     <Box className="categoryDetailsCard">
-                      <p style={{ lineHeight: "1.7" }}>
+                      <p style={{ lineHeight: "1.7" , fontFamily: "Roboto Mono, monospace",}}>
                         ID: {categoryDetails._id}
                         <br />
                         <br />

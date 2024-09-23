@@ -19,12 +19,14 @@ import { useNavigate } from "react-router-dom";
 import {
   buttonActiveStyle,
   deleteUserData,
+  deleteUserId,
   deletingUser,
   editUserData,
   userData,
   userListData,
 } from "../../Redux/Authentication/authSlice";
 import Loading from "../../Components/PageLoading/Loding";
+import DeleteUser from "../../Components/DeleteData/DeleteUser";
 
 const UsersList = () => {
   const navigate = useNavigate();
@@ -32,6 +34,7 @@ const UsersList = () => {
   const { usersList, isLoading } = useSelector((state) => state.auth);
   const [pageNumber, setPageNumber] = useState(1);
   const [rows, setRows] = useState("10");
+  const [open, setOpen] = useState(false)
 
   const userListPagination = {
     pageNumber: pageNumber,
@@ -57,8 +60,19 @@ const UsersList = () => {
     navigate("/dashboard/users/user-details");
   };
 
-  console.log(userListPagination, "pagination");
-  console.log(pageNumber, "pageNumber");
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    console.log(id,"from userlist")
+    dispatch(deleteUserId(id))
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+  // console.log(userListPagination, "pagination");
+  // console.log(pageNumber, "pageNumber");
 
   return (
     <>
@@ -83,9 +97,11 @@ const UsersList = () => {
                       textAlign: "center",
                       textDecoration: "underline",
                       fontWeight: "bold",
+                      fontFamily: "Roboto Mono, monospace",
+                      height:"35vh"
                     }}
                   >
-                    ALL USERS
+                  USERS
                   </p>
                   <TableContainer component={Paper}>
                     <Table>
@@ -94,8 +110,9 @@ const UsersList = () => {
                           <TableCell
                             className="tableCell"
                             sx={{
-                              fontFamily: "Laila, serif",
+                              fontFamily: "Roboto Mono, monospace",
                               fontWeight: "700",
+                              textAlign: "center",
                             }}
                           >
                             S.No.
@@ -103,17 +120,9 @@ const UsersList = () => {
                           <TableCell
                             className="tableCell"
                             sx={{
-                              fontFamily: "Laila, serif",
+                              fontFamily: "Roboto Mono, monospace",
                               fontWeight: "700",
-                            }}
-                          >
-                            ID
-                          </TableCell>
-                          <TableCell
-                            className="tableCell"
-                            sx={{
-                              fontFamily: "Laila, serif",
-                              fontWeight: "700",
+                              textAlign: "center",
                             }}
                           >
                             NAME
@@ -121,8 +130,9 @@ const UsersList = () => {
                           <TableCell
                             className="tableCell"
                             sx={{
-                              fontFamily: "Laila, serif",
+                              fontFamily: "Roboto Mono, monospace",
                               fontWeight: "700",
+                              textAlign: "center",
                             }}
                           >
                             EMAIL
@@ -130,8 +140,9 @@ const UsersList = () => {
                           <TableCell
                             className="tableCell"
                             sx={{
-                              fontFamily: "Laila, serif",
+                              fontFamily: "Roboto Mono, monospace",
                               fontWeight: "700",
+                              textAlign: "center",
                             }}
                           >
                             UPDATE
@@ -139,20 +150,22 @@ const UsersList = () => {
                           <TableCell
                             className="tableCell"
                             sx={{
-                              fontFamily: "Laila, serif",
+                              fontFamily: "Roboto Mono, monospace",
                               fontWeight: "700",
+                              textAlign: "center",
                             }}
                           >
-                            DELETE
+                            DETAILS
                           </TableCell>
                           <TableCell
                             className="tableCell"
                             sx={{
-                              fontFamily: "Laila, serif",
+                              fontFamily: "Roboto Mono, monospace",
                               fontWeight: "700",
+                              textAlign: "center",
                             }}
                           >
-                            DETAILS
+                            DELETE
                           </TableCell>
                         </TableRow>
                       </TableHead>
@@ -163,8 +176,9 @@ const UsersList = () => {
                               <TableCell
                                 className="tableContentCell"
                                 sx={{
-                                  fontFamily: "Laila, serif",
+                                  fontFamily: "Roboto Mono, monospace",
                                   fontWeight: "600",
+                                  textAlign: "center",
                                 }}
                               >
                                 {index + 1}
@@ -172,17 +186,9 @@ const UsersList = () => {
                               <TableCell
                                 className="tableContentCell"
                                 sx={{
-                                  fontFamily: "Laila, serif",
+                                  fontFamily: "Roboto Mono, monospace",
                                   fontWeight: "600",
-                                }}
-                              >
-                                {item.id}
-                              </TableCell>
-                              <TableCell
-                                className="tableContentCell"
-                                sx={{
-                                  fontFamily: "Laila, serif",
-                                  fontWeight: "600",
+                                  textAlign: "center",
                                 }}
                               >
                                 {item.name}
@@ -190,8 +196,9 @@ const UsersList = () => {
                               <TableCell
                                 className="tableContentCell"
                                 sx={{
-                                  fontFamily: "Laila, serif",
+                                  fontFamily: "Roboto Mono, monospace",
                                   fontWeight: "600",
+                                  textAlign: "center",
                                 }}
                               >
                                 {item.email}
@@ -199,15 +206,16 @@ const UsersList = () => {
                               <TableCell
                                 className="tableContentCell"
                                 sx={{
-                                  fontFamily: "Laila, serif",
+                                  fontFamily: "Roboto Mono, monospace",
                                   fontWeight: "600",
+                                  textAlign: "center",
                                 }}
                               >
                                 <Button
                                   variant="contained"
                                   className="loginButton"
                                   sx={{
-                                    fontFamily: "Laila, serif",
+                                    fontFamily: "Roboto Mono, monospace",
                                     height: "4vh",
                                     fontSize: "2.7vh",
                                   }}
@@ -219,42 +227,19 @@ const UsersList = () => {
                                   <CiEdit />
                                 </Button>
                               </TableCell>
-
                               <TableCell
                                 className="tableContentCell"
                                 sx={{
-                                  fontFamily: "Laila, serif",
+                                  fontFamily: "Roboto Mono, monospace",
                                   fontWeight: "600",
+                                  textAlign: "center",
                                 }}
                               >
                                 <Button
                                   variant="contained"
                                   className="loginButton"
                                   sx={{
-                                    fontFamily: "Laila, serif",
-                                    height: "4vh",
-                                    fontSize: "2.7vh",
-                                  }}
-                                  color="error"
-                                  onClick={() => {
-                                    handleUserDelete(item.id);
-                                  }}
-                                >
-                                  <RiDeleteBin2Line />
-                                </Button>
-                              </TableCell>
-                              <TableCell
-                                className="tableContentCell"
-                                sx={{
-                                  fontFamily: "Laila, serif",
-                                  fontWeight: "600",
-                                }}
-                              >
-                                <Button
-                                  variant="contained"
-                                  className="loginButton"
-                                  sx={{
-                                    fontFamily: "Laila, serif",
+                                    fontFamily: "Roboto Mono, monospace",
                                     height: "4vh",
                                     fontSize: "1.7vh",
                                   }}
@@ -265,6 +250,22 @@ const UsersList = () => {
                                 >
                                   Details
                                 </Button>
+                              </TableCell>
+                              <TableCell
+                                className="tableContentCell"
+                                sx={{
+                                  fontFamily: "Roboto Mono, monospace",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                }}
+                              >
+                                <p
+                                  className="deleteCell"
+                                  onClick={()=>handleClickOpen(item.id)}
+                                >
+                                  <RiDeleteBin2Line />
+                                </p>
+                                <DeleteUser handleClose={handleClose} open={open} handleUserDelete={handleUserDelete} id={item.id}/>
                               </TableCell>
                             </TableRow>
                           );

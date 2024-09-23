@@ -8,6 +8,7 @@ import "./Components/Layout/Layout.style.css"
 import "./Pages/Categories/Category.style.css"
 import "./Pages/Users/Users.style.css"
 import "./Pages/Products/Product.style.css"
+import "./Components/DeleteData/DeleteData.css"
 
 const App = () => {
   return (

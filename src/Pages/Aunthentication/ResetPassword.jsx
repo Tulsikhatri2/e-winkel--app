@@ -28,7 +28,7 @@ const ResetPassword = () => {
         <TextField
         InputLabelProps={{
             style: {
-              fontFamily: "Laila, serif",
+              fontFamily: "Roboto Mono, monospace",
             },
           }}
           label="Enter new password"
@@ -39,7 +39,7 @@ const ResetPassword = () => {
         <Button
           variant="contained"
           sx={{
-            fontFamily: "Laila, serif",
+            fontFamily: "Roboto Mono, monospace",
             marginTop: "4vh",
             width: "50%",
           }}

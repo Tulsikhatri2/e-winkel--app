@@ -18,6 +18,9 @@ import ResetPassword from "../Pages/Aunthentication/ResetPassword";
 import { useSelector } from "react-redux";
 import EditUser from "../Pages/Users/EditUser";
 import Index from "../Components/Layout/Index";
+import { productDetails } from "../Redux/Product/productSlice";
+import ProductDetails from "../Pages/Products/ProductDetails";
+import EditProduct from "../Pages/Products/EditProduct";
 
 const AppRoute = () => {
   const {userToken} = useSelector(state=>state.auth)
@@ -58,6 +61,8 @@ const AppRoute = () => {
           <Route path="/dashboard/category/edit-category" element={<PrivateRoutes Component={EditCategory}/>}/>
           <Route path="/dashboard/products/create-product" element={<PrivateRoutes Component={CreateProducts}/>}/>
           <Route path="/dashboard/users/edit-user" element={<PrivateRoutes Component={EditUser}/>}/>
+          <Route path="/dashboard/products/product-details" element={<PrivateRoutes Component={ProductDetails}/>}/>
+          <Route path="/dashboard/products/product-details/edit-product" element={<PrivateRoutes Component={EditProduct}/>}/>
         </Routes>
       </div>
     </div>

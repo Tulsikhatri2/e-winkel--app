@@ -146,7 +146,7 @@ const Login = () => {
                 type="submit"
                 className="loginButton"
                 sx={{
-                  fontFamily: "Laila, serif",
+                  fontFamily: "Roboto Mono, monospace",
                   marginTop: "4vh",
                   width: "50%",
                 }}

@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+.dialogBox{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:0;
+    opacity: 0.1;
+    background-color: transparent;
+}
+
+.subHeading{
+    font-size:2.5vh;
+    margin-top:1vh;
+    font-family: "Roboto Mono", monospace;
+}

@@ -37,7 +37,7 @@ const EmailVerification = () => {
           variant="contained"
           className="loginButton"
           sx={{
-            fontFamily: "Laila, serif",
+            fontFamily: "Roboto Mono, monospace",
             marginTop: "4vh",
             width: "50%",
             backgroundColor: "black",

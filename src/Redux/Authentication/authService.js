@@ -31,6 +31,7 @@ const forgotPassword = async (userEmail) => {
 
  const deleteUser = async (id) => {
     const response = await axiosInstance.delete(`/user/${id}`)
+    
     console.log(response,"deleting response")
 }
 

@@ -9,9 +9,17 @@ const productSlice = createSlice({
         isSuccess:false,
         isError:false,
         productList:[],
+        productDetails : {},
+        productID:""
         
     },
     reducers:{
+        productDeleteID:(state,action)=>{
+            return{
+                ...state,
+                productID:action.payload
+            }
+        }
        
     },
     extraReducers:(builder)=>{
@@ -32,6 +40,22 @@ const productSlice = createSlice({
             state.isSuccess = false;
             state.isError = true
         })
+        .addCase(productDetails.pending,(state,action)=>{
+            state.isLoadingProduct = true;
+            state.isSuccess = false;
+            state.isError = false
+        })
+        .addCase(productDetails.fulfilled,(state,action)=>{
+            state.isLoadingProduct = false;
+            state.isSuccess = true;
+            state.isError = false;
+            state.productDetails = action.payload
+        })
+        .addCase(productDetails.rejected,(state,action)=>{
+            state.isLoadingProduct = false;
+            state.isSuccess = false;
+            state.isError = true;
+        })
     }
 })
 
@@ -46,4 +70,38 @@ export const productsListData = createAsyncThunk(
     }
 )
 
+export const productDetails = createAsyncThunk(
+    "PRODUCT/DETAILS",
+    async(id)=>{
+        try {
+            return await productService.getProductDetails(id)
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message)
+        }
+    }
+)
+
+export const productDetailsDelete = createAsyncThunk(
+    "PRODUCT/DETAILS/DELETE",
+    async(id)=>{
+        try {
+            return await productService.productDelete(id)
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message)
+        }
+    }
+)
+
+export const addProductData = createAsyncThunk(
+    "ADD/PRODUCT/DATA",
+    async(productData) => {
+        try {
+            return await productService.addProduct(productData)
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message)
+        }
+    }
+)
+
+export const {productDeleteID} = productSlice.actions
 export default productSlice.reducer
