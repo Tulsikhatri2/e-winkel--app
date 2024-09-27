@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { FileUploader } from "react-drag-drop-files";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { addProductData } from "../../Redux/Product/productSlice";
+import { categoryListData } from "../../Redux/Category/categorySlice";
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
@@ -21,7 +22,9 @@ const CreateProducts = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
 
-  // console.log(status,"status")
+  useEffect(()=>{
+    dispatch(categoryListData())
+  },[])
 
   let productData = new FormData();
   productData.append("image", file)
@@ -34,8 +37,10 @@ const CreateProducts = () => {
     for (const [key, value] of productData.entries()) {
       console.log(key, value);
     }
-
-    dispatch(addProductData(productData))
+    if(name && description && category && status && file){
+      dispatch(addProductData(productData))
+      navigate("/dashboard/products")
+    } 
   }
   
 
@@ -88,7 +93,7 @@ const CreateProducts = () => {
                 >
                   <TextField
                     variant="standard"
-                    label="Name*"
+                    label="Name"
                     InputLabelProps={{
                       style: {
                         fontFamily: "Roboto Mono, monospace",
@@ -111,7 +116,7 @@ const CreateProducts = () => {
                   ></TextField>
                   <TextField
                     variant="standard"
-                    label="Description*"
+                    label="Description"
                     InputLabelProps={{
                       style: {
                         fontFamily: "Roboto Mono, monospace",
@@ -165,7 +170,7 @@ const CreateProducts = () => {
                     fontFamily: "Roboto Mono, monospace",
                     marginRight:"17vw",
                     fontSize:"2.1vh"
-                  }}>Image:</label>
+                  }}>Image*</label>
                   <Button
                    type="file"
                    variant="contained"

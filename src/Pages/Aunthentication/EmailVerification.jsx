@@ -32,7 +32,7 @@ const EmailVerification = () => {
   return (
     <Box className="emailVerification">
       <Box className="verificationPopup">
-        <p>Click on the button below for email verification...</p>
+        <p style={{fontFamily: "Roboto Mono, monospace"}}>Click on the button below for email verification...</p>
         <Button
           variant="contained"
           className="loginButton"

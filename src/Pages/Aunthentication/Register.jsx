@@ -85,7 +85,7 @@ useEffect(()=>{
           alignItems: "center",
          
         }}>
-          <Box className="heading" sx={{marginTop:"-2vh"}}>
+          <Box className="heading" sx={{marginTop:"-3vh", fontFamily: "Roboto Mono, monospace"}}>
             <p>Signup</p>
           </Box>
 
@@ -227,14 +227,14 @@ useEffect(()=>{
           </Box>
          </form>
 
-         <p style={{fontSize:"2vh"}}>Already a user?
+         <p style={{fontSize:"2vh", fontFamily: "Roboto Mono, monospace", marginTop:"-2vh"}}>Already a user? 
          <span
               className="registration"
               onClick={() => {
                 navigate("/");
               }}
             >
-              Login
+               Login
             </span>
          </p>
         </Box>

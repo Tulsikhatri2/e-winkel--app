@@ -5,7 +5,7 @@ import { RiDeleteBin2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../Components/PageLoading/Loding";
-import { productDeleteID, productDetails, productDetailsDelete } from "../../Redux/Product/productSlice";
+import { productDeleteID, productData, productDetailsDelete } from "../../Redux/Product/productSlice";
 import DeleteProduct from "../../Components/DeleteData/DeleteProduct";
 
 const ProductList = () => {
@@ -18,7 +18,7 @@ const ProductList = () => {
   );
 
   const handleProductDetails = (id) => {
-    dispatch(productDetails(id))
+    dispatch(productData(id))
     navigate("/dashboard/products/product-details")
   }
 

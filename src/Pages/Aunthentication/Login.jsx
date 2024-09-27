@@ -79,7 +79,7 @@ const Login = () => {
       <Box className="background">
         <Box className="loginBox">
           <Box className="heading">
-            <p>Login</p>
+            <p style={{fontFamily: "Roboto Mono, monospace", marginTop:"2vh"}}>Login</p>
           </Box>
 
           <form
@@ -167,19 +167,20 @@ const Login = () => {
             <p
               className="forgotPassword"
               onClick={handleClickOpen}
+              style={{fontFamily: "Roboto Mono, monospace",}}
             >
               Forgot Password?
             </p>
             <ForgotPassword handleClose={handleClose} open={open}/>
           </Box>
           </form>
-          <Box className="otherOptions">-Or Sign In With-</Box>
+          <Box className="otherOptions" sx={{fontFamily: "Roboto Mono, monospace"}}>-Or Sign In With-</Box>
 
           <Box className="loginOptions">
               <GoogleLogin onSuccess={responseMessage} onError={errorMessage} shape="circle" />
           </Box>
 
-          <Box className="registerOption">
+          <Box className="registerOption" sx={{fontFamily: "Roboto Mono, monospace"}}>
             Not a user?
             <span
               className="registration"

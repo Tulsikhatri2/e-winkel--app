@@ -1,10 +1,11 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Components/PageLoading/Loding";
 import { MdEdit } from "react-icons/md";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { updateProduct } from "../../Redux/Product/productSlice";
 
 const ProductDetails = () => {
   const offers = ["Bank Offers", "Client Offer", "Bank Offers"];
@@ -12,7 +13,12 @@ const ProductDetails = () => {
     (state) => state.product
   );
   const navigate = useNavigate()
-  console.log(productDetails, "from page");
+  const dispatch = useDispatch()
+
+  const handleProductUpdate = () => {
+    dispatch(updateProduct(productDetails))
+    navigate("/dashboard/products/product-details/edit-product")
+  }
   return (
     <>
       <Box className="dashboard">
@@ -74,7 +80,7 @@ const ProductDetails = () => {
                               sx={{
                                 marginTop: "1vh",
                               }}
-                              onClick={()=>navigate("/dashboard/products/product-details/edit-product")}
+                              onClick={handleProductUpdate}
                             >
                               <MdEdit size={25} color="maroon" />
                             </Button>
