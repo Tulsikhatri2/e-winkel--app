@@ -26,6 +26,8 @@ const CreateProducts = () => {
     dispatch(categoryListData())
   },[])
 
+  console.log(categoryList,"category list")
+
   let productData = new FormData();
   productData.append("image", file)
   productData.append("name", name)

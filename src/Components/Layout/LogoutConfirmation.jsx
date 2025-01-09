@@ -19,7 +19,7 @@ const LogoutConfirmation = ({handleClose, open, handleLogout}) => {
         <form>
         <DialogContent>
           <p className='subHeading'>
-            Logout..??
+            Are you sure you want to logout..??
           </p>
         </DialogContent>
 

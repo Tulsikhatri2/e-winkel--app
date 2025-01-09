@@ -26,11 +26,11 @@ const AppRoute = () => {
   const {userToken} = useSelector(state=>state.auth)
   const navigate = useNavigate()
 
-  useEffect(()=>{
-    if(!userToken){
-      navigate("/")
-    }
-  },[userToken])
+  // useEffect(()=>{
+  //   if(!userToken){
+  //     navigate("/")
+  //   }
+  // },[userToken])
 
   return (
     <>
